@@ -1,0 +1,9 @@
+*
+!.gitignore
+
+!README.md
+!.github
+!.github/CODEOWNERS
+
+!parse
+!parse/make_toll_json.py
