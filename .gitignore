@@ -1,9 +1,20 @@
 *
 !.gitignore
-
+!LICENSE
 !README.md
-!.github
-!.github/CODEOWNERS
 
 !parse
 !parse/make_toll_json.py
+!parse/make_by_way_with_json_price_and_overpass.py
+!parse/merge_overpass_data_with_operator_data.py
+!parse/overpass_request_out_to_csv.py
+!parse/pdf_to_txt.py
+!parse/request_overpass_turbo.py
+!parse/price_format.json
+!parse/FINAL_toll_price_AREA.json
+
+!parse/AREA
+!parse/AREA/*
+
+!TollPrice
+!TollPrice/*
