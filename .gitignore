@@ -1,28 +1,32 @@
-/*
+*
+!LICENSE
+!README.md
 
+!parse
+!parse/make_toll_json.py
+!parse/make_by_way_with_json_price_and_overpass.py
+!parse/merge_overpass_data_with_operator_data.py
+!parse/overpass_request_out_to_csv.py
+!parse/pdf_to_txt.py
+!parse/request_overpass_turbo.py
+!parse/price_format.json
+!parse/FINAL_toll_price_AREA.json
 
+!parse/AREA
+!parse/AREA/*
 
+!parse/ASF
+!parse/ASF/ASF_class1_2025.pdf
+!parse/ASF/ASF_class2_2025.pdf
+!parse/ASF/ASF_class3_2025.pdf
+!parse/ASF/ASF_class4_2025.pdf
+!parse/ASF/ASF_class5_2025.pdf
+!parse/ASF/ASF_peages.csv
 
+!parse/ASF/page1
+!parse/ASF/page1/*
+!parse/ASF/page1/raw_data
+!parse/ASF/page1/raw_data/*
 
-!/TollPrice
-!/parse
-!/parse/AREA
-!/parse/ASF
-!/parse/ASF/page1
-!/parse/ASF/page1/raw_data
-!/parse/ASF/ASF_class1_2025.pdf
-!/parse/ASF/ASF_class2_2025.pdf
-!/parse/ASF/ASF_class3_2025.pdf
-!/parse/ASF/ASF_class4_2025.pdf
-!/parse/ASF/ASF_class5_2025.pdf
-!/parse/ASF/ASF_peages.csv
-!/parse/FINAL_toll_price_AREA.json
-!/parse/make_by_way_with_json_price_and_overpass.py
-!/parse/make_toll_json.py
-!/parse/merge_overpass_data_with_operator_data.py
-!/parse/overpass_request_out_to_csv.py
-!/parse/pdf_to_txt.py
-!/parse/price_format.json
-!/parse/request_overpass_turbo.py
-!/LICENSE
-!/README.md
+!TollPrice
+!TollPrice/*
