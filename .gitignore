@@ -16,5 +16,18 @@
 !parse/AREA
 !parse/AREA/*
 
+!parse/ASF
+!parse/ASF/ASF_class1_2025.pdf
+!parse/ASF/ASF_class2_2025.pdf
+!parse/ASF/ASF_class3_2025.pdf
+!parse/ASF/ASF_class4_2025.pdf
+!parse/ASF/ASF_class5_2025.pdf
+!parse/ASF/ASF_peages.csv
+
+!parse/ASF/page1
+!parse/ASF/page1/*
+!parse/ASF/page1/raw_data
+!parse/ASF/page1/raw_data/*
+
 !TollPrice
 !TollPrice/*
