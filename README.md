@@ -1,4 +1,136 @@
 
+# Context
+
+This reposetory was created to build an open data price for toll price in french first, we will see after for the next country.
+
+Because every way the price change, the operator publish their price with ugly pdf format, the repo aims to build an automated workflow to transform this pdf in used data. 
+
+When i means usable data, i means of course all the price between booth, but assiocied with the good node or way in Open Street Map and the localisation of node. 
+
+This repository provides open toll price data for French highways, with plans to expand to other countries.
+
+Highway operators frequently update their pricing, but publish this information in PDF format that is difficult to use in pratical. This project automates the conversion of these PDFs into structured, usable data.
+
+The output data includes:
+- Toll prices between entry/exit points
+- Associated OpenStreetMap nodes and ways
+- Precise geographic coordinates of toll booths
+
+The project aims to build a free website to consult this information easily.
+
+# Progress
+
+Data processing status by operator:
+
+**Completed:**
+- AREA
+- ASF (page 1)
+
+**In Progress:**
+- ASF
+
+# JSON Data Format
+
+The output JSON follows a highly structured format:
+
+```json
+{
+    "date": "26/09/2025",
+    "version": "1.0",
+    "name": "price_format",
+    "list_of_operator": [
+        "AREA"
+    ],
+    "list_of_toll": [
+        "AIGUEBELETTE",
+        "AIX NORD",
+        "AIX SUD",
+        "AITON",
+        "CHIGNIN BARRIERE"
+    ],
+    "currency": "EUR",
+    "networks": [
+        {
+            "network_name": "component_1",
+            "tolls": [
+                "AIGUEBELETTE",
+                "AIX NORD",
+                "AIX SUD"
+            ],
+            "connection": {
+                "AIGUEBELETTE": {
+                    "AIX NORD": {
+                        "distance": "24",
+                        "price": {
+                            "class_1": "3.5",
+                            "class_2": "5.4",
+                            "class_3": "7.5",
+                            "class_4": "10.1",
+                            "class_5": "1.6"
+                        }
+                    },
+                    "AIX SUD": {
+                        "distance": "17",
+                        "price": {
+                            "class_1": "2.9",
+                            "class_2": "4.4",
+                            "class_3": "6.2",
+                            "class_4": "8.3",
+                            "class_5": "1.2"
+                        }
+                    }
+                },
+                "AIX NORD": {
+                    ...
+                },
+                "AIX SUD": {
+                    ...
+                }
+            }
+        },
+        {
+            "network_name": "component_2",
+            "tolls": [
+                "AITON",
+                "CHIGNIN BARRIERE"
+            ],
+            "connection": {
+                ...
+            }
+        }
+    ],
+
+    "toll_description": {
+        "AIGUEBELETTE": {
+            "operator_ref": "3007",
+            "lat": "45.5768820",
+            "lon": "5.7992485",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "36675385",
+                "267138475"
+            ],
+            "ways_id": []
+        },
+        ...
+    },
+    "open_toll_price": {
+        "CHESNES": {
+            "distance": "19",
+            "price": {
+                "class_1": "2.3",
+                "class_2": "3.5",
+                "class_3": "5.6",
+                "class_4": "6.9",
+                "class_5": "1.1"
+            }
+        },
+        ...
+    }
+}
+```
+
 
 # CSV Data Format
 
@@ -160,6 +292,22 @@ Contains utility scripts used to parse and process operator data and OSM data.
    This produces a JSON structured like `price_format.json`.
 
 ---
+
+# All specificity for operator :
+
+## AREA 
+
+In progress
+
+## ASF
+
+The workflow involves creating one script per page to process the raw data.
+
+The dataset contains many unused toll booths. You need to explore each booth using OSM to determine whether it should be included.
+
+Once relevant booths are identified, download the toll data using Overpass Turbo, then use the merge scripts following the standard workflow described above.
+
+The script development is the most challenging part. You can use the completed page1 script as a reference implementation.
 
 # Additional Features
 
