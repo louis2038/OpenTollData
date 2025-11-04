@@ -1,0 +1,220 @@
+{
+    "date": "26/09/2025",
+    "version": "1.0",
+    "name": "price_format",
+    "list_of_operator": [
+        "AREA"
+    ],
+    "list_of_toll": [
+        "AIGUEBELETTE",
+        "AIX NORD",
+        "AIX SUD",
+        "AITON",
+        "CHIGNIN BARRIERE"
+    ],
+    "currency": "EUR",
+    "networks": [
+        {
+            "network_name": "component_1",
+            "tolls": [
+                "AIGUEBELETTE",
+                "AIX NORD",
+                "AIX SUD"
+            ],
+            "connection": {
+                "AIGUEBELETTE": {
+                    "AIX NORD": {
+                        "distance": "24",
+                        "price": {
+                            "class_1": "3.5",
+                            "class_2": "5.4",
+                            "class_3": "7.5",
+                            "class_4": "10.1",
+                            "class_5": "1.6"
+                        }
+                    },
+                    "AIX SUD": {
+                        "distance": "17",
+                        "price": {
+                            "class_1": "2.9",
+                            "class_2": "4.4",
+                            "class_3": "6.2",
+                            "class_4": "8.3",
+                            "class_5": "1.2"
+                        }
+                    }
+                },
+                "AIX NORD": {
+                    "AIGUEBELETTE": {
+                        "distance": "24",
+                        "price": {
+                            "class_1": "3.5",
+                            "class_2": "5.4",
+                            "class_3": "7.5",
+                            "class_4": "10.1",
+                            "class_5": "1.6"
+                        }
+                    },
+                    "AIX SUD": {
+                        "distance": "7",
+                        "price": {
+                            "class_1": "0.9",
+                            "class_2": "1.4",
+                            "class_3": "1.9",
+                            "class_4": "2.9",
+                            "class_5": "0.4"
+                        }
+                    }
+                },
+                "AIX SUD": {
+                    "AIGUEBELETTE": {
+                        "distance": "17",
+                        "price": {
+                            "class_1": "2.9",
+                            "class_2": "4.4",
+                            "class_3": "6.2",
+                            "class_4": "8.3",
+                            "class_5": "1.2"
+                        }
+                    },
+                    "AIX NORD": {
+                        "distance": "7",
+                        "price": {
+                            "class_1": "0.9",
+                            "class_2": "1.4",
+                            "class_3": "1.9",
+                            "class_4": "2.9",
+                            "class_5": "0.4"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "network_name": "component_2",
+            "tolls": [
+                "AITON",
+                "CHIGNIN BARRIERE"
+            ],
+            "connection": {
+                "AITON": {
+                    "CHIGNIN BARRIERE": {
+                        "distance": "31",
+                        "price": {
+                            "class_1": "4.2",
+                            "class_2": "6.7",
+                            "class_3": "10.7",
+                            "class_4": "14.5",
+                            "class_5": "2"
+                        }
+                    }
+                },
+                "CHIGNIN BARRIERE": {
+                    "AITON": {
+                        "distance": "31",
+                        "price": {
+                            "class_1": "4.2",
+                            "class_2": "6.7",
+                            "class_3": "10.7",
+                            "class_4": "14.5",
+                            "class_5": "2"
+                        }
+                    }
+                }
+            }
+        }
+    ],
+
+    "toll_description": {
+        "AIGUEBELETTE": {
+            "operator_ref": "3007",
+            "lat": "45.5768820",
+            "lon": "5.7992485",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "36675385",
+                "267138475"
+            ],
+            "ways_id": []
+        },
+        "AITON": {
+            "operator_ref": "3033",
+            "lat": "45.5559554",
+            "lon": "6.2481429",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "25631385",
+                "27087837"
+            ],
+            "ways_id": []
+        },
+        "AIX NORD": {
+            "operator_ref": "3010",
+            "lat": "45.7161491",
+            "lon": "5.9221560",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "30904133",
+                "4423736545",
+                "7190727963",
+                "7190727964",
+                "7190727965",
+                "7190727966"
+            ],
+            "ways_id": []
+        },
+        "AIX SUD": {
+            "operator_ref": "3009",
+            "lat": "45.6536260",
+            "lon": "5.9216532",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "6367206763",
+                "6367206764",
+                "6367206765",
+                "6367206766",
+                "6367206767"
+            ],
+            "ways_id": []
+        },
+        "CHIGNIN BARRIERE": {
+            "operator_ref": "3026",
+            "lat": "45.5126775",
+            "lon": "6.0022092",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "12610219",
+                "12610220",
+                "4460945394"
+            ],
+            "ways_id": []
+        }
+    },
+    "open_toll_price": {
+        "CHESNES": {
+            "distance": "19",
+            "price": {
+                "class_1": "2.3",
+                "class_2": "3.5",
+                "class_3": "5.6",
+                "class_4": "6.9",
+                "class_5": "1.1"
+            }
+        },
+        "CHIGNIN BRETELLE": {
+            "distance": "7",
+            "price": {
+                "class_1": "1",
+                "class_2": "1.6",
+                "class_3": "2.7",
+                "class_4": "3.7",
+                "class_5": "0.5"
+            }
+        }
+    }
+}

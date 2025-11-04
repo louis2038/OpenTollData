@@ -39,6 +39,17 @@ def main():
     query = """
     [out:json][timeout:180];
     area[name="France"][boundary=administrative][admin_level=2]->.searchArea;
+    node["barrier"="toll_booth"]["operator"="ASF"](area.searchArea);
+    out body;
+    >;
+    out skel qt;
+    """
+    
+    
+    
+    """
+    [out:json][timeout:180];
+    area[name="France"][boundary=administrative][admin_level=2]->.searchArea;
     way["highway"~"^(motorway|motorway_link)$"]["operator"="AREA"](area.searchArea);
     out body;
     >;
@@ -61,7 +72,7 @@ def main():
         response_data = query_overpass(query)
         
         # Sauvegarder la réponse
-        output_file = "highway_AREA.json"
+        output_file = "overpass_booth_ASF.json"
         save_json(response_data, output_file)
         
         # Afficher quelques statistiques
