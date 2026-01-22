@@ -1,0 +1,169 @@
+Super, allons pas à pas. Je détaille l’**approche Pareto “en une passe”** (type NAMOA\*) pour obtenir **tous les chemins candidats** $(W,Q)$ et, à la fin, **toutes les ruptures** sans relancer A\*.
+
+# 1) Recasting : de $c_{ij}(\lambda)=w_{ij}+\lambda q_{ij}$ à un problème bi-critère
+
+* Pour un chemin $P$ : $C_P(\lambda)=W(P)+\lambda\,Q(P)$ avec
+  $W(P)=\sum w_{ij}$, $Q(P)=\sum q_{ij}$.
+* On cherche **tous** les chemins $s\to t$ **nondominés** au sens :
+  $(W_1,Q_1)$ domine $(W_2,Q_2)$ si $W_1\le W_2$ et $Q_1\le Q_2$ avec au moins une stricte.
+* L’enveloppe inférieure $\min_P \{W(P)+\lambda Q(P)\}$ sera alors la **frontière inférieure** des droites $(W_k,Q_k)$.
+
+# 2) Principe d’un A\* multi-objectif (NAMOA\*)
+
+On généralise A\* en manipulant non pas un seul coût, mais des **étiquettes** (labels) vectorielles.
+
+## 2.1 Structures
+
+* Pour chaque nœud $v$, on maintient un **ensemble ND$_v$** d’étiquettes **nondominées** $\ell=(g_W,g_Q,\text{parent})$ atteignant $v$.
+* Une **file de priorité OPEN** contient des étiquettes à développer, avec comme clé un **vecteur évalué**
+  $\mathbf f(\ell)=\big(g_W+h_W(v),\; g_Q+h_Q(v)\big)$.
+* **Heuristiques** $h_W,h_Q$ admissibles (bornes inférieures du meilleur suffixe $v\to t$).
+  Exemples routiers :
+
+  * $h_W(v)=$ distance euclidienne($v,t$) / vitesse max (borne temps/dist).
+  * $h_Q(v)=$ $\underline q$ (coût Q minimal “par mètre/seconde” plausible) $\times$ distance euclidienne($v,t$).
+    (ALT/landmarks peuvent fournir des bornes bien plus serrées pour $W$ et $Q$.)
+
+> Admissible : $h_W(v)\le W^\*(v,t)$ et $h_Q(v)\le Q^\*(v,t)$.
+> (Si en plus elles sont **consistantes**, on obtient un comportement “label-setting” propre.)
+
+## 2.2 Dominance locale (filtrage agressif)
+
+À l’insertion d’une étiquette $\ell$ sur $v$ :
+
+* **g-dominance** : si $\exists \ell'\in ND_v$ avec $g(\ell')$ qui domine $g(\ell)$ → **rejeter $\ell$**.
+* Sinon, **garder $\ell$** et supprimer de $ND_v$ toute étiquette dominée par $g(\ell)$.
+
+(Optionnel) **f-dominance** : si $\exists \ell'\in ND_v$ avec $\mathbf f(\ell')$ qui domine $\mathbf f(\ell)$, on peut aussi rejeter $\ell$ (pruning plus fort avec heuristiques bonnes).
+
+## 2.3 Déroulé (simplifié)
+
+1. INIT : $ND_s=\{(0,0)\}$, OPEN ← cette étiquette (clé $\mathbf f=h(s)$). Tous les autres $ND_v=\varnothing$.
+2. Pop la **meilleure** (clé minimale) étiquette $\ell$ de OPEN, de nœud $v$.
+3. Si $v=t$ : **on a trouvé un nouveau point du front Pareto** pour $s\to t$. L’ajouter à $ND_t$.
+4. Relaxer chaque arête $v\to u$ : construire $\ell'$ avec
+   $g_W'=g_W+w_{vu}$, $g_Q'=g_Q+q_{vu}$, parent=$\ell$.
+   Appliquer la dominance locale à $u$ → si gardée, push $\ell'$ dans OPEN (clé $\mathbf f$).
+5. Continuer jusqu’à ce qu’il n’y ait plus d’étiquettes à développer **capables d’améliorer** le front pour $[a,b]$ (voir 2.4).
+
+## 2.4 Critère d’arrêt efficace (restreint à $[a,b]$)
+
+Garde à tout instant une **borne supérieure** (enveloppe connue) sur $[a,b]$ :
+
+* Dès que tu découvres un label au but $t$, tu ajoutes la droite $L(\lambda)=W+\lambda Q$ à l’**enveloppe courante $U(\lambda)$** (lower-envelope des solutions trouvées).
+* Pour tout label $\ell$ en OPEN (sur $v$), tu as une **borne inférieure** sur le coût final :
+  $LB_\ell(\lambda)= (g_W+h_W(v)) + \lambda\,(g_Q+h_Q(v))$.
+* **Si pour tout $\lambda\in[a,b]$, $LB_\ell(\lambda)\ge U(\lambda)$, alors $\ell$ ne pourra jamais battre les solutions connues** → on peut la **pruner**.
+  (En pratique : il suffit de vérifier aux **extrémités** $\lambda=a$ et $\lambda=b$ si $U$ est concave par morceaux.)
+* **Arrêt** : lorsque toutes les étiquettes restantes dans OPEN sont prunées ainsi → l’enveloppe $U$ est complète sur $[a,b]$.
+
+> Astuce : commence par calculer les solutions **extrêmes** (min $W$ et min $Q$) pour initialiser $U(\lambda)$ et maximiser le pruning.
+
+## 2.5 Clés de priorité
+
+On ordonne OPEN **lexicographiquement** par $\mathbf f=(f_W,f_Q)$ (ou par $f_W+\alpha f_Q$ avec une $\alpha>0$ constante admise, moins propre).
+La version NAMOA\* originale utilise la lexicographie et des raffinements (t-discarding) pour limiter les expansions.
+
+# 3) Récupérer les chemins et tracer les ruptures
+
+À la fin, $ND_t$ contient des labels $\ell_k=(W_k,Q_k)$ **nondominés**. Chaque label garde un **pointeur parent** → on **reconstruit** le chemin $P_k$.
+
+## 3.1 Ordonner et épurer
+
+* Trie les paires $(W_k,Q_k)$ par **pente $Q_k$** **décroissante** (intuitivement, quand $\lambda$ augmente, on favorise des pentes plus faibles).
+* Enlève les doublons de pente (si deux solutions ont le **même $Q$**, garde celle au **plus petit $W$**).
+* Option : si tu ne t’intéresses qu’à $[a,b]$, tu peux éliminer les solutions qui ne seront jamais optimales sur cet intervalle (cf. 3.3).
+
+## 3.2 Points de rupture
+
+Pour deux solutions adjacentes $k, k\!+\!1$ dans cet ordre (avec $Q_k>Q_{k+1}$) :
+
+$$
+\lambda^\*_{k,k+1}=\frac{W_{k+1}-W_k}{\,Q_k-Q_{k+1}\,}.
+$$
+
+* C’est l’**intersection** des droites $W_k+\lambda Q_k$ et $W_{k+1}+\lambda Q_{k+1}$.
+* La **suite** des $\lambda^\*$ est **strictement croissante** si la liste est propre.
+* Les **intervalles d’optimalité** sont
+
+  $$
+  [a,\lambda^\*_{1,2}],\; [\lambda^\*_{1,2},\lambda^\*_{2,3}],\; \dots,\; [\lambda^\*_{K-1,K},b],
+  $$
+
+  en ne gardant que les sous-intervalles qui **coupent** $[a,b]$.
+
+## 3.3 Restreindre à $[a,b]$
+
+* Si $\lambda^\*_{k,k+1}<a$, alors pour tout $\lambda\in[a,b]$ c’est le **plus à droite** (plus petit $Q$) des deux qui est pertinent.
+* Si $\lambda^\*_{k,k+1}>b$, c’est le **plus à gauche** (plus petit $W$) qui compte.
+* Tu peux donc **projeter** la chaîne d’intersections sur $[a,b]$ et ne garder que les chemins **actifs** dans l’intervalle.
+
+## 3.4 Robustesse numérique
+
+* Utilise des **rationnels** (p. ex. entiers 64-bit pour $W,Q$ → $\lambda^\*=\Delta W/\Delta Q$ en fraction) ou des flottants avec **tolérance $\varepsilon$** (ex. $10^{-9}$).
+* Traite les **pentes égales** (pas de rupture) et les segments **colinéaires** (fusion).
+
+# 4) Complexité & perfs pratiques
+
+* Pire cas théorique : le nombre de labels nondominés peut être **exponentiel**.
+* En **réseaux routiers**, avec **deux critères** et de bonnes heuristiques (ALT, vol d’oiseau), l’ensemble nondominé est souvent **modeste**, surtout si peu d’arêtes ont $q\ne0$.
+* L’algorithme est **exact** : un seul gros calcul produit **tous** les candidats et, ensuite, les ruptures se déduisent en $O(K\log K)$.
+
+# 5) Conseils d’implémentation
+
+* **Heuristiques** : si tu as des landmarks, pré-calcule pour $W$ **et** pour $Q$ des bornes du type triangle ALT → $h_W$ et $h_Q$ puissants.
+* **Pruning $[a,b]$** : maintiens deux bons **upper bounds** $U(a),U(b)$ (solutions connues) ; prune toute étiquette $\ell$ si
+  $g_W+h_W + a (g_Q+h_Q) \ge U(a)$ **et** $g_W+h_W + b (g_Q+h_Q) \ge U(b)$.
+* **Parent pointers** pour reconstruire les chemins $P_k$.
+* **Mémoire** : stocke ND$_v$ en petite liste triée (par $W$ ou $Q$), fais de la domination incrémentale.
+* **Acyclicité** : requiers $w_{ij}\ge0, q_{ij}\ge0$ (classique routier). Si certains $q<0$, il faut être plus vigilant (pas de cycles “bénéfiques”).
+
+# 6) Mini-pseudo-code (schéma)
+
+```text
+ND[v] ← ∅  for all v
+insert_label(ND[s], (0,0), parent=⊥)
+OPEN ← { (node=s, g=(0,0), f=h(s)) }
+
+U_env ← ∅          // enveloppe courante au but (droites W+λQ) sur [a,b]
+bestAtA, bestAtB ← +∞, +∞
+
+while OPEN non vide:
+  ℓ = pop_min_lex(OPEN)         // clé f = (gW+hW, gQ+hQ)
+  v = node(ℓ)
+  if v == t:
+     U_env ← U_env ∪ { (W=ℓ.gW, Q=ℓ.gQ) }
+     bestAtA = min(bestAtA, ℓ.gW + a*ℓ.gQ)
+     bestAtB = min(bestAtB, ℓ.gW + b*ℓ.gQ)
+     continue
+
+  for (v→u) in E:
+     g' = (ℓ.gW + w(v,u), ℓ.gQ + q(v,u))
+     if dominated_by_ND(ND[u], g'): continue
+     // prune par enveloppe sur [a,b]
+     LB_a = g'.W + hW(u) + a*(g'.Q + hQ(u))
+     LB_b = g'.W + hW(u) + b*(g'.Q + hQ(u))
+     if LB_a ≥ bestAtA and LB_b ≥ bestAtB: continue
+
+     purge_dominated(ND[u], g')
+     f' = (g'.W + hW(u), g'.Q + hQ(u))
+     push OPEN (u, g', f', parent=ℓ)
+
+return U_env  // liste des (W_k,Q_k), puis calcule les ruptures
+```
+
+# 7) Après l’algorithme : ruptures et chemins
+
+* Trie $U_{\text{env}}=\{(W_k,Q_k)\}$ par $Q$ décroissant.
+* Calcule chaque $\lambda^\*_{k,k+1}=(W_{k+1}-W_k)/(Q_k-Q_{k+1})$.
+* Restreins aux $\lambda^\*\in[a,b]$.
+* Les **chemins** associés sont obtenus par les pointeurs parents ; tu sais donc **quel chemin est optimal** sur chaque sous-intervalle.
+
+---
+
+Si tu veux, je peux te donner un **squelette de code** (C++/Python) montrant :
+
+* la structure ND par nœud,
+* la dominance,
+* le pruning $[a,b]$,
+* et une routine qui, à partir de $\{(W_k,Q_k)\}$, **crée la liste ordonnée des ruptures**.

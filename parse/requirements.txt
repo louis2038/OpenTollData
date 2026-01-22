@@ -1,0 +1,8 @@
+# Requirements for toll network JSON validation
+# Install with: pip install -r requirements.txt
+
+# JSON Schema validation
+jsonschema>=4.0.0
+
+# Optional: For better error messages and performance
+jsonschema[format]>=4.0.0

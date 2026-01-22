@@ -1,0 +1,222 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/toll-network.schema.json",
+  "title": "Toll Network Data",
+  "description": "Schema for toll network pricing and topology data",
+  "type": "object",
+  "required": [
+    "date",
+    "version",
+    "name",
+    "list_of_operator",
+    "list_of_toll",
+    "currency",
+    "networks",
+    "toll_description",
+    "open_toll_price"
+  ],
+  "properties": {
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{2}/\\d{2}/\\d{4}$",
+      "description": "Date in DD/MM/YYYY format"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version of the data format"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the pricing format"
+    },
+    "list_of_operator": {
+      "type": "array",
+      "description": "List of toll operators",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "list_of_toll": {
+      "type": "array",
+      "description": "List of all toll names",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 currency code (e.g., EUR, USD)"
+    },
+    "networks": {
+      "type": "array",
+      "description": "Connected components of closed toll networks",
+      "items": {
+        "type": "object",
+        "required": ["network_name", "tolls", "connection"],
+        "properties": {
+          "network_name": {
+            "type": "string",
+            "description": "Network identifier"
+          },
+          "tolls": {
+            "type": "array",
+            "description": "List of toll names in this network",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+          },
+          "connection": {
+            "type": "object",
+            "description": "Directional connections between tolls",
+            "patternProperties": {
+              "^.*$": {
+                "type": "object",
+                "description": "Connections from a specific toll",
+                "patternProperties": {
+                  "^.*$": {
+                    "type": "object",
+                    "required": ["distance", "price"],
+                    "properties": {
+                      "distance": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d+)?$",
+                        "description": "Distance in kilometers"
+                      },
+                      "price": {
+                        "$ref": "#/definitions/priceClasses"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "toll_description": {
+      "type": "object",
+      "description": "Detailed information about each toll",
+      "patternProperties": {
+        "^.*$": {
+          "type": "object",
+          "required": [
+            "operator_ref",
+            "lat",
+            "lon",
+            "operator",
+            "type",
+            "node_id",
+            "ways_id"
+          ],
+          "properties": {
+            "operator_ref": {
+              "type": "string",
+              "description": "Operator reference code"
+            },
+            "lat": {
+              "type": "string",
+              "description": "Latitude coordinate"
+            },
+            "lon": {
+              "type": "string",
+              "description": "Longitude coordinate"
+            },
+            "operator": {
+              "type": "string",
+              "description": "Operator name from OSM"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["open", "close"],
+              "description": "Toll type: open (flat rate) or close (distance-based)"
+            },
+            "node_id": {
+              "type": "array",
+              "description": "OSM node IDs for toll booths",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ways_id": {
+              "type": "array",
+              "description": "OSM way IDs for toll booths",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "open_toll_price": {
+      "type": "object",
+      "description": "Pricing for open (flat rate) tolls",
+      "patternProperties": {
+        "^.*$": {
+          "type": "object",
+          "required": ["distance", "price"],
+          "properties": {
+            "distance": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?$",
+              "description": "Reference distance in kilometers"
+            },
+            "price": {
+              "$ref": "#/definitions/priceClasses"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "priceClasses": {
+      "type": "object",
+      "description": "Prices for different vehicle classes",
+      "required": ["class_1", "class_2", "class_3", "class_4", "class_5"],
+      "properties": {
+        "class_1": {
+          "type": ["string", "null"],
+          "pattern": "^(\\d+(\\.\\d+)?)?$",
+          "description": "Price for vehicle class 1 (light vehicles)"
+        },
+        "class_2": {
+          "type": ["string", "null"],
+          "pattern": "^(\\d+(\\.\\d+)?)?$",
+          "description": "Price for vehicle class 2"
+        },
+        "class_3": {
+          "type": ["string", "null"],
+          "pattern": "^(\\d+(\\.\\d+)?)?$",
+          "description": "Price for vehicle class 3"
+        },
+        "class_4": {
+          "type": ["string", "null"],
+          "pattern": "^(\\d+(\\.\\d+)?)?$",
+          "description": "Price for vehicle class 4"
+        },
+        "class_5": {
+          "type": ["string", "null"],
+          "pattern": "^(\\d+(\\.\\d+)?)?$",
+          "description": "Price for vehicle class 5 (heavy vehicles)"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
