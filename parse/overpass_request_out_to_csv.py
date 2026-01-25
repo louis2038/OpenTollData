@@ -17,18 +17,26 @@ Important :
 Usage :
     python overpass_peages_to_csv.py input.json -o output.csv
 """
+
 import argparse
-import json
 import csv
+import json
 from collections import defaultdict
 
 TOLL_KEYS = ("barrier", "highway", "amenity")
 TOLL_VALUES = {"toll_booth"}  # on tolère plusieurs clés possibles
 
+
 def extract_operator_ref(tags: dict) -> str:
     if not tags:
         return ""
-    return tags.get("operator:ref") or tags.get("operator_ref") or tags.get("operator") or ""
+    return (
+        tags.get("operator:ref")
+        or tags.get("operator_ref")
+        or tags.get("operator")
+        or ""
+    )
+
 
 def is_toll_booth_node(el: dict) -> bool:
     if el.get("type") != "node":
@@ -43,10 +51,20 @@ def is_toll_booth_node(el: dict) -> bool:
             return True
     return False
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Convertit un export Overpass JSON (toll_booth) en CSV agrégé par nom.")
-    parser.add_argument("input_json", help="Chemin du fichier .json (résultat Overpass Turbo)")
-    parser.add_argument("-o", "--output_csv", default="peages.csv", help="Chemin du CSV de sortie (défaut: peages.csv)")
+    parser = argparse.ArgumentParser(
+        description="Convertit un export Overpass JSON (toll_booth) en CSV agrégé par nom."
+    )
+    parser.add_argument(
+        "input_json", help="Chemin du fichier .json (résultat Overpass Turbo)"
+    )
+    parser.add_argument(
+        "-o",
+        "--output_csv",
+        default="peages.csv",
+        help="Chemin du CSV de sortie (défaut: peages.csv)",
+    )
     args = parser.parse_args()
 
     with open(args.input_json, "r", encoding="utf-8") as f:
@@ -60,13 +78,15 @@ def main():
             continue
         tags = el.get("tags") or {}
         name = tags.get("name") or "UNKNOWN"
-        booths.append({
-            "id": el.get("id"),
-            "name": name,
-            "lat": el.get("lat"),
-            "lon": el.get("lon"),
-            "operator_ref": extract_operator_ref(tags),
-        })
+        booths.append(
+            {
+                "id": el.get("id"),
+                "name": name,
+                "lat": el.get("lat"),
+                -"lon": el.get("lon"),
+                "operator_ref": extract_operator_ref(tags),
+            }
+        )
 
     # Agrégation par nom
     grouped = defaultdict(list)
@@ -76,7 +96,12 @@ def main():
     # Construire les lignes de sortie
     rows = []
     for name, items in grouped.items():
-        coords = [(i.get("lat"), i.get("lon")) for i in items if isinstance(i.get("lat"), (int, float)) and isinstance(i.get("lon"), (int, float))]
+        coords = [
+            (i.get("lat"), i.get("lon"))
+            for i in items
+            if isinstance(i.get("lat"), (int, float))
+            and isinstance(i.get("lon"), (int, float))
+        ]
         if coords:
             lat = sum(lat for lat, _ in coords) / len(coords)
             lon = sum(lon for _, lon in coords) / len(coords)
@@ -88,17 +113,26 @@ def main():
         op_values = {i["operator_ref"] for i in items if i.get("operator_ref")}
         operator_ref = list(op_values)[0] if len(op_values) == 1 else ""
 
-        rows.append({
-            "osm_name": name,
-            "operator_ref": operator_ref,
-            "lat": f"{lat:.7f}" if isinstance(lat, float) else "",
-            "lon": f"{lon:.7f}" if isinstance(lon, float) else "",
-            "nbs_booth": n,
-            "booth_node_id": json.dumps(ids, ensure_ascii=False),
-        })
+        rows.append(
+            {
+                "osm_name": name,
+                "operator_ref": operator_ref,
+                "lat": f"{lat:.7f}" if isinstance(lat, float) else "",
+                "lon": f"{lon:.7f}" if isinstance(lon, float) else "",
+                "nbs_booth": n,
+                "booth_node_id": json.dumps(ids, ensure_ascii=False),
+            }
+        )
 
     # Écriture CSV
-    fieldnames = ["osm_name", "operator_ref", "lat", "lon", "nbs_booth", "booth_node_id"]
+    fieldnames = [
+        "osm_name",
+        "operator_ref",
+        "lat",
+        "lon",
+        "nbs_booth",
+        "booth_node_id",
+    ]
     with open(args.output_csv, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -108,10 +142,13 @@ def main():
     # Messages d'aide si rien trouvé
     if not rows:
         print("⚠️ Aucun node de péage trouvé dans ce JSON.")
-        print("Vérifie que tes cabines sont bien taguées barrier=toll_booth (ou highway/amenity=toll_booth)")
+        print(
+            "Vérifie que tes cabines sont bien taguées barrier=toll_booth (ou highway/amenity=toll_booth)"
+        )
         print("et que la requête Overpass inclut les tags (utilise `out body;`).")
 
     print(f"✅ {len(rows)} ligne(s) écrite(s) dans {args.output_csv}")
+
 
 if __name__ == "__main__":
     main()

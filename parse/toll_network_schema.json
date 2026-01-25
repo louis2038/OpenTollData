@@ -79,19 +79,7 @@
                 "description": "Connections from a specific toll",
                 "patternProperties": {
                   "^.*$": {
-                    "type": "object",
-                    "required": ["distance", "price"],
-                    "properties": {
-                      "distance": {
-                        "type": "string",
-                        "pattern": "^\\d+(\\.\\d+)?$",
-                        "description": "Distance in kilometers"
-                      },
-                      "price": {
-                        "$ref": "#/definitions/priceClasses"
-                      }
-                    },
-                    "additionalProperties": false
+                    "$ref": "#/definitions/edge"
                   }
                 },
                 "additionalProperties": false
@@ -165,19 +153,7 @@
       "description": "Pricing for open (flat rate) tolls",
       "patternProperties": {
         "^.*$": {
-          "type": "object",
-          "required": ["distance", "price"],
-          "properties": {
-            "distance": {
-              "type": "string",
-              "pattern": "^\\d+(\\.\\d+)?$",
-              "description": "Reference distance in kilometers"
-            },
-            "price": {
-              "$ref": "#/definitions/priceClasses"
-            }
-          },
-          "additionalProperties": false
+          "$ref": "#/definitions/edge"
         }
       },
       "additionalProperties": false
@@ -185,6 +161,21 @@
   },
   "additionalProperties": false,
   "definitions": {
+    "edge": {
+      "type": "object",
+      "required": ["distance", "price"],
+      "properties": {
+        "distance": {
+          "type": "string",
+          "pattern": "^\\d+(\\.\\d+)?$",
+          "description": "Distance in kilometers"
+        },
+        "price": {
+          "$ref": "#/definitions/priceClasses"
+        }
+      },
+      "additionalProperties": false
+    },
     "priceClasses": {
       "type": "object",
       "description": "Prices for different vehicle classes",
