@@ -164,15 +164,15 @@ def generate_stations_csv(stations: list, output_filepath: str):
 
 
 if __name__ == "__main__":
-    filepath_class1 = "asf_data_page3_class1_2025.txt"
-    filepath_class2 = "asf_data_page3_class2_2025.txt"
-    filepath_class3 = "asf_data_page3_class3_2025.txt"
-    filepath_class4 = "asf_data_page3_class4_2025.txt"
-    filepath_class5 = "asf_data_page3_class5_2025.txt"
+    filepath_class1 = "asf_data_page4_class1_2025.txt"
+    filepath_class2 = "asf_data_page4_class2_2025.txt"
+    filepath_class3 = "asf_data_page4_class3_2025.txt"
+    filepath_class4 = "asf_data_page4_class4_2025.txt"
+    filepath_class5 = "asf_data_page4_class5_2025.txt"
 
-    names_filepath = "asf_name_page3_2025.txt"
-    output_csv = "asf_prices_page3.csv"
-    output_stations_csv = "asf_stations_page3.csv"
+    names_filepath = "asf_name_page4_2025.txt"
+    output_csv = "asf_prices_page4.csv"
+    output_stations_csv = "asf_stations_page4.csv"
 
     matrix_class1 = parse_asf_file(filepath_class1)
     matrix_class2 = parse_asf_file(filepath_class2)
@@ -188,20 +188,30 @@ if __name__ == "__main__":
         2,
         3,
         4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        13,
+        14,
+        15,
+        16,
+        17,
         18,
         19,
-        29,
-        30,
-        33,
-        34,
-        35,
-        36,
-        37,
-        38,
-        39,
-        40,
+        20,
+        32,
         41,
         42,
+        43,
+        44,
+        45,
+        46,
+        63,
+        64,
+        65,
+        66,
     ]
 
     stations = []

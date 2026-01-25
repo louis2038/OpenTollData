@@ -1,9 +1,9 @@
 {
   "version": 0.6,
-  "generator": "Overpass API 0.7.62.8 e802775f",
+  "generator": "Overpass API 0.7.62.10 2d4cfc48",
   "osm3s": {
-    "timestamp_osm_base": "2025-11-04T16:44:21Z",
-    "timestamp_areas_base": "2025-11-04T12:05:30Z",
+    "timestamp_osm_base": "2026-01-26T15:50:30Z",
+    "timestamp_areas_base": "2026-01-22T23:45:51Z",
     "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
   },
   "elements": [
@@ -150,8 +150,8 @@
     {
       "type": "node",
       "id": 2087934,
-      "lat": 45.8281332,
-      "lon": 3.2411907,
+      "lat": 45.828133,
+      "lon": 3.2411926,
       "tags": {
         "barrier": "toll_booth",
         "highway:ref": "A 89",
@@ -600,8 +600,8 @@
     {
       "type": "node",
       "id": 28126222,
-      "lat": 45.827808,
-      "lon": 3.2411398,
+      "lat": 45.8278086,
+      "lon": 3.2411292,
       "tags": {
         "barrier": "toll_booth",
         "highway:ref": "A 89",
@@ -2295,8 +2295,7 @@
         "highway:ref": "A 641",
         "name": "Peyrehorade",
         "operator": "ASF",
-        "operator:ref": "6",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre ; mise à jour : 2009"
+        "operator:ref": "6"
       }
     },
     {
@@ -2309,8 +2308,7 @@
         "highway:ref": "A 641",
         "name": "Peyrehorade",
         "operator": "ASF",
-        "operator:ref": "6",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre ; mise à jour : 2009"
+        "operator:ref": "6"
       }
     },
     {
@@ -2510,8 +2508,7 @@
         "highway:ref": "A 63",
         "name": "Capbreton",
         "operator": "ASF",
-        "operator:ref": "8",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"
+        "operator:ref": "8"
       }
     },
     {
@@ -2524,8 +2521,7 @@
         "highway:ref": "A 63",
         "name": "Péage de Bénesse-Maremne",
         "operator": "ASF",
-        "operator:ref": "Péage de Bénesse-Maremne",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"
+        "operator:ref": "Péage de Bénesse-Maremne"
       }
     },
     {
@@ -2632,8 +2628,7 @@
         "highway:ref": "A 62",
         "name": "Castelsarrasin",
         "operator": "ASF",
-        "operator:ref": "9",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"
+        "operator:ref": "9"
       }
     },
     {
@@ -2646,8 +2641,7 @@
         "highway:ref": "A 62",
         "name": "Castelsarrasin",
         "operator": "ASF",
-        "operator:ref": "9",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"
+        "operator:ref": "9"
       }
     },
     {
@@ -2660,8 +2654,7 @@
         "highway:ref": "A 89",
         "name": "Thiers Ouest",
         "operator": "ASF",
-        "operator:ref": "29",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre;mise à jour : 2009"
+        "operator:ref": "29"
       }
     },
     {
@@ -3034,6 +3027,19 @@
     },
     {
       "type": "node",
+      "id": 986537073,
+      "lat": 43.4713749,
+      "lon": -0.3210547,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Thèze",
+        "operator": "A'LIENOR",
+        "operator:ref": "9"
+      }
+    },
+    {
+      "type": "node",
       "id": 991655074,
       "lat": 43.2344838,
       "lon": 1.6359572,
@@ -3126,6 +3132,33 @@
     },
     {
       "type": "node",
+      "id": 1091772679,
+      "lat": 44.2860318,
+      "lon": -0.2280667,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Captieux",
+        "operator": "A'LIENOR",
+        "operator:ref": "2"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1092685933,
+      "lat": 43.7221672,
+      "lon": -0.2708882,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Aire-sur-l'Adour Nord",
+        "operator": "A'LIENOR",
+        "operator:ref": "6",
+        "source:name": "P144-0696"
+      }
+    },
+    {
+      "type": "node",
       "id": 1105868116,
       "lat": 43.3452483,
       "lon": -0.4188068,
@@ -3140,8 +3173,8 @@
     {
       "type": "node",
       "id": 1116803661,
-      "lat": 45.9549236,
-      "lon": -0.8813366,
+      "lat": 45.9548709,
+      "lon": -0.8813821,
       "tags": {
         "barrier": "toll_booth",
         "highway:ref": "A 837",
@@ -3153,8 +3186,8 @@
     {
       "type": "node",
       "id": 1116803670,
-      "lat": 45.9551135,
-      "lon": -0.8810402,
+      "lat": 45.9551583,
+      "lon": -0.8809738,
       "tags": {
         "barrier": "toll_booth",
         "highway:ref": "A 837",
@@ -3187,6 +3220,19 @@
         "name": "Tulle Nord",
         "operator": "ASF",
         "operator:ref": "20"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1143005916,
+      "lat": 43.6645406,
+      "lon": -0.2766858,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Aire-sur-l'Adour Sud",
+        "operator": "A'LIENOR",
+        "operator:ref": "7"
       }
     },
     {
@@ -3232,6 +3278,36 @@
     },
     {
       "type": "node",
+      "id": 1195217379,
+      "lat": 44.4452772,
+      "lon": -0.2423541,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Bazas",
+        "note": "Bankcard only - no staff on site",
+        "note:fr": "que CB",
+        "operator": "A'LIENOR",
+        "operator:ref": "1"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1195217501,
+      "lat": 44.4452126,
+      "lon": -0.2422463,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Bazas",
+        "note": "Bankcard only - no staff on site",
+        "note:fr": "que CB",
+        "operator": "A'LIENOR",
+        "operator:ref": "1"
+      }
+    },
+    {
+      "type": "node",
       "id": 1204177181,
       "lat": 45.8916842,
       "lon": 4.4031539,
@@ -3241,6 +3317,33 @@
         "name": "Tarare-Ouest",
         "operator": "ASF",
         "operator:ref": "34"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1246344270,
+      "lat": 43.9469871,
+      "lon": -0.393924,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Mont-de-Marsan",
+        "operator": "A'LIENOR",
+        "operator:ref": "4"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1285330579,
+      "lat": 43.7221606,
+      "lon": -0.2706831,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Aire-sur-l'Adour Nord",
+        "operator": "A'LIENOR",
+        "operator:ref": "6",
+        "source:name": "P144-0696"
       }
     },
     {
@@ -3564,6 +3667,19 @@
     },
     {
       "type": "node",
+      "id": 1564463968,
+      "lat": 44.0448989,
+      "lon": -0.3432162,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Roquefort",
+        "operator": "A'LIENOR",
+        "operator:ref": "3"
+      }
+    },
+    {
+      "type": "node",
       "id": 1588137485,
       "lat": 43.3433053,
       "lon": 3.2890707,
@@ -3586,6 +3702,19 @@
         "name": "Péage de Béziers-Cabrials",
         "operator": "ASF",
         "operator:ref": "Péage de Béziers-Cabrials"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1618060722,
+      "lat": 43.5652855,
+      "lon": -0.2926125,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Garlin",
+        "operator": "A'LIENOR",
+        "operator:ref": "8"
       }
     },
     {
@@ -4074,8 +4203,7 @@
         "highway:ref": "A 63",
         "name": "Capbreton",
         "operator": "ASF",
-        "operator:ref": "8",
-        "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"
+        "operator:ref": "8"
       }
     },
     {
@@ -5110,6 +5238,19 @@
     },
     {
       "type": "node",
+      "id": 4690491293,
+      "lat": 43.5653043,
+      "lon": -0.2926878,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Garlin",
+        "operator": "A'LIENOR",
+        "operator:ref": "8"
+      }
+    },
+    {
+      "type": "node",
       "id": 5203028269,
       "lat": 45.8915689,
       "lon": 4.4031022,
@@ -5602,6 +5743,19 @@
     },
     {
       "type": "node",
+      "id": 7120103697,
+      "lat": 44.044921,
+      "lon": -0.3432938,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Roquefort",
+        "operator": "A'LIENOR",
+        "operator:ref": "3"
+      }
+    },
+    {
+      "type": "node",
       "id": 7171485717,
       "lat": 47.5664599,
       "lon": -0.3280315,
@@ -5823,6 +5977,19 @@
         "name": "Coudoux",
         "operator": "ASF",
         "operator:ref": "28"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10977936133,
+      "lat": 43.6646278,
+      "lon": -0.2766716,
+      "tags": {
+        "barrier": "toll_booth",
+        "highway:ref": "A 65",
+        "name": "Aire-sur-l'Adour Sud",
+        "operator": "A'LIENOR",
+        "operator:ref": "7"
       }
     },
     {

@@ -83,7 +83,7 @@ def main():
                 "id": el.get("id"),
                 "name": name,
                 "lat": el.get("lat"),
-                -"lon": el.get("lon"),
+                "lon": el.get("lon"),
                 "operator_ref": extract_operator_ref(tags),
             }
         )
