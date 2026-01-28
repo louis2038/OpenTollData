@@ -178,18 +178,24 @@ def assert_matrix_shape(matrix: np.ndarray, label: str, rows: int, cols: int):
 
 
 if __name__ == "__main__":
-    filepath_class1 = "asf_data_page2_class1_2025.txt"
-    filepath_class2 = "asf_data_page2_class2_2025.txt"
-    filepath_class3 = "asf_data_page2_class3_2025.txt"
-    filepath_class4 = "asf_data_page2_class4_2025.txt"
-    filepath_class5 = "asf_data_page2_class5_2025.txt"
+    page = 2
+    part = 1
+    type = "close"
+    date = 2025
 
-    names_filepath_columns = "asf_name_page2_columns_2025.txt"
-    names_filepath_rows = "asf_name_page2_rows_2025.txt"
+    filepath_class1 = f"asf_data_page{page}_part{part}_class1_{date}.txt"
+    filepath_class2 = f"asf_data_page{page}_part{part}_class2_{date}.txt"
+    filepath_class3 = f"asf_data_page{page}_part{part}_class3_{date}.txt"
+    filepath_class4 = f"asf_data_page{page}_part{part}_class4_{date}.txt"
+    filepath_class5 = f"asf_data_page{page}_part{part}_class5_{date}.txt"
 
-    output_csv = "asf_prices_page2.csv"
-    output_stations_rows_csv = "asf_stations_rows_page2.csv"
-    output_stations_columns_csv = "asf_stations_column_page2.csv"
+    output_csv = f"asf_prices_{type}_page{page}_part{part}.csv"
+    output_stations_rows_csv = f"asf_stations_{type}_page{page}_part{part}_row.csv"
+    output_stations_columns_csv = f"asf_stations_{type}_page{page}_part{part}_col.csv"
+    output_stations_csv = f"asf_stations_{type}_page{page}_part{part}.csv"
+
+    names_filepath_columns = f"asf_name_page{page}_part{part}_{date}_col.txt"
+    names_filepath_rows = f"asf_name_page{page}_part{part}_{date}_row.txt"
 
     matrix_class1 = parse_asf_file(filepath_class1)
     matrix_class2 = parse_asf_file(filepath_class2)

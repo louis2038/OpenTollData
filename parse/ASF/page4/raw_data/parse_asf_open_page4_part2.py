@@ -95,8 +95,7 @@ def generate_csv(
         writer = csv.writer(csvfile)  # delimiteur par défaut ','
         writer.writerow(
             [
-                "name_from",
-                "name_to",
+                "name",
                 "distance",
                 "price1",
                 "price2",
@@ -106,50 +105,24 @@ def generate_csv(
             ]
         )
 
-        rows, cols = matrix_class1.shape
-        for i, station_from in enumerate(stations_all):
-            for j, station_to in enumerate(stations_all):
-                if i in desactivate_index or j in desactivate_index:
-                    continue
-                if j >= 1:
-                    price1 = matrix_class1[j - 1, i]
-                    price2 = matrix_class2[j - 1, i]
-                    price3 = matrix_class3[j - 1, i]
-                    price4 = matrix_class4[j - 1, i]
-                    price5 = matrix_class5[j - 1, i]
-                    if not np.isnan(price1):
-                        writer.writerow(
-                            [
-                                station_from,
-                                station_to,
-                                None,
-                                price1,
-                                price2,
-                                price3,
-                                price4,
-                                price5,
-                            ]
-                        )
+        for station_idx, (i, j) in Opens:
+            price1 = matrix_class1[i, j]
+            price2 = matrix_class2[i, j]
+            price3 = matrix_class3[i, j]
+            price4 = matrix_class4[i, j]
+            price5 = matrix_class5[i, j]
 
-                if i >= 1:
-                    price1 = matrix_class1[i - 1, j]
-                    price2 = matrix_class2[i - 1, j]
-                    price3 = matrix_class3[i - 1, j]
-                    price4 = matrix_class4[i - 1, j]
-                    price5 = matrix_class5[i - 1, j]
-                    if not np.isnan(price1):
-                        writer.writerow(
-                            [
-                                station_from,
-                                station_to,
-                                None,
-                                price1,
-                                price2,
-                                price3,
-                                price4,
-                                price5,
-                            ]
-                        )
+            writer.writerow(
+                [
+                    stations_all[station_idx],
+                    None,
+                    price1,
+                    price2,
+                    price3,
+                    price4,
+                    price5,
+                ]
+            )
 
 
 def generate_stations_csv(stations: list, output_filepath: str):
@@ -164,15 +137,21 @@ def generate_stations_csv(stations: list, output_filepath: str):
 
 
 if __name__ == "__main__":
-    filepath_class1 = "asf_data_page4_class1_2025.txt"
-    filepath_class2 = "asf_data_page4_class2_2025.txt"
-    filepath_class3 = "asf_data_page4_class3_2025.txt"
-    filepath_class4 = "asf_data_page4_class4_2025.txt"
-    filepath_class5 = "asf_data_page4_class5_2025.txt"
+    page = 4
+    part = 2
+    type = "open"
+    date = 2025
 
-    names_filepath = "asf_name_page4_2025.txt"
-    output_csv = "asf_prices_page4.csv"
-    output_stations_csv = "asf_stations_page4.csv"
+    filepath_class1 = f"asf_data_page{page}_part{part}_class1_{date}.txt"
+    filepath_class2 = f"asf_data_page{page}_part{part}_class2_{date}.txt"
+    filepath_class3 = f"asf_data_page{page}_part{part}_class3_{date}.txt"
+    filepath_class4 = f"asf_data_page{page}_part{part}_class4_{date}.txt"
+    filepath_class5 = f"asf_data_page{page}_part{part}_class5_{date}.txt"
+
+    names_filepath = f"asf_name_page{page}_part{part}_{date}.txt"
+
+    output_csv = f"asf_prices_{type}_page{page}_part{part}.csv"
+    output_stations_csv = f"asf_stations_{type}_page{page}_part{part}.csv"
 
     matrix_class1 = parse_asf_file(filepath_class1)
     matrix_class2 = parse_asf_file(filepath_class2)
@@ -182,48 +161,7 @@ if __name__ == "__main__":
 
     stations_all = read_station_names(names_filepath)
 
-    desactivate_index = [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        32,
-        41,
-        42,
-        43,
-        44,
-        45,
-        46,
-        63,
-        64,
-        65,
-        66,
-    ]
-
-    stations = []
-    for i in range(len(stations_all)):
-        if not i in desactivate_index:
-            stations.append(stations_all[i])
-
-    print(stations[:5])
-    print(f"Dimensions de la matrice: {matrix_class1.shape}")
-    print(f"Nombre de gares: {len(stations)}")
-    print(f"Premières lignes:\n{matrix_class1[:5]}")
-    print(f"Nombre de valeurs NaN: {np.sum(np.isnan(matrix_class1))}")
+    Opens = [(1, (0, 0))]
 
     generate_csv(
         matrix_class1,
@@ -231,9 +169,10 @@ if __name__ == "__main__":
         matrix_class3,
         matrix_class4,
         matrix_class5,
-        stations,
+        stations_all,
         output_csv,
     )
-    generate_stations_csv(stations, output_stations_csv)
-    print(f"Fichier CSV généré: {output_csv}")
-    print(f"Fichier des stations généré: {output_stations_csv}")
+
+    stations_pruned = [stations_all[i] for i, _ in Opens]
+
+    generate_stations_csv(stations_pruned, output_stations_csv)
