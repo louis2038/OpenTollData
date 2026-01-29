@@ -107,6 +107,7 @@ def generate_csv(
         )
 
         rows, cols = matrix_class1.shape
+
         print(f"shape: rows={rows}, cols={cols}")
         print(f"number of stations: {len(stations_all)}")
 
@@ -114,7 +115,8 @@ def generate_csv(
             for j, station_to in enumerate(stations_all):
                 if i in desactivate_index or j in desactivate_index:
                     continue
-                print(i, j)
+
+                # print(i, j)
                 if j >= 1:
                     price1 = matrix_class1[j - 1, i]
                     price2 = matrix_class2[j - 1, i]
@@ -168,8 +170,8 @@ def generate_stations_csv(stations: list, output_filepath: str):
 
 
 if __name__ == "__main__":
-    page = 5
-    part = 2
+    page = 6
+    part = 1
     type = "close"
     date = 2025
 
@@ -192,7 +194,38 @@ if __name__ == "__main__":
 
     stations_all = read_station_names(names_filepath)
 
-    desactivate_index = [0, 1, 2, 3, 4, 5, 6, 7, 15, 16]
+    desactivate_index = [
+        16,
+        17,
+        18,
+        19,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        43,
+        47,
+        48,
+        49,
+        50,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+    ]
 
     stations = []
     for i in range(len(stations_all)):
