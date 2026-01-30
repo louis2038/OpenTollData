@@ -1,5 +1,5 @@
 name;osm_name;operator_ref;lat;lon;nbs_booth;booth_node_id;booth_way_id;type;operator_osm
-PEAGE DE VIENNE;Péage de Vienne;Péage de Vienne;45.4761176;4.8330663;4;[130368, 13397120, 12288199204, 12752375307];;close;ASF
+PEAGE DE VIENNE;Péage de Vienne;Péage de Vienne;45.4761176;4.8330663;2;[130368, 13397120];;close;ASF
 AUBERIVES;Auberives Nord-Sud;11.1;45.3898018;4.8053591;1;[130221205];;close;ASF
 CHANAS;Chanas;12;45.3211595;4.8098547;2;[16567653, 28128388];;close;ASF
 TAIN;Tain;13;45.0684081;4.8684133;2;[13382945, 15553152];;close;ASF

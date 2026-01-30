@@ -114,7 +114,7 @@ def generate_csv(
             for j, station_to in enumerate(stations_all):
                 if i in desactivate_index or j in desactivate_index:
                     continue
-                print(i, j)
+                # print(i, j)
                 if j >= 1:
                     price1 = matrix_class1[j - 1, i]
                     price2 = matrix_class2[j - 1, i]

@@ -137,7 +137,7 @@ def generate_stations_csv(stations: list, output_filepath: str):
 
 
 if __name__ == "__main__":
-    page = 5
+    page = 1
     part = 1
     type = "open"
     date = 2025
@@ -161,16 +161,7 @@ if __name__ == "__main__":
 
     stations_all = read_station_names(names_filepath)
 
-    Opens = [
-        (1, (1, 1)),
-        (2, (2, 2)),
-        (5, (4, 3)),
-        (6, (6, 6)),
-        (7, (7, 7)),
-        (10, (9, 9)),
-        (11, (10, 10)),
-        (12, (11, 10)),
-    ]
+    Opens = [(11, (10, 10)), (10, (9, 8)), (37, (37, 37))]
 
     generate_csv(
         matrix_class1,
