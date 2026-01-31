@@ -1,0 +1,6373 @@
+{
+    "date": "30/01/2026",
+    "version": "1.0",
+    "name": "price_format",
+    "list_of_operator": [
+        "APRR",
+        "AREA",
+        "ASF",
+        "Autoroutes du Sud de la France",
+        "A’LIENOR",
+        "SFTRF",
+        "Vinci"
+    ],
+    "list_of_toll": [
+        "ABLIS",
+        "AGDE PEZENAS",
+        "AGEN",
+        "AGEN OUEST",
+        "AIGREFEUILLE",
+        "AIGUEBELETTE",
+        "AIGUILLON",
+        "AIRE SUR ADOUR NORD",
+        "AIRE SUR ADOUR SUD",
+        "AITON",
+        "AIX NORD",
+        "AIX SUD",
+        "ALENCON NORD",
+        "ALENCON SUD",
+        "ALLAINES",
+        "ALLAINVILLE",
+        "ALLONZIER",
+        "AMBERIEU",
+        "AMBOISE CHATEAU RENAULT",
+        "ANNECY CENTRE",
+        "ANNECY NORD",
+        "ARLAY",
+        "ARTENAY",
+        "ARTIX",
+        "AUBERIVES",
+        "AUVOURS",
+        "AUXERRE NORD",
+        "AUXERRE SUD",
+        "AUXY",
+        "AVALLON",
+        "AVIGNON NORD",
+        "AVIGNON SUD",
+        "BALAN",
+        "BALBIGNY",
+        "BAUME LES DAMES",
+        "BAYONNE SUD",
+        "BAZAS",
+        "BEAUFORT EN VALLEE",
+        "BEAUNE NORD",
+        "BEAUNE SUD",
+        "BEAUPONT",
+        "BEAUREPAIRE",
+        "BELLEGARDE",
+        "BELLEVILLE SUR SAONE",
+        "BERNAY",
+        "BESANCON EST",
+        "BESANCON NORD",
+        "BESANCON OUEST",
+        "BEZIERS OUEST",
+        "BIARRITZ",
+        "BIERRE LES SEMUR",
+        "BLERE",
+        "BLOIS",
+        "BOLLENE",
+        "BOURG NORD",
+        "BOURG SUD",
+        "BOURGES",
+        "BOURGOIN",
+        "BOURGUEIL",
+        "BRAM",
+        "BRIONNE",
+        "BROGLIE OUEST",
+        "BULGNEVILLE",
+        "CAHORS NORD",
+        "CAHORS SUD",
+        "CAPBRETON",
+        "CAPTIEUX",
+        "CAPVERN",
+        "CARCASSONNE EST",
+        "CARCASSONNE OUEST",
+        "CASTELNAUDARY",
+        "CASTELSARRASIN",
+        "CAUSSADE",
+        "CAVAILLON",
+        "CHALON CENTRE",
+        "CHALON NORD",
+        "CHALON SUD",
+        "CHALONS LA VEUVE",
+        "CHAMBERY NORD",
+        "CHANAS",
+        "CHANTONNAY",
+        "CHARMONT SOUS BARBUISE",
+        "CHARTRES EST",
+        "CHATEAU THIERRY",
+        "CHATELLERAULT NORD",
+        "CHATELLERAULT SUD",
+        "CHATENOIS SUD",
+        "CHATILLON LABORDE",
+        "CHATUZANGE BARRIERE",
+        "CHAUMONT SEMOUTIERS",
+        "CHEMERY",
+        "CHEMILLE",
+        "CHESNES",
+        "CHIGNIN BARRIERE",
+        "CHIGNIN BRETELLE",
+        "CHIGNIN LES MARCHES",
+        "CHOISEY",
+        "CHOLET NORD",
+        "CHOLET SUD",
+        "CLERMONT EN ARGONNE",
+        "COLOMBEY LES BELLES",
+        "COMBRONDE",
+        "CONDRIEU",
+        "CONNERRE",
+        "COPPONEX",
+        "COUDOUX",
+        "COURTENAY",
+        "COUTRAS",
+        "CROLLES BARRIERE",
+        "CROLLES BRIGNOUD",
+        "CURSEILLES EST OUEST A410",
+        "CURSEILLES EST OUEST A41N",
+        "DIJON ARC SUR TILLE",
+        "DOLE",
+        "DORMANS",
+        "DURTAL",
+        "ECOMMOY",
+        "EGLETONS",
+        "ELOISE",
+        "ESCRENNES",
+        "ESVRES",
+        "EUROCENTRE",
+        "FEILLENS",
+        "FEURS",
+        "FONTAINEBLEAU",
+        "FONTENAY CENTRE",
+        "FONTENAY OUEST",
+        "FONTENAY SUR LOING",
+        "FORET DE TRONCAIS",
+        "FORGES",
+        "FRESNES EN WOEVRE",
+        "FUTUROSCOPE",
+        "GACE",
+        "GALLARGUES",
+        "GARLIN",
+        "GENDREY",
+        "GERZAT",
+        "GIDY",
+        "GONDREVILLE NORD",
+        "GONDREVILLE SUD",
+        "GRANS",
+        "GUICHE",
+        "HERMILLON",
+        "ILLIERS COMBRAY",
+        "ISLE D ABEAU CENTRE",
+        "JARNY",
+        "JOIGNY",
+        "JOUE EN CHARNIE",
+        "L ISLE SUR LE DOUBS",
+        "L UNION",
+        "LA BACHELLERIE",
+        "LA BAUME D HOSTUN",
+        "LA BOISE MONTUEL",
+        "LA CROIX CHALON",
+        "LA FERTE BERNARD",
+        "LA REOLE",
+        "LA ROCHELLE NIORT SUD",
+        "LA TOUR DU PIN",
+        "LA TOUR DU PIN EST",
+        "LA VERRIE",
+        "LABASTIDE MURAT",
+        "LAMOTTE BEUVRON",
+        "LANGON",
+        "LANGRES NORD",
+        "LANGRES SUD",
+        "LANNEMEZAN",
+        "LAVAL EST",
+        "LAVAL OUEST",
+        "LE BOULOU",
+        "LE BOULOU SYSTEME FERME",
+        "LE CALOY",
+        "LE CROZET",
+        "LE MANS NORD",
+        "LE MANS OUEST",
+        "LE MANS SUD",
+        "LE MIROIR",
+        "LE TOUVET",
+        "LES ABRETS",
+        "LES ESSARTS",
+        "LES HERBIERS",
+        "LESCAR",
+        "LESTELLE DE SAINT MARTORY",
+        "LEUCATE",
+        "LEZIGNAN",
+        "LEZOUX",
+        "LIBOURNE NORD",
+        "LONGUE",
+        "LORIOL",
+        "LUIGNY",
+        "LUNEL",
+        "MACON CENTRE",
+        "MACON NORD",
+        "MACON SUD",
+        "MAGNANT",
+        "MANSAC TERRASSON",
+        "MANZAT",
+        "MARESCHE",
+        "MARMANDE",
+        "MAROLLES SUR SEINE",
+        "MARTEL",
+        "MAZERES SAVERDUN",
+        "MER",
+        "MEUNG SUR LOIRE",
+        "MIRAMBEAU",
+        "MOIRANS",
+        "MOIRANS NORD",
+        "MONT CHOISY",
+        "MONTABON",
+        "MONTAIGU",
+        "MONTAUBAN",
+        "MONTBRISON MONTROND",
+        "MONTELIMAR NORD",
+        "MONTELIMAR SUD",
+        "MONTGISCARD",
+        "MONTIGNY LE ROI",
+        "MONTMARAULT",
+        "MONTMELIAN",
+        "MONTPON MENESTEROL",
+        "MONTREJEAU",
+        "MONTREUIL REIMS",
+        "MUSSIDAN EST",
+        "MUSSIDAN SUD",
+        "NAILLOUX",
+        "NARBONNE EST",
+        "NARBONNE SUD",
+        "NEMOURS",
+        "NIMES CENTRE",
+        "NIMES EST",
+        "NIMES GARONS",
+        "NIMES OUEST",
+        "NIORT EST",
+        "NIORT NORD",
+        "NIORT OUEST",
+        "NITRY",
+        "NOIRETABLE",
+        "NUITS ST GEORGES",
+        "OLIVET",
+        "ONDRES",
+        "ORANGE",
+        "ORANGE CENTRE",
+        "ORANGE NORD",
+        "ORANGE SUD",
+        "ORLEANS CENTRE",
+        "ORLEANS NORD",
+        "ORTHEZ",
+        "PARIGNE L EVEQUE",
+        "PAU CENTRE",
+        "PEAGE D ARGENTAN",
+        "PEAGE D ARLES",
+        "PEAGE D ARVEYRES",
+        "PEAGE DE BAILLARGUES",
+        "PEAGE DE BEAULIEU S LAYON",
+        "PEAGE DE BEAUMONT",
+        "PEAGE DE BENESSE MARENNE",
+        "PEAGE DE BERSAILLIN",
+        "PEAGE DE BEYNOST",
+        "PEAGE DE BEZIERS CABRIALS",
+        "PEAGE DE BIRIATOU",
+        "PEAGE DE CABARIOT",
+        "PEAGE DE CLERMONT",
+        "PEAGE DE CORZE",
+        "PEAGE DE DEUX CHAISES",
+        "PEAGE DE DIJON CRIMOLOIS",
+        "PEAGE DE DIJON SUD",
+        "PEAGE DE FLEURY EN BIERE",
+        "PEAGE DE GANNAT",
+        "PEAGE DE GIGNAC",
+        "PEAGE DE GROISSIAT",
+        "PEAGE DE GYE",
+        "PEAGE DE LA BOISSE",
+        "PEAGE DE LA COTIERE",
+        "PEAGE DE LA GRAVELLE",
+        "PEAGE DE LA NEGRESSE",
+        "PEAGE DE LA ROCHE SUR YON",
+        "PEAGE DE LANCON",
+        "PEAGE DE LESTELLE",
+        "PEAGE DE MONNAIE",
+        "PEAGE DE MONTAUBAN NORD",
+        "PEAGE DE MONTLUCON",
+        "PEAGE DE MONTPELLIER ST JEAN",
+        "PEAGE DE MONTREUIL AUX LIONS",
+        "PEAGE DE MURET",
+        "PEAGE DE PAMIERS",
+        "PEAGE DE POUILLY EN AUXOIS",
+        "PEAGE DE REIMS EST",
+        "PEAGE DE RESTIGNE",
+        "PEAGE DE SAINT MARTIN DE CRAU",
+        "PEAGE DE SAINT SELVE",
+        "PEAGE DE SAMES",
+        "PEAGE DE ST ARNOULT",
+        "PEAGE DE ST CHRISTOPHE",
+        "PEAGE DE ST GERMAIN LES VERGNES",
+        "PEAGE DE ST MAURICE",
+        "PEAGE DE ST ROMAIN DE POPEY",
+        "PEAGE DE THENON",
+        "PEAGE DE TOULOUSE EST",
+        "PEAGE DE TOULOUSE NORD OUEST",
+        "PEAGE DE TOULOUSE SUD EST",
+        "PEAGE DE TOULOUSE SUD OUEST",
+        "PEAGE DE TOURS CENTRE",
+        "PEAGE DE VAL DE LOING BARRIERE",
+        "PEAGE DE VAL DE SAONE",
+        "PEAGE DE VEAUCHETTE",
+        "PEAGE DE VEIGNE",
+        "PEAGE DE VIENNE",
+        "PEAGE DE VILLEFRANCHE LIMAS",
+        "PEAGE DE VIRSAC",
+        "PEAGE DE VIRY",
+        "PEAGE DES EPRUNES",
+        "PEAGE DES MARTRES D ARTIERE",
+        "PEAGE DU BIGNON",
+        "PEAGE DU PERTHUS",
+        "PEAGE DU ROUMOIS",
+        "PEAGE REIMS NORD",
+        "PEROUGES",
+        "PERPIGNAN NORD",
+        "PERPIGNAN SUD",
+        "PEYREHORADE",
+        "PODENSAC",
+        "POITIERS NORD",
+        "POITIERS SUD",
+        "PONS",
+        "PONT D AIN",
+        "PONTCHARRA",
+        "REIMS OUEST",
+        "REIMS SUD",
+        "REMOULINS",
+        "REPLONGES",
+        "RIOM",
+        "RIVES",
+        "ROBECOURT",
+        "ROQUEFORT",
+        "ROQUEMAURE",
+        "ROUESSE FONTAINE",
+        "RUMILLY",
+        "SABLE LA FLECHE",
+        "SAINT EXUPERY",
+        "SAINT GAUDENS",
+        "SAINT GENIX SUR GUIERS",
+        "SAINT JORY",
+        "SAINT MARCELLIN",
+        "SAINT PIERRE D ALBIGNY",
+        "SAINTE HERMINE",
+        "SAINTE MAURE",
+        "SAINTES",
+        "SALBRIS",
+        "SALIES",
+        "SALON NORD",
+        "SALON OUEST",
+        "SALON SUD",
+        "SAVIGNY SUR CLAIRIS",
+        "SEES",
+        "SEICHES SUR LE LOIR",
+        "SENAS",
+        "SETE",
+        "SEURRE",
+        "SEYNOD SUD",
+        "SIGEAN",
+        "SOIRANS",
+        "SOMMESOUS",
+        "SOUILLAC",
+        "SOUMOULOU",
+        "ST AMAND MONTROND",
+        "ST AUBIN DE BLAYE",
+        "ST DENIS LES SENS",
+        "ST ETIENNE AU TEMPLE",
+        "ST GENIS",
+        "ST GERMAIN LAVAL",
+        "ST GERMAIN LAXIS",
+        "ST GIBRIEN",
+        "ST HILAIRE LES ANDRESIS",
+        "ST JEAN D ANGELY",
+        "ST JEAN DE LUZ SUD",
+        "ST JULIEN SANCY",
+        "ST MAIXENT SOUDAN",
+        "ST MARTIN BELLEVUE A41 N",
+        "ST MARTIN BELLEVUE A410",
+        "ST MARTIN DU FRESNE",
+        "ST MICHEL MAURIENNE BAR",
+        "ST MICHEL MAURIENNE ECH",
+        "ST PIERRE BELLEVILLE",
+        "ST QUENTIN FAL BARRIERE",
+        "ST QUENTIN FAL BRETELLE",
+        "ST ROMAIN SUR CHER",
+        "ST THIBAULT",
+        "STE HELENE BARRIERE",
+        "STE MARIE DE CUINES",
+        "STE MENEHOULD",
+        "SYLANS SUD",
+        "TAIN",
+        "TARARE EST FERME",
+        "TARARE EST OUVERT",
+        "TARARE OUEST",
+        "TARBES EST",
+        "TARBES OUEST",
+        "THENNELIERES",
+        "THEZE",
+        "THIERS EST",
+        "THIERS OUEST",
+        "THIVARS",
+        "THOUARCE",
+        "TIL CHATEL",
+        "TONNAY CHARENTE",
+        "TORVILLIERS",
+        "TOURNAY",
+        "TOURNUS",
+        "TULLE EST",
+        "TULLE NORD",
+        "TULLINS",
+        "URY",
+        "USSEL EST",
+        "USSEL OUEST",
+        "VAIGES",
+        "VAL DE LOING SOUPPES",
+        "VALENCE D AGEN",
+        "VALENCE NORD",
+        "VALENCE SUD",
+        "VALLEE DE L AUBE",
+        "VATRY",
+        "VERDUN",
+        "VIENNE SUD",
+        "VIERZON EST",
+        "VIERZON NORD",
+        "VILLE SOUS LA FERTE",
+        "VILLEFONTAINE",
+        "VILLEFRANCHE DE LAURAGAIS",
+        "VILLEFRANCHE NORD",
+        "VILLEFRANCHE SUR CHER",
+        "VILLEFRANCHE VILLE",
+        "VILLENEUVE DONDAGRE",
+        "VINAY",
+        "VIRIAT",
+        "VIVY SAUMUR",
+        "VOIE SACREE",
+        "VOIRON",
+        "VOREPPE BARRIERE",
+        "VOUILLE",
+        "VULAINES",
+        "VULCANIA BROMONT"
+    ],
+    "currency": "EUR",
+    "toll_description": {
+        "AIGUEBELETTE": {
+            "operator_ref": "3007",
+            "lat": "45.5768820",
+            "lon": "5.7992485",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "36675385",
+                "267138475"
+            ],
+            "ways_id": []
+        },
+        "AITON": {
+            "operator_ref": "3033",
+            "lat": "45.5559554",
+            "lon": "6.2481429",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "25631385",
+                "27087837"
+            ],
+            "ways_id": []
+        },
+        "AIX NORD": {
+            "operator_ref": "3010",
+            "lat": "45.7161491",
+            "lon": "5.9221560",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "30904133",
+                "4423736545",
+                "7190727963",
+                "7190727964",
+                "7190727965",
+                "7190727966"
+            ],
+            "ways_id": []
+        },
+        "AIX SUD": {
+            "operator_ref": "3009",
+            "lat": "45.6536260",
+            "lon": "5.9216532",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "6367206763",
+                "6367206764",
+                "6367206765",
+                "6367206766",
+                "6367206767"
+            ],
+            "ways_id": []
+        },
+        "ALLONZIER": {
+            "operator_ref": "3014",
+            "lat": "45.9897608",
+            "lon": "6.1277756",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "26085850",
+                "291392948"
+            ],
+            "ways_id": []
+        },
+        "ANNECY CENTRE": {
+            "operator_ref": "3012",
+            "lat": "45.8979211",
+            "lon": "6.0925664",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "6484553454",
+                "6484553462",
+                "7923639031",
+                "7923639037",
+                "7923639073",
+                "7923639074",
+                "7923639075",
+                "7923639076",
+                "7923639077"
+            ],
+            "ways_id": []
+        },
+        "ANNECY NORD": {
+            "operator_ref": "3013",
+            "lat": "45.9388473",
+            "lon": "6.1169789",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "4384995460",
+                "4384995461",
+                "4384995462",
+                "4560499238",
+                "5141229545",
+                "5141229547",
+                "5141229549",
+                "5141229701",
+                "7923473432",
+                "7923473433"
+            ],
+            "ways_id": []
+        },
+        "BOURGOIN": {
+            "operator_ref": "3004",
+            "lat": "45.5822626",
+            "lon": "5.3002391",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "36713429",
+                "261946952"
+            ],
+            "ways_id": []
+        },
+        "CHAMBERY NORD": {
+            "operator_ref": "3008",
+            "lat": "45.6024284",
+            "lon": "5.8867608",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "12608140",
+                "12608143",
+                "2408917631",
+                "2408917632",
+                "2408917633",
+                "2408917634",
+                "2408917635",
+                "2408917636",
+                "2408917637",
+                "2408917638",
+                "2408917639",
+                "2408917640",
+                "2408917641",
+                "2408917642",
+                "2408917643",
+                "2408917644",
+                "2408917645",
+                "2408917646",
+                "2408917647",
+                "2408917648",
+                "2408917649",
+                "2408917650",
+                "2408917651"
+            ],
+            "ways_id": []
+        },
+        "CHATUZANGE BARRIERE": {
+            "operator_ref": "3091",
+            "lat": "45.0259152",
+            "lon": "5.0969532",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "809154",
+                "810324"
+            ],
+            "ways_id": []
+        },
+        "CHESNES": {
+            "operator_ref": "3071",
+            "lat": "45.6556504",
+            "lon": "5.0979386",
+            "operator": "AREA",
+            "type": "open",
+            "node_id": [
+                "260490708",
+                "260490725"
+            ],
+            "ways_id": []
+        },
+        "CHIGNIN BARRIERE": {
+            "operator_ref": "3026",
+            "lat": "45.5126775",
+            "lon": "6.0022092",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "12610219",
+                "12610220",
+                "4460945394"
+            ],
+            "ways_id": []
+        },
+        "CHIGNIN BRETELLE": {
+            "operator_ref": "3027",
+            "lat": "45.5112648",
+            "lon": "6.0045729",
+            "operator": "AREA",
+            "type": "open",
+            "node_id": [
+                "60314514",
+                "4423761565"
+            ],
+            "ways_id": []
+        },
+        "CHIGNIN LES MARCHES": {
+            "operator_ref": "3025",
+            "lat": "45.5090272",
+            "lon": "6.0062545",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "60314536",
+                "429600582"
+            ],
+            "ways_id": []
+        },
+        "CROLLES BARRIERE": {
+            "operator_ref": "3021",
+            "lat": "45.2717703",
+            "lon": "5.9007427",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "12536314",
+                "12536316"
+            ],
+            "ways_id": []
+        },
+        "CROLLES BRIGNOUD": {
+            "operator_ref": "3022",
+            "lat": "45.2717910",
+            "lon": "5.9006900",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "27297173",
+                "27297216"
+            ],
+            "ways_id": []
+        },
+        "CURSEILLES EST OUEST A41N": {
+            "operator_ref": "15017",
+            "lat": "45.9933364",
+            "lon": "6.1280537",
+            "operator": "AREA",
+            "type": "open",
+            "node_id": [
+                "4423745204",
+                "4393680581"
+            ],
+            "ways_id": []
+        },
+        "CURSEILLES EST OUEST A410": {
+            "operator_ref": "15017",
+            "lat": "45.9933709",
+            "lon": "6.1281654",
+            "operator": "AREA",
+            "type": "open",
+            "node_id": [
+                "4423745205",
+                "4393680580"
+            ],
+            "ways_id": []
+        },
+        "HERMILLON": {
+            "operator_ref": "52",
+            "lat": "45.2989217",
+            "lon": "6.3552921",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "60305316",
+                "82502276"
+            ],
+            "ways_id": []
+        },
+        "ISLE D ABEAU CENTRE": {
+            "operator_ref": "3003",
+            "lat": "45.6051030",
+            "lon": "5.2344726",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "19224143",
+                "267571099"
+            ],
+            "ways_id": []
+        },
+        "LA BAUME D HOSTUN": {
+            "operator_ref": "3092",
+            "lat": "45.0646330",
+            "lon": "5.2080027",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "15861717",
+                "29789322"
+            ],
+            "ways_id": []
+        },
+        "LA TOUR DU PIN": {
+            "operator_ref": "3005",
+            "lat": "45.5618738",
+            "lon": "5.4288421",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "13871528",
+                "13871529"
+            ],
+            "ways_id": []
+        },
+        "LA TOUR DU PIN EST": {
+            "operator_ref": "3072",
+            "lat": "45.5571846",
+            "lon": "5.4628749",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "2166249271",
+                "2166249288"
+            ],
+            "ways_id": []
+        },
+        "LE CROZET": {
+            "operator_ref": "3041",
+            "lat": "45.0454854",
+            "lon": "5.6787994",
+            "operator": "AREA",
+            "type": "open",
+            "node_id": [
+                "565902",
+                "26660567"
+            ],
+            "ways_id": []
+        },
+        "LE TOUVET": {
+            "operator_ref": "3023",
+            "lat": "45.3474721",
+            "lon": "5.9636052",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "35340135",
+                "298941861"
+            ],
+            "ways_id": []
+        },
+        "LES ABRETS": {
+            "operator_ref": "3006",
+            "lat": "45.5713824",
+            "lon": "5.6041018",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "142940",
+                "623483095"
+            ],
+            "ways_id": []
+        },
+        "MOIRANS": {
+            "operator_ref": "3084",
+            "lat": "45.3200799",
+            "lon": "5.6075430",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "137090",
+                "258027361"
+            ],
+            "ways_id": []
+        },
+        "MOIRANS NORD": {
+            "operator_ref": "3083",
+            "lat": "45.3234894",
+            "lon": "5.6028346",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "2407621699",
+                "3177528677"
+            ],
+            "ways_id": []
+        },
+        "MONTMELIAN": {
+            "operator_ref": "3031",
+            "lat": "45.4949937",
+            "lon": "6.0575949",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "27086904",
+                "411797121"
+            ],
+            "ways_id": []
+        },
+        "PONTCHARRA": {
+            "operator_ref": "3024",
+            "lat": "45.4258536",
+            "lon": "5.9951768",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "289258237",
+                "289258239"
+            ],
+            "ways_id": []
+        },
+        "RIVES": {
+            "operator_ref": "3085",
+            "lat": "45.3840979",
+            "lon": "5.4730239",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "13871640",
+                "14638934"
+            ],
+            "ways_id": []
+        },
+        "RUMILLY": {
+            "operator_ref": "3011",
+            "lat": "45.8158454",
+            "lon": "6.0069030",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "5897323503",
+                "5897323504"
+            ],
+            "ways_id": []
+        },
+        "SAINT EXUPERY": {
+            "operator_ref": "3070",
+            "lat": "45.6727252",
+            "lon": "5.0514167",
+            "operator": "AREA",
+            "type": "open",
+            "node_id": [
+                "143224",
+                "18168123"
+            ],
+            "ways_id": []
+        },
+        "SAINT GENIX SUR GUIERS": {
+            "operator_ref": "3061",
+            "lat": "45.5727704",
+            "lon": "5.6591386",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "257784733"
+            ],
+            "ways_id": []
+        },
+        "SAINT MARCELLIN": {
+            "operator_ref": "3093",
+            "lat": "45.1382768",
+            "lon": "5.3261599",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "13871876",
+                "21561471",
+                "9247767305",
+                "9247767306"
+            ],
+            "ways_id": []
+        },
+        "SAINT PIERRE D ALBIGNY": {
+            "operator_ref": "3032Saint-Pierre-d'Albigny",
+            "lat": "45.5488777",
+            "lon": "6.1599137",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "279140830",
+                "412092432"
+            ],
+            "ways_id": []
+        },
+        "SEYNOD SUD": {
+            "operator_ref": "3020",
+            "lat": "45.8459699",
+            "lon": "6.0578384",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "773491363",
+                "773491371"
+            ],
+            "ways_id": []
+        },
+        "ST MARTIN BELLEVUE A41 N": {
+            "operator_ref": "3015",
+            "lat": "45.9897553",
+            "lon": "6.1277404",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "505680",
+                "505681"
+            ],
+            "ways_id": []
+        },
+        "ST MARTIN BELLEVUE A410": {
+            "operator_ref": "3015",
+            "lat": "45.9897553",
+            "lon": "6.1277404",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "332477934",
+                "332477935"
+            ],
+            "ways_id": []
+        },
+        "ST PIERRE BELLEVILLE": {
+            "operator_ref": "2050",
+            "lat": "45.4698120",
+            "lon": "6.2871707",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "322869087",
+                "2188188012"
+            ],
+            "ways_id": []
+        },
+        "ST QUENTIN FAL BARRIERE": {
+            "operator_ref": "3001",
+            "lat": "45.6483669",
+            "lon": "5.1200573",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "143255",
+                "143256"
+            ],
+            "ways_id": []
+        },
+        "ST QUENTIN FAL BRETELLE": {
+            "operator_ref": "3002",
+            "lat": "45.6485100",
+            "lon": "5.1201314",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "243072571",
+                "302229238"
+            ],
+            "ways_id": []
+        },
+        "STE HELENE BARRIERE": {
+            "operator_ref": "3034",
+            "lat": "45.6199212",
+            "lon": "6.3119232",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "13561190",
+                "15809877"
+            ],
+            "ways_id": []
+        },
+        "STE MARIE DE CUINES": {
+            "operator_ref": "51",
+            "lat": "45.3460087",
+            "lon": "6.3055052",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "21032868",
+                "21032874"
+            ],
+            "ways_id": []
+        },
+        "TULLINS": {
+            "operator_ref": "3095",
+            "lat": "45.2870178",
+            "lon": "5.5218684",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "137232",
+                "36715162"
+            ],
+            "ways_id": []
+        },
+        "VILLEFONTAINE": {
+            "operator_ref": "3062",
+            "lat": "45.6284645",
+            "lon": "5.1644734",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "2993275543",
+                "2993283810"
+            ],
+            "ways_id": []
+        },
+        "VINAY": {
+            "operator_ref": "3094",
+            "lat": "45.1994862",
+            "lon": "5.4194090",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "21032382",
+                "25452344"
+            ],
+            "ways_id": []
+        },
+        "VOIRON": {
+            "operator_ref": "3086",
+            "lat": "45.3475490",
+            "lon": "5.5664029",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "27174404",
+                "27174434"
+            ],
+            "ways_id": []
+        },
+        "VOREPPE BARRIERE": {
+            "operator_ref": "3087",
+            "lat": "45.2831859",
+            "lon": "5.6216873",
+            "operator": "AREA",
+            "type": "close",
+            "node_id": [
+                "126236",
+                "136834"
+            ],
+            "ways_id": []
+        },
+        "COPPONEX": {
+            "operator_ref": "15019",
+            "lat": "46.0500633",
+            "lon": "6.0809340",
+            "operator": "AREA",
+            "type": "open",
+            "node_id": [
+                "848265449",
+                "872150533"
+            ],
+            "ways_id": []
+        },
+        "ST MICHEL MAURIENNE BAR": {
+            "operator_ref": "56",
+            "lat": "45.2186960",
+            "lon": "6.4590391",
+            "operator": "SFTRF",
+            "type": "close",
+            "node_id": [
+                "5923855978",
+                "267165980",
+                "5923857300",
+                "5923857299",
+                "5923857298",
+                "5923857297",
+                "267166028",
+                "5923857301",
+                "5923857296"
+            ],
+            "ways_id": []
+        },
+        "ST MICHEL MAURIENNE ECH": {
+            "operator_ref": "54",
+            "lat": "45.2185495",
+            "lon": "6.4589619",
+            "operator": "SFTRF",
+            "type": "close",
+            "node_id": [
+                "641831295",
+                "5923855974",
+                "5923855968",
+                "5923855965",
+                "423739665"
+            ],
+            "ways_id": []
+        },
+        "CONDRIEU": {
+            "operator_ref": "10",
+            "lat": "45.5055132",
+            "lon": "4.8406636",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "21562312",
+                "635290239"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE VIENNE": {
+            "operator_ref": "Péage de Vienne",
+            "lat": "45.4761176",
+            "lon": "4.8330663",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "130368",
+                "13397120"
+            ],
+            "ways_id": []
+        },
+        "AUBERIVES": {
+            "operator_ref": "11.1",
+            "lat": "45.3898018",
+            "lon": "4.8053591",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "130221205"
+            ],
+            "ways_id": []
+        },
+        "CHANAS": {
+            "operator_ref": "12",
+            "lat": "45.3211595",
+            "lon": "4.8098547",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "16567653",
+                "28128388"
+            ],
+            "ways_id": []
+        },
+        "TAIN": {
+            "operator_ref": "13",
+            "lat": "45.0684081",
+            "lon": "4.8684133",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "13382945",
+                "15553152"
+            ],
+            "ways_id": []
+        },
+        "VALENCE NORD": {
+            "operator_ref": "14",
+            "lat": "44.9701995",
+            "lon": "4.8875504",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "656078",
+                "14961149"
+            ],
+            "ways_id": []
+        },
+        "VALENCE SUD": {
+            "operator_ref": "15",
+            "lat": "44.9049476",
+            "lon": "4.8801182",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "655887",
+                "655992"
+            ],
+            "ways_id": []
+        },
+        "LORIOL": {
+            "operator_ref": "16",
+            "lat": "44.756849",
+            "lon": "4.7912697",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "650878",
+                "26538223"
+            ],
+            "ways_id": []
+        },
+        "MONTELIMAR NORD": {
+            "operator_ref": "17",
+            "lat": "44.6689369",
+            "lon": "4.7949641",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "14798265",
+                "14798276"
+            ],
+            "ways_id": []
+        },
+        "MONTELIMAR SUD": {
+            "operator_ref": "18",
+            "lat": "44.4813385",
+            "lon": "4.7635161",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "656776",
+                "14960992"
+            ],
+            "ways_id": []
+        },
+        "BOLLENE": {
+            "operator_ref": "19",
+            "lat": "44.2902627",
+            "lon": "4.7509278",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "14798007",
+                "14798008"
+            ],
+            "ways_id": []
+        },
+        "ORANGE NORD": {
+            "operator_ref": "20",
+            "lat": "44.1642263",
+            "lon": "4.7645828",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "277451985"
+            ],
+            "ways_id": []
+        },
+        "ORANGE CENTRE": {
+            "operator_ref": "21",
+            "lat": "44.1353197",
+            "lon": "4.7956315",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "656795",
+                "448451541",
+                "8394070485",
+                "8394070486",
+                "8394070487",
+                "8394070488",
+                "8394070489",
+                "8394070490"
+            ],
+            "ways_id": []
+        },
+        "ORANGE SUD": {
+            "operator_ref": "22",
+            "lat": "44.1109575",
+            "lon": "4.8452452",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "277281847",
+                "8349621741"
+            ],
+            "ways_id": []
+        },
+        "AVIGNON NORD": {
+            "operator_ref": "23",
+            "lat": "43.9820509",
+            "lon": "4.8884123",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "154427",
+                "1674101568"
+            ],
+            "ways_id": []
+        },
+        "AVIGNON SUD": {
+            "operator_ref": "24",
+            "lat": "43.8929306",
+            "lon": "4.9158159",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "154642",
+                "21617587"
+            ],
+            "ways_id": []
+        },
+        "CAVAILLON": {
+            "operator_ref": "25",
+            "lat": "43.8199281",
+            "lon": "5.0278555",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "26404247",
+                "26404271"
+            ],
+            "ways_id": []
+        },
+        "SENAS": {
+            "operator_ref": "26",
+            "lat": "43.7420819",
+            "lon": "5.0898154",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "246011442",
+                "246213575"
+            ],
+            "ways_id": []
+        },
+        "SALON NORD": {
+            "operator_ref": "27",
+            "lat": "43.6594307",
+            "lon": "5.1025902",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "308235934"
+            ],
+            "ways_id": []
+        },
+        "SALON SUD": {
+            "operator_ref": "15",
+            "lat": "43.6269017",
+            "lon": "5.106501",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "308079844",
+                "308777762"
+            ],
+            "ways_id": []
+        },
+        "GRANS": {
+            "operator_ref": "14",
+            "lat": "43.6229698",
+            "lon": "5.0835304",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "511439486",
+                "1668541932"
+            ],
+            "ways_id": []
+        },
+        "SALON OUEST": {
+            "operator_ref": "13",
+            "lat": "43.6363295",
+            "lon": "5.0228102",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "308001966",
+                "1456366661"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE SAINT MARTIN DE CRAU": {
+            "operator_ref": "Péage de Saint-Martin-de-Crau",
+            "lat": "43.6379262",
+            "lon": "4.8578292",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1796885587",
+                "1825203802"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE LANCON": {
+            "operator_ref": "Péage de Lançon",
+            "lat": "43.5937043",
+            "lon": "5.1747436",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "26410395",
+                "26410440"
+            ],
+            "ways_id": []
+        },
+        "COUDOUX": {
+            "operator_ref": "28",
+            "lat": "43.5523405",
+            "lon": "5.2383307",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "259970703",
+                "259970749",
+                "10616130411"
+            ],
+            "ways_id": []
+        },
+        "ROQUEMAURE": {
+            "operator_ref": "22",
+            "lat": "44.0256301",
+            "lon": "4.7353923",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1674020827",
+                "1674020828"
+            ],
+            "ways_id": []
+        },
+        "REMOULINS": {
+            "operator_ref": "23",
+            "lat": "43.9373087",
+            "lon": "4.5983631",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1672388768",
+                "1672388771"
+            ],
+            "ways_id": []
+        },
+        "NIMES EST": {
+            "operator_ref": "24",
+            "lat": "43.8560961",
+            "lon": "4.420576",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "104534425",
+                "3230734317"
+            ],
+            "ways_id": []
+        },
+        "NIMES OUEST": {
+            "operator_ref": "25",
+            "lat": "43.8137306",
+            "lon": "4.3429068",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "104513274",
+                "104513419"
+            ],
+            "ways_id": []
+        },
+        "NIMES CENTRE": {
+            "operator_ref": "1",
+            "lat": "43.8074823",
+            "lon": "4.3744374",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "300685333",
+                "300688079"
+            ],
+            "ways_id": []
+        },
+        "NIMES GARONS": {
+            "operator_ref": "2",
+            "lat": "43.761307",
+            "lon": "4.4274639",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1013965167",
+                "1651976773"
+            ],
+            "ways_id": []
+        },
+        "PEAGE D ARLES": {
+            "operator_ref": "Péage d'Arles",
+            "lat": "43.690342",
+            "lon": "4.5446514",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "423746542",
+                "1652042833"
+            ],
+            "ways_id": []
+        },
+        "GALLARGUES": {
+            "operator_ref": "26",
+            "lat": "43.7229495",
+            "lon": "4.1810614",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "103579675",
+                "103585422"
+            ],
+            "ways_id": []
+        },
+        "LUNEL": {
+            "operator_ref": "27",
+            "lat": "43.7027498",
+            "lon": "4.1197187",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "102968315",
+                "102968801"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE BAILLARGUES": {
+            "operator_ref": "Péage de Baillargues",
+            "lat": "43.6708729",
+            "lon": "4.0126478",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "5555732",
+                "5555734"
+            ],
+            "ways_id": []
+        },
+        "VIENNE SUD": {
+            "operator_ref": "",
+            "lat": "45.4761176",
+            "lon": "4.8330663",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "12288199204",
+                "12752375307"
+            ],
+            "ways_id": []
+        },
+        "ORANGE": {
+            "operator_ref": "21",
+            "lat": "44.1353197",
+            "lon": "4.7956315",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "656795",
+                "448451541",
+                "8394070485",
+                "8394070486",
+                "8394070487",
+                "8394070488",
+                "8394070489",
+                "8394070490"
+            ],
+            "ways_id": []
+        },
+        "SETE": {
+            "operator_ref": "33",
+            "lat": "43.4775255",
+            "lon": "3.6851276",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "100086450",
+                "100087287"
+            ],
+            "ways_id": []
+        },
+        "AGDE PEZENAS": {
+            "operator_ref": "34",
+            "lat": "43.3740078",
+            "lon": "3.417892",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "179459179",
+                "335854857"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE BEZIERS CABRIALS": {
+            "operator_ref": "Péage de Béziers-Cabrials",
+            "lat": "43.3438596",
+            "lon": "3.2875375",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1588137485",
+                "1588137486"
+            ],
+            "ways_id": []
+        },
+        "BEZIERS OUEST": {
+            "operator_ref": "36",
+            "lat": "43.304563",
+            "lon": "3.2190641",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1676618836",
+                "1676618837"
+            ],
+            "ways_id": []
+        },
+        "NARBONNE EST": {
+            "operator_ref": "37",
+            "lat": "43.1790939",
+            "lon": "3.0348258",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1669974371",
+                "1669974392"
+            ],
+            "ways_id": []
+        },
+        "NARBONNE SUD": {
+            "operator_ref": "38",
+            "lat": "43.1645016",
+            "lon": "2.9901729",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "778662845",
+                "778662954"
+            ],
+            "ways_id": []
+        },
+        "SIGEAN": {
+            "operator_ref": "39",
+            "lat": "43.0331894",
+            "lon": "2.9561957",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "360047943",
+                "360047970"
+            ],
+            "ways_id": []
+        },
+        "LEUCATE": {
+            "operator_ref": "40",
+            "lat": "42.9389777",
+            "lon": "2.9730298",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "306479406",
+                "1997249454",
+                "3536200857",
+                "3536200860",
+                "3536200866",
+                "3536200869",
+                "3536200872",
+                "3536200879"
+            ],
+            "ways_id": []
+        },
+        "PERPIGNAN NORD": {
+            "operator_ref": "41",
+            "lat": "42.7817287",
+            "lon": "2.8973351",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "2398039583",
+                "2398039585"
+            ],
+            "ways_id": []
+        },
+        "PERPIGNAN SUD": {
+            "operator_ref": "42",
+            "lat": "42.6667471",
+            "lon": "2.8590489",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "35926132",
+                "35926646"
+            ],
+            "ways_id": []
+        },
+        "LE BOULOU SYSTEME FERME": {
+            "operator_ref": "43",
+            "lat": "42.5237027",
+            "lon": "2.8173684",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1742991342"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DU PERTHUS": {
+            "operator_ref": "Péage du Perthus",
+            "lat": "42.5277363",
+            "lon": "2.821473",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "36967326",
+                "36967365"
+            ],
+            "ways_id": []
+        },
+        "LEZIGNAN": {
+            "operator_ref": "25",
+            "lat": "43.17189",
+            "lon": "2.7411404",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "338974999",
+                "6343457269"
+            ],
+            "ways_id": []
+        },
+        "CARCASSONNE EST": {
+            "operator_ref": "24",
+            "lat": "43.2020227",
+            "lon": "2.418166",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "14790565",
+                "409788423"
+            ],
+            "ways_id": []
+        },
+        "CARCASSONNE OUEST": {
+            "operator_ref": "23",
+            "lat": "43.1998981",
+            "lon": "2.3100831",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "10471875",
+                "885163176"
+            ],
+            "ways_id": []
+        },
+        "BRAM": {
+            "operator_ref": "22",
+            "lat": "43.238934",
+            "lon": "2.0999074",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "2144776681",
+                "2442483773"
+            ],
+            "ways_id": []
+        },
+        "CASTELNAUDARY": {
+            "operator_ref": "21",
+            "lat": "43.2907822",
+            "lon": "1.946745",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "11003786",
+                "417133980"
+            ],
+            "ways_id": []
+        },
+        "VILLEFRANCHE DE LAURAGAIS": {
+            "operator_ref": "20",
+            "lat": "43.3985865",
+            "lon": "1.6962059",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1551709832"
+            ],
+            "ways_id": []
+        },
+        "NAILLOUX": {
+            "operator_ref": "1",
+            "lat": "43.3824192",
+            "lon": "1.6168325",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "247949075",
+                "247949087"
+            ],
+            "ways_id": []
+        },
+        "MAZERES SAVERDUN": {
+            "operator_ref": "2",
+            "lat": "43.2344401",
+            "lon": "1.6360077",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "991655074",
+                "991655139"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE PAMIERS": {
+            "operator_ref": "Péage de Pamiers",
+            "lat": "43.1541446",
+            "lon": "1.6158718",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "255871598",
+                "762433556"
+            ],
+            "ways_id": []
+        },
+        "MONTGISCARD": {
+            "operator_ref": "19.1",
+            "lat": "43.4608882",
+            "lon": "1.5883118",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "612786095"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE TOULOUSE SUD OUEST": {
+            "operator_ref": "Péage de Toulouse Sud Ouest",
+            "lat": "43.5453086",
+            "lon": "1.5000225",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "10467044",
+                "2887199669"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE TOULOUSE SUD EST": {
+            "operator_ref": "Péage de Toulouse Sud Est",
+            "lat": "43.5455566",
+            "lon": "1.5004396",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "9928578",
+                "381250374"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE MONTPELLIER ST JEAN": {
+            "operator_ref": "Saint-Jean-de-Védas",
+            "lat": "43.5617904",
+            "lon": "3.8301934",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "8980695",
+                "2399140585"
+            ],
+            "ways_id": []
+        },
+        "LE BOULOU": {
+            "operator_ref": "43",
+            "lat": "42.5237027",
+            "lon": "2.8173684",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1742991342"
+            ],
+            "ways_id": []
+        },
+        "L UNION": {
+            "operator_ref": "1",
+            "lat": "43.6452356",
+            "lon": "1.4979269",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "343588412",
+                "343588417"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE TOULOUSE EST": {
+            "operator_ref": "Péage-de-Toulouse Est",
+            "lat": "43.6473594",
+            "lon": "1.5077254",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "6563692",
+                "345188803"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE TOULOUSE NORD OUEST": {
+            "operator_ref": "Toulouse Nord Ouest",
+            "lat": "43.6580892",
+            "lon": "1.4271185",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "36129805",
+                "253943275"
+            ],
+            "ways_id": []
+        },
+        "SAINT JORY": {
+            "operator_ref": "11",
+            "lat": "43.7183094",
+            "lon": "1.3981013",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1452229755",
+                "1452229766"
+            ],
+            "ways_id": []
+        },
+        "EUROCENTRE": {
+            "operator_ref": "10.1",
+            "lat": "43.7649417",
+            "lon": "1.3805023",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1452208046",
+                "1452208143",
+                "4349032318",
+                "4349032319",
+                "4471741927",
+                "4471741928",
+                "4471741929",
+                "4471741930",
+                "4471741966"
+            ],
+            "ways_id": []
+        },
+        "MONTAUBAN": {
+            "operator_ref": "10",
+            "lat": "43.9287005",
+            "lon": "1.3143202",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "375649933",
+                "1124844164",
+                "7042778791",
+                "7042778792",
+                "7042778793",
+                "7042778794",
+                "7042778795",
+                "7042778796",
+                "7042778797",
+                "7042778798",
+                "7042778799",
+                "7042778800",
+                "7042778801",
+                "7042778802",
+                "7042778803",
+                "7042778804",
+                "7042778805",
+                "7042778806",
+                "7042778807",
+                "7042778808",
+                "7042778809",
+                "7042778810"
+            ],
+            "ways_id": []
+        },
+        "CASTELSARRASIN": {
+            "operator_ref": "9",
+            "lat": "44.0557632",
+            "lon": "1.097352",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "261761245",
+                "513660073",
+                "513660085"
+            ],
+            "ways_id": []
+        },
+        "VALENCE D AGEN": {
+            "operator_ref": "8",
+            "lat": "44.0641414",
+            "lon": "0.8665624",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "458881141",
+                "1451681686"
+            ],
+            "ways_id": []
+        },
+        "AGEN": {
+            "operator_ref": "7",
+            "lat": "44.1650334",
+            "lon": "0.6056288",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "253945696",
+                "1450618855"
+            ],
+            "ways_id": []
+        },
+        "AGEN OUEST": {
+            "operator_ref": "8",
+            "lat": "44.0641414",
+            "lon": "0.8665624",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "458881141",
+                "1451681686"
+            ],
+            "ways_id": []
+        },
+        "AIGUILLON": {
+            "operator_ref": "6",
+            "lat": "44.2845338",
+            "lon": "0.2699371",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "453443789",
+                "1449746827"
+            ],
+            "ways_id": []
+        },
+        "MARMANDE": {
+            "operator_ref": "5",
+            "lat": "44.4347709",
+            "lon": "0.1328803",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "288922361",
+                "1451223683"
+            ],
+            "ways_id": []
+        },
+        "LA REOLE": {
+            "operator_ref": "4",
+            "lat": "44.5114169",
+            "lon": "-0.0495015",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "288894155",
+                "1451196227"
+            ],
+            "ways_id": []
+        },
+        "LANGON": {
+            "operator_ref": "3",
+            "lat": "44.5443191",
+            "lon": "-0.2620828",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "276335332",
+                "276335747"
+            ],
+            "ways_id": []
+        },
+        "PODENSAC": {
+            "operator_ref": "2",
+            "lat": "44.6075445",
+            "lon": "-0.3668195",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "301654518"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE SAINT SELVE": {
+            "operator_ref": "Saint-Selve",
+            "lat": "44.6591839",
+            "lon": "-0.4540608",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "36130695",
+                "36133303"
+            ],
+            "ways_id": []
+        },
+        "BAZAS": {
+            "operator_ref": "1",
+            "lat": "44.4452449",
+            "lon": "-0.2423002",
+            "operator": "A’LIENOR",
+            "type": "close",
+            "node_id": [
+                "1195217379",
+                "1195217501"
+            ],
+            "ways_id": []
+        },
+        "CAPTIEUX": {
+            "operator_ref": "2",
+            "lat": "44.2860318",
+            "lon": "-0.2280667",
+            "operator": "A’LIENOR",
+            "type": "close",
+            "node_id": [
+                "1091772679"
+            ],
+            "ways_id": []
+        },
+        "ROQUEFORT": {
+            "operator_ref": "3",
+            "lat": "44.04491",
+            "lon": "-0.343255",
+            "operator": "A’LIENOR",
+            "type": "close",
+            "node_id": [
+                "1564463968",
+                "7120103697"
+            ],
+            "ways_id": []
+        },
+        "LE CALOY": {
+            "operator_ref": "4",
+            "lat": "43.9469871",
+            "lon": "-0.3939240",
+            "operator": "A’LIENOR",
+            "type": "close",
+            "node_id": [
+                "1246344270"
+            ],
+            "ways_id": []
+        },
+        "AIRE SUR ADOUR NORD": {
+            "operator_ref": "6",
+            "lat": "43.7221639",
+            "lon": "-0.2707856",
+            "operator": "A’LIENOR",
+            "type": "close",
+            "node_id": [
+                "1092685933",
+                "1285330579"
+            ],
+            "ways_id": []
+        },
+        "AIRE SUR ADOUR SUD": {
+            "operator_ref": "7",
+            "lat": "43.6645842",
+            "lon": "-0.2766787",
+            "operator": "A’LIENOR",
+            "type": "close",
+            "node_id": [
+                "1143005916",
+                "10977936133"
+            ],
+            "ways_id": []
+        },
+        "GARLIN": {
+            "operator_ref": "8",
+            "lat": "43.5652949",
+            "lon": "-0.2926501",
+            "operator": "A’LIENOR",
+            "type": "close",
+            "node_id": [
+                "1618060722",
+                "4690491293"
+            ],
+            "ways_id": []
+        },
+        "THEZE": {
+            "operator_ref": "9",
+            "lat": "43.4713749",
+            "lon": "-0.3210547",
+            "operator": "A’LIENOR",
+            "type": "close",
+            "node_id": [
+                "986537073"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE SAMES": {
+            "operator_ref": "Sames",
+            "lat": "43.5297063",
+            "lon": "-1.1868429",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "630216",
+                "2341285897"
+            ],
+            "ways_id": []
+        },
+        "PEYREHORADE": {
+            "operator_ref": "6",
+            "lat": "43.5170174",
+            "lon": "-1.103737",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "428642826",
+                "428642848"
+            ],
+            "ways_id": []
+        },
+        "SALIES": {
+            "operator_ref": "7",
+            "lat": "43.5098572",
+            "lon": "-0.9218215",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "850197729",
+                "1042852216"
+            ],
+            "ways_id": []
+        },
+        "ORTHEZ": {
+            "operator_ref": "8",
+            "lat": "43.4671974",
+            "lon": "-0.7486871",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "401910583",
+                "401910597"
+            ],
+            "ways_id": []
+        },
+        "ARTIX": {
+            "operator_ref": "9",
+            "lat": "43.3950598",
+            "lon": "-0.5511787",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "2267204259",
+                "2267204261"
+            ],
+            "ways_id": []
+        },
+        "LESCAR": {
+            "operator_ref": "9.1",
+            "lat": "43.3452483",
+            "lon": "-0.4188068",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1105868116"
+            ],
+            "ways_id": []
+        },
+        "PAU CENTRE": {
+            "operator_ref": "10",
+            "lat": "43.3304237",
+            "lon": "-0.3505117",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "309903361",
+                "309903362"
+            ],
+            "ways_id": []
+        },
+        "SOUMOULOU": {
+            "operator_ref": "11",
+            "lat": "43.2725542",
+            "lon": "-0.1999122",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "401513183",
+                "401513184"
+            ],
+            "ways_id": []
+        },
+        "TARBES OUEST": {
+            "operator_ref": "12",
+            "lat": "43.2207482",
+            "lon": "0.0236651",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "401829376",
+                "402871346"
+            ],
+            "ways_id": []
+        },
+        "TARBES EST": {
+            "operator_ref": "13",
+            "lat": "43.2137336",
+            "lon": "0.1083677",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "272505901",
+                "388295686"
+            ],
+            "ways_id": []
+        },
+        "TOURNAY": {
+            "operator_ref": "14",
+            "lat": "43.1774027",
+            "lon": "0.2399837",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "311638830",
+                "1003948981"
+            ],
+            "ways_id": []
+        },
+        "CAPVERN": {
+            "operator_ref": "15",
+            "lat": "43.1033454",
+            "lon": "0.3427227",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "410388997",
+                "457896791"
+            ],
+            "ways_id": []
+        },
+        "LANNEMEZAN": {
+            "operator_ref": "16",
+            "lat": "43.097816",
+            "lon": "0.3903233",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "457896763",
+                "2976483382"
+            ],
+            "ways_id": []
+        },
+        "MONTREJEAU": {
+            "operator_ref": "17",
+            "lat": "43.1001591",
+            "lon": "0.5953613",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "281410101",
+                "1561101896"
+            ],
+            "ways_id": []
+        },
+        "SAINT GAUDENS": {
+            "operator_ref": "18",
+            "lat": "43.1156846",
+            "lon": "0.7566067",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "277820265"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE LESTELLE": {
+            "operator_ref": "Péage de Lestelle",
+            "lat": "43.1195337",
+            "lon": "0.8947521",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "277910939",
+                "290614344"
+            ],
+            "ways_id": []
+        },
+        "GUICHE": {
+            "operator_ref": "5",
+            "lat": "43.5123235",
+            "lon": "-1.2230649",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "6367151903",
+                "6367151904"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE MURET": {
+            "operator_ref": "Péage de Muret",
+            "lat": "43.5054620",
+            "lon": "1.3520299",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "61101216",
+                "61101218"
+            ],
+            "ways_id": []
+        },
+        "LESTELLE DE SAINT MARTORY": {
+            "operator_ref": "Péage de Lestelle",
+            "lat": "43.1195337",
+            "lon": "0.8947521",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "277617392"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE BIRIATOU": {
+            "operator_ref": "A 63",
+            "lat": "43.3412455",
+            "lon": "-1.7496367",
+            "operator": "Autoroutes du Sud de la France",
+            "type": "open",
+            "node_id": [
+                "280351090",
+                "2950398495"
+            ],
+            "ways_id": []
+        },
+        "ST JEAN DE LUZ SUD": {
+            "operator_ref": "2",
+            "lat": "43.3719502",
+            "lon": "-1.6763524",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "255022590",
+                "1690642278"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE LA NEGRESSE": {
+            "operator_ref": "Péage de La Négresse",
+            "lat": "43.4491731",
+            "lon": "-1.5537438",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "1371313449",
+                "1371313451",
+                "1371313452"
+            ],
+            "ways_id": []
+        },
+        "BIARRITZ": {
+            "operator_ref": "",
+            "lat": "43.4504664",
+            "lon": "-1.5544554",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "8897755575"
+            ],
+            "ways_id": []
+        },
+        "BAYONNE SUD": {
+            "operator_ref": "5",
+            "lat": "43.4622534",
+            "lon": "-1.4984754",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "1371313435",
+                "1371313436"
+            ],
+            "ways_id": []
+        },
+        "ONDRES": {
+            "operator_ref": "7",
+            "lat": "43.5415617",
+            "lon": "-1.4355904",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "1033354786",
+                "1033354788"
+            ],
+            "ways_id": []
+        },
+        "CAPBRETON": {
+            "operator_ref": "8",
+            "lat": "43.6305539",
+            "lon": "-1.3947363",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "465501470",
+                "2406629234",
+                "5964525403"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE BENESSE MARENNE": {
+            "operator_ref": "Péage de Bénesse-Maremne",
+            "lat": "43.6240583",
+            "lon": "-1.4005755",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "465501472",
+                "1778176309"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE MONTAUBAN NORD": {
+            "operator_ref": "Péage de Montauban Nord",
+            "lat": "44.0524498",
+            "lon": "1.4101071",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "60079493",
+                "272877809",
+                "9083206948",
+                "9083206949"
+            ],
+            "ways_id": []
+        },
+        "CAUSSADE": {
+            "operator_ref": "59",
+            "lat": "44.149933",
+            "lon": "1.5156002",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "366923586",
+                "366940500"
+            ],
+            "ways_id": []
+        },
+        "CAHORS SUD": {
+            "operator_ref": "58",
+            "lat": "44.3427348",
+            "lon": "1.4940673",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "322846284"
+            ],
+            "ways_id": []
+        },
+        "CAHORS NORD": {
+            "operator_ref": "57",
+            "lat": "44.5323371",
+            "lon": "1.5063224",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "387693502",
+                "387693540"
+            ],
+            "ways_id": []
+        },
+        "LABASTIDE MURAT": {
+            "operator_ref": "56",
+            "lat": "44.6981278",
+            "lon": "1.5805783",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "249181379"
+            ],
+            "ways_id": []
+        },
+        "SOUILLAC": {
+            "operator_ref": "55",
+            "lat": "44.9006891",
+            "lon": "1.5043301",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "286851357",
+                "2155986155"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE GIGNAC": {
+            "operator_ref": "Péage de Gignac",
+            "lat": "44.9907475",
+            "lon": "1.5265818",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "60078772",
+                "378374878"
+            ],
+            "ways_id": []
+        },
+        "MARTEL": {
+            "operator_ref": "54",
+            "lat": "44.9933565",
+            "lon": "1.5314244",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "600154188",
+                "856420518"
+            ],
+            "ways_id": []
+        },
+        "MUSSIDAN EST": {
+            "operator_ref": "13.1",
+            "lat": "45.0653628",
+            "lon": "0.4297875",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "298601377",
+                "298601379",
+                "512632720",
+                "512645301"
+            ],
+            "ways_id": []
+        },
+        "MUSSIDAN SUD": {
+            "operator_ref": "13",
+            "lat": "45.0107553",
+            "lon": "0.3774855",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "257152241",
+                "504607734"
+            ],
+            "ways_id": []
+        },
+        "MONTPON MENESTEROL": {
+            "operator_ref": "12",
+            "lat": "44.9859243",
+            "lon": "0.1562632",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "458731540",
+                "1474599102"
+            ],
+            "ways_id": []
+        },
+        "COUTRAS": {
+            "operator_ref": "11",
+            "lat": "45.0120743",
+            "lon": "-0.0998393",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "332282171",
+                "504619378"
+            ],
+            "ways_id": []
+        },
+        "LIBOURNE NORD": {
+            "operator_ref": "10",
+            "lat": "44.9570612",
+            "lon": "-0.2451243",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "442086723",
+                "1474506894"
+            ],
+            "ways_id": []
+        },
+        "PEAGE D ARVEYRES": {
+            "operator_ref": "Péage d'Arveyres",
+            "lat": "44.8851487",
+            "lon": "-0.268608",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "21465992",
+                "249778842"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE THENON": {
+            "operator_ref": "Péage-de-Thénon",
+            "lat": "45.1513597",
+            "lon": "1.1675897",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "3922783426",
+                "3922783427",
+                "3922783428",
+                "3922783429"
+            ],
+            "ways_id": []
+        },
+        "LA BACHELLERIE": {
+            "operator_ref": "17",
+            "lat": "45.1480869",
+            "lon": "1.1747099",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "444247986",
+                "445832829"
+            ],
+            "ways_id": []
+        },
+        "MANSAC TERRASSON": {
+            "operator_ref": "18",
+            "lat": "45.1525541",
+            "lon": "1.3782132",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "28195303",
+                "28195335"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE TOURS CENTRE": {
+            "operator_ref": "Tours centre sorigny",
+            "lat": "47.2184528",
+            "lon": "0.6577159",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "85698610",
+                "726432887",
+                "8274123701"
+            ],
+            "ways_id": []
+        },
+        "SAINTE MAURE": {
+            "operator_ref": "25",
+            "lat": "47.1072866",
+            "lon": "0.5876617",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "894516551"
+            ],
+            "ways_id": []
+        },
+        "CHATELLERAULT NORD": {
+            "operator_ref": "26",
+            "lat": "46.8369794",
+            "lon": "0.530822",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "340395444"
+            ],
+            "ways_id": []
+        },
+        "CHATELLERAULT SUD": {
+            "operator_ref": "27",
+            "lat": "46.7786646",
+            "lon": "0.50452",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "340396503"
+            ],
+            "ways_id": []
+        },
+        "FUTUROSCOPE": {
+            "operator_ref": "28",
+            "lat": "46.6701286",
+            "lon": "0.3599572",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "270647374",
+                "2630513392"
+            ],
+            "ways_id": []
+        },
+        "POITIERS NORD": {
+            "operator_ref": "29",
+            "lat": "46.6215062",
+            "lon": "0.3437828",
+            "operator": "Vinci",
+            "type": "close",
+            "node_id": [
+                "282069502",
+                "9975149049"
+            ],
+            "ways_id": []
+        },
+        "POITIERS SUD": {
+            "operator_ref": "30",
+            "lat": "46.5489824",
+            "lon": "0.2892931",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "459173225",
+                "3634658165"
+            ],
+            "ways_id": []
+        },
+        "ST MAIXENT SOUDAN": {
+            "operator_ref": "31",
+            "lat": "46.4255262",
+            "lon": "-0.0821627",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "883346500",
+                "883347456"
+            ],
+            "ways_id": []
+        },
+        "NIORT EST": {
+            "operator_ref": "11",
+            "lat": "46.3552904",
+            "lon": "-0.331188",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "735016190",
+                "3999405516",
+                "3999405520",
+                "3999405523",
+                "3999405525",
+                "3999405529"
+            ],
+            "ways_id": []
+        },
+        "NIORT NORD": {
+            "operator_ref": "10",
+            "lat": "46.4193233",
+            "lon": "-0.3969591",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "901258167",
+                "4001139231",
+                "4001139234",
+                "4001139239"
+            ],
+            "ways_id": []
+        },
+        "NIORT OUEST": {
+            "operator_ref": "9",
+            "lat": "46.3878963",
+            "lon": "-0.6478799",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "4001140435",
+                "4001140450",
+                "4001140454",
+                "4001140460",
+                "4001140464"
+            ],
+            "ways_id": []
+        },
+        "FONTENAY CENTRE": {
+            "operator_ref": "8",
+            "lat": "46.4359963",
+            "lon": "-0.8214534",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "279217857",
+                "4001244320",
+                "4001244321",
+                "4001244322",
+                "4001244323"
+            ],
+            "ways_id": []
+        },
+        "FONTENAY OUEST": {
+            "operator_ref": "7.1",
+            "lat": "46.4646302",
+            "lon": "-0.8767346",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1335678463",
+                "2241159339",
+                "4001244342",
+                "4001244343",
+                "4001244344"
+            ],
+            "ways_id": []
+        },
+        "SAINTE HERMINE": {
+            "operator_ref": "7",
+            "lat": "46.5335213",
+            "lon": "-1.0791804",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "253951327",
+                "279217617",
+                "4001244528",
+                "4001244529",
+                "4001244530",
+                "4001244531",
+                "4001244532"
+            ],
+            "ways_id": []
+        },
+        "CHANTONNAY": {
+            "operator_ref": "6",
+            "lat": "46.6272005",
+            "lon": "-1.1544805",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "309941699",
+                "802033563",
+                "4003122683",
+                "4003122684",
+                "4003122685",
+                "7227010528"
+            ],
+            "ways_id": []
+        },
+        "LES ESSARTS": {
+            "operator_ref": "5",
+            "lat": "46.7903968",
+            "lon": "-1.1946328",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "279128148",
+                "824250288",
+                "4003306365",
+                "4003306366",
+                "4003306367",
+                "4422608089"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE LA ROCHE SUR YON": {
+            "operator_ref": "La Roche-sur-Yon",
+            "lat": "46.6725704",
+            "lon": "-1.3459591",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "3025678480",
+                "3025678481"
+            ],
+            "ways_id": []
+        },
+        "LES HERBIERS": {
+            "operator_ref": "29",
+            "lat": "46.9020192",
+            "lon": "-1.046772",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "807894118",
+                "807894416"
+            ],
+            "ways_id": []
+        },
+        "LA VERRIE": {
+            "operator_ref": "28",
+            "lat": "46.9446866",
+            "lon": "-0.9766132",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "449598015",
+                "806378596"
+            ],
+            "ways_id": []
+        },
+        "CHOLET SUD": {
+            "operator_ref": "27",
+            "lat": "47.0189982",
+            "lon": "-0.880635",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "292384163",
+                "1838205657"
+            ],
+            "ways_id": []
+        },
+        "CHOLET NORD": {
+            "operator_ref": "26",
+            "lat": "47.0833658",
+            "lon": "-0.8280595",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "292375190",
+                "3587014323"
+            ],
+            "ways_id": []
+        },
+        "CHEMILLE": {
+            "operator_ref": "25",
+            "lat": "47.2359369",
+            "lon": "-0.7276426",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "4422613638"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE BEAULIEU S LAYON": {
+            "operator_ref": "Péage-de-Beaulieu-sur-Layon",
+            "lat": "47.3263959",
+            "lon": "-0.6040156",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "267167000",
+                "274207796"
+            ],
+            "ways_id": []
+        },
+        "MONTAIGU": {
+            "operator_ref": "4",
+            "lat": "46.9594945",
+            "lon": "-1.353045",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "26589771",
+                "275329462",
+                "4003307027",
+                "4003307028",
+                "4003307029",
+                "4003307031",
+                "4003307032",
+                "4404266838"
+            ],
+            "ways_id": []
+        },
+        "AIGREFEUILLE": {
+            "operator_ref": "3",
+            "lat": "47.0692661",
+            "lon": "-1.4374016",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "3903235081",
+                "4088640522"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DU BIGNON": {
+            "operator_ref": "Péage-du-Bignon",
+            "lat": "47.114722",
+            "lon": "-1.4919985",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "25959136",
+                "25959780"
+            ],
+            "ways_id": []
+        },
+        "VOUILLE": {
+            "operator_ref": "32",
+            "lat": "46.3074932",
+            "lon": "-0.3663971",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "672506884",
+                "801745089"
+            ],
+            "ways_id": []
+        },
+        "LA ROCHELLE NIORT SUD": {
+            "operator_ref": "33",
+            "lat": "46.2441045",
+            "lon": "-0.4606127",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "277398779",
+                "5242792759",
+                "5242792767",
+                "5540214860",
+                "5540214861",
+                "5540214862",
+                "5540214863",
+                "5540214864"
+            ],
+            "ways_id": []
+        },
+        "ST JEAN D ANGELY": {
+            "operator_ref": "34",
+            "lat": "45.9628699",
+            "lon": "-0.5458975",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "309937348"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE CABARIOT": {
+            "operator_ref": "Péage-de-Cabariot",
+            "lat": "45.9439955",
+            "lon": "-0.8491667",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1767279376",
+                "1767279383"
+            ],
+            "ways_id": []
+        },
+        "SAINTES": {
+            "operator_ref": "35",
+            "lat": "45.7523174",
+            "lon": "-0.6639451",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "253948577",
+                "253948654"
+            ],
+            "ways_id": []
+        },
+        "PONS": {
+            "operator_ref": "36",
+            "lat": "45.5744618",
+            "lon": "-0.5956219",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "332272132",
+                "431442217"
+            ],
+            "ways_id": []
+        },
+        "MIRAMBEAU": {
+            "operator_ref": "37",
+            "lat": "45.3777",
+            "lon": "-0.5796224",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "494910454",
+                "494910456"
+            ],
+            "ways_id": []
+        },
+        "ST AUBIN DE BLAYE": {
+            "operator_ref": "38",
+            "lat": "45.2543461",
+            "lon": "-0.5478033",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "665051348"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE VIRSAC": {
+            "operator_ref": "Péage-de-Virsac",
+            "lat": "45.0235919",
+            "lon": "-0.4354379",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "302010360",
+                "387740859"
+            ],
+            "ways_id": []
+        },
+        "THOUARCE": {
+            "operator_ref": "24",
+            "lat": "47.3295057",
+            "lon": "-0.596352",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "6367778328"
+            ],
+            "ways_id": []
+        },
+        "TONNAY CHARENTE": {
+            "operator_ref": "33",
+            "lat": "45.9550146",
+            "lon": "-0.8811779",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "1116803661",
+                "1116803670"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE ST ARNOULT": {
+            "operator_ref": "Péage de Saint-Arnoult",
+            "lat": "48.5536289",
+            "lon": "1.9303383",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "26209736",
+                "26210039",
+                "4127019592",
+                "4127019613",
+                "8394699087"
+            ],
+            "ways_id": []
+        },
+        "ABLIS": {
+            "operator_ref": "1",
+            "lat": "48.5288128",
+            "lon": "1.8324339",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "3321275857",
+                "3321280179"
+            ],
+            "ways_id": []
+        },
+        "CHARTRES EST": {
+            "operator_ref": "2",
+            "lat": "48.4551129",
+            "lon": "1.5391447",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "264064866",
+                "1375535641",
+                "1375535646",
+                "1375535663"
+            ],
+            "ways_id": []
+        },
+        "THIVARS": {
+            "operator_ref": "3",
+            "lat": "48.3634354",
+            "lon": "1.4443260",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "254662308",
+                "1375532385",
+                "1375532386",
+                "1560431421"
+            ],
+            "ways_id": []
+        },
+        "ILLIERS COMBRAY": {
+            "operator_ref": "3.1",
+            "lat": "48.294416",
+            "lon": "1.2702437",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "4850810028",
+                "4850810029"
+            ],
+            "ways_id": []
+        },
+        "LUIGNY": {
+            "operator_ref": "4",
+            "lat": "48.2345952",
+            "lon": "1.0331397",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "197118807"
+            ],
+            "ways_id": []
+        },
+        "LA FERTE BERNARD": {
+            "operator_ref": "5",
+            "lat": "48.1499662",
+            "lon": "0.6872078",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "1679523552",
+                "1679523744",
+                "1679528040",
+                "3815563832"
+            ],
+            "ways_id": []
+        },
+        "CONNERRE": {
+            "operator_ref": "6",
+            "lat": "48.075376",
+            "lon": "0.4793078",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "8631627001",
+                "8631733684"
+            ],
+            "ways_id": []
+        },
+        "LE MANS NORD": {
+            "operator_ref": "7",
+            "lat": "48.0503760",
+            "lon": "0.1739762",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "57565041",
+                "244893345",
+                "8525739242",
+                "8525739243",
+                "8525739244",
+                "8525739245",
+                "8525739246"
+            ],
+            "ways_id": []
+        },
+        "AUVOURS": {
+            "operator_ref": "23",
+            "lat": "48.0046451",
+            "lon": "0.3124879",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "55440641",
+                "275169751"
+            ],
+            "ways_id": []
+        },
+        "PARIGNE L EVEQUE": {
+            "operator_ref": "24",
+            "lat": "47.9556467",
+            "lon": "0.3202046",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "57345005",
+                "60941644"
+            ],
+            "ways_id": []
+        },
+        "ECOMMOY": {
+            "operator_ref": "25",
+            "lat": "47.82037",
+            "lon": "0.3016977",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "282351799"
+            ],
+            "ways_id": []
+        },
+        "MONTABON": {
+            "operator_ref": "26",
+            "lat": "47.6860846",
+            "lon": "0.3714066",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "472444139"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE ST CHRISTOPHE": {
+            "operator_ref": "Péage de Tours centre Saint-Christophe",
+            "lat": "47.6382202",
+            "lon": "0.4967952",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "55149606",
+                "55394714"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DU ROUMOIS": {
+            "operator_ref": "Péage du Roumois",
+            "lat": "49.3539593",
+            "lon": "0.8350875",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "248868492",
+                "248869003"
+            ],
+            "ways_id": []
+        },
+        "BRIONNE": {
+            "operator_ref": "13",
+            "lat": "49.2420686",
+            "lon": "0.7724971",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "1265561526"
+            ],
+            "ways_id": []
+        },
+        "BERNAY": {
+            "operator_ref": "14",
+            "lat": "49.1376884",
+            "lon": "0.5780951",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "469982848"
+            ],
+            "ways_id": []
+        },
+        "BROGLIE OUEST": {
+            "operator_ref": "15",
+            "lat": "49.0344273",
+            "lon": "0.4432192",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "81055576",
+                "1042834566"
+            ],
+            "ways_id": []
+        },
+        "GACE": {
+            "operator_ref": "16",
+            "lat": "48.774355",
+            "lon": "0.3062189",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "1042826699",
+                "1042826707",
+                "3248212729",
+                "3250854437"
+            ],
+            "ways_id": []
+        },
+        "SEES": {
+            "operator_ref": "17",
+            "lat": "48.6352041",
+            "lon": "0.1871255",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "270111794",
+                "270111802",
+                "1260038730",
+                "2508032317",
+                "4357543559"
+            ],
+            "ways_id": []
+        },
+        "PEAGE D ARGENTAN": {
+            "operator_ref": "Argentan",
+            "lat": "48.6328851",
+            "lon": "0.1909656",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "268212668",
+                "268212669"
+            ],
+            "ways_id": []
+        },
+        "ALENCON NORD": {
+            "operator_ref": "18",
+            "lat": "48.4530431",
+            "lon": "0.1240957",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "28025816",
+                "5617171486"
+            ],
+            "ways_id": []
+        },
+        "ALENCON SUD": {
+            "operator_ref": "19",
+            "lat": "48.3978618",
+            "lon": "0.1046972",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "1274932342",
+                "1274932724"
+            ],
+            "ways_id": []
+        },
+        "ROUESSE FONTAINE": {
+            "operator_ref": "20",
+            "lat": "48.31154",
+            "lon": "0.1335365",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "458735366",
+                "2476554633"
+            ],
+            "ways_id": []
+        },
+        "MARESCHE": {
+            "operator_ref": "21",
+            "lat": "48.1967147",
+            "lon": "0.1688051",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "458735332",
+                "1042813884"
+            ],
+            "ways_id": []
+        },
+        "LE MANS OUEST": {
+            "operator_ref": "8",
+            "lat": "48.0217292",
+            "lon": "0.1273963",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "57018993",
+                "264386251",
+                "8458461696",
+                "8458461699",
+                "8458461702"
+            ],
+            "ways_id": []
+        },
+        "LE MANS SUD": {
+            "operator_ref": "9",
+            "lat": "47.9737203",
+            "lon": "0.0575183",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "73963126",
+                "7181036266"
+            ],
+            "ways_id": []
+        },
+        "SABLE LA FLECHE": {
+            "operator_ref": "10",
+            "lat": "47.7755032",
+            "lon": "-0.2086032",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "340097997",
+                "1716982137"
+            ],
+            "ways_id": []
+        },
+        "DURTAL": {
+            "operator_ref": "11",
+            "lat": "47.6678426",
+            "lon": "-0.2596964",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "718696359",
+                "718697029"
+            ],
+            "ways_id": []
+        },
+        "SEICHES SUR LE LOIR": {
+            "operator_ref": "12",
+            "lat": "47.5664551",
+            "lon": "-0.3279756",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "290812844",
+                "7171485717"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE CORZE": {
+            "operator_ref": "Péage de Corzé-Angers",
+            "lat": "47.5393628",
+            "lon": "-0.3410345",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "259093186",
+                "1157490221",
+                "1157490222",
+                "1157490224"
+            ],
+            "ways_id": []
+        },
+        "JOUE EN CHARNIE": {
+            "operator_ref": "1",
+            "lat": "48.0043802",
+            "lon": "-0.2173331",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "98322556",
+                "98322557"
+            ],
+            "ways_id": []
+        },
+        "VAIGES": {
+            "operator_ref": "2",
+            "lat": "48.0555468",
+            "lon": "-0.4872759",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "4690430236",
+                "4690430237",
+                "8394571417",
+                "8394571418"
+            ],
+            "ways_id": []
+        },
+        "LAVAL EST": {
+            "operator_ref": "3",
+            "lat": "48.1076995",
+            "lon": "-0.7384822",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "264788441",
+                "275173451",
+                "4876868264"
+            ],
+            "ways_id": []
+        },
+        "LAVAL OUEST": {
+            "operator_ref": "4",
+            "lat": "48.1045802",
+            "lon": "-0.8343026",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "287697090",
+                "2782616479"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE LA GRAVELLE": {
+            "operator_ref": "Péage de La Gravelle",
+            "lat": "48.0828379",
+            "lon": "-1.0276084",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "49362760",
+                "49362776"
+            ],
+            "ways_id": []
+        },
+        "BEAUFORT EN VALLEE": {
+            "operator_ref": "1",
+            "lat": "47.4681192",
+            "lon": "-0.1935225",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "1967477056",
+                "1967477187",
+                "1967477208",
+                "1967477478"
+            ],
+            "ways_id": []
+        },
+        "LONGUE": {
+            "operator_ref": "2",
+            "lat": "47.4045141",
+            "lon": "-0.1159748",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "1967766750",
+                "1967766760",
+                "1967766768",
+                "1967766796"
+            ],
+            "ways_id": []
+        },
+        "VIVY SAUMUR": {
+            "operator_ref": "3",
+            "lat": "47.310571",
+            "lon": "-0.0317123",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "249798721",
+                "482956516",
+                "12880598967",
+                "12880598968",
+                "12880598969",
+                "12880598970",
+                "12880598971"
+            ],
+            "ways_id": []
+        },
+        "BOURGUEIL": {
+            "operator_ref": "5",
+            "lat": "47.2532013",
+            "lon": "0.166591",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "101480497",
+                "297326241"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE RESTIGNE": {
+            "operator_ref": "Péage de Restigné",
+            "lat": "47.2702961",
+            "lon": "0.2538241",
+            "operator": "",
+            "type": "close",
+            "node_id": [
+                "101497372",
+                "101497519"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE VEAUCHETTE": {
+            "operator_ref": "Péage de Veauchette",
+            "lat": "45.560687",
+            "lon": "4.2418185",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "28126748",
+                "28126751"
+            ],
+            "ways_id": []
+        },
+        "MONTBRISON MONTROND": {
+            "operator_ref": "7",
+            "lat": "45.6373059",
+            "lon": "4.1960802",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "34720192",
+                "36129702"
+            ],
+            "ways_id": []
+        },
+        "FEURS": {
+            "operator_ref": "6",
+            "lat": "45.7375962",
+            "lon": "4.1862842",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "4422927258",
+                "4422927259"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE ST ROMAIN DE POPEY": {
+            "operator_ref": "Péage de Saint-Romain-de-Popey",
+            "lat": "45.8719396",
+            "lon": "4.5088342",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1707787330",
+                "4422924493"
+            ],
+            "ways_id": []
+        },
+        "TARARE EST FERME": {
+            "operator_ref": "35",
+            "lat": "45.8719026",
+            "lon": "4.5088503",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "4422924492",
+                "4422924495"
+            ],
+            "ways_id": []
+        },
+        "TARARE OUEST": {
+            "operator_ref": "34",
+            "lat": "45.8916265",
+            "lon": "4.4031281",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1204177181",
+                "5203028269"
+            ],
+            "ways_id": []
+        },
+        "BALBIGNY": {
+            "operator_ref": "33",
+            "lat": "45.8411009",
+            "lon": "4.1641534",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "1366555922",
+                "1373820400"
+            ],
+            "ways_id": []
+        },
+        "ST GERMAIN LAVAL": {
+            "operator_ref": "32",
+            "lat": "45.8609213",
+            "lon": "4.0420209",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "703160692"
+            ],
+            "ways_id": []
+        },
+        "NOIRETABLE": {
+            "operator_ref": "31",
+            "lat": "45.8493579",
+            "lon": "3.7942361",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "82222593"
+            ],
+            "ways_id": []
+        },
+        "THIERS EST": {
+            "operator_ref": "30",
+            "lat": "45.8787911",
+            "lon": "3.6248586",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "285818973",
+                "4422919911"
+            ],
+            "ways_id": []
+        },
+        "THIERS OUEST": {
+            "operator_ref": "29",
+            "lat": "45.8599682",
+            "lon": "3.5037813",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "560799932",
+                "4422919071"
+            ],
+            "ways_id": []
+        },
+        "LEZOUX": {
+            "operator_ref": "28",
+            "lat": "45.8485714",
+            "lon": "3.383616",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "285839327",
+                "295028548"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DES MARTRES D ARTIERE": {
+            "operator_ref": "Péage des Martres-d'Artière",
+            "lat": "45.8279708",
+            "lon": "3.2411609",
+            "operator": "ASF",
+            "type": "close",
+            "node_id": [
+                "2087934",
+                "28126222"
+            ],
+            "ways_id": []
+        },
+        "TARARE EST OUVERT": {
+            "operator_ref": "35",
+            "lat": "45.8763081",
+            "lon": "4.5220540",
+            "operator": "ASF",
+            "type": "open",
+            "node_id": [
+                "1400972216",
+                "1707784060"
+            ],
+            "ways_id": []
+        },
+        "MANZAT": {
+            "operator_ref": "27",
+            "lat": "45.9539605",
+            "lon": "2.9826574",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "432436227",
+                "9291141569",
+                "9291141572",
+                "9291141575",
+                "9291141583"
+            ],
+            "ways_id": []
+        },
+        "VULCANIA BROMONT": {
+            "operator_ref": "26",
+            "lat": "45.8339019",
+            "lon": "2.822617",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "4255789073"
+            ],
+            "ways_id": []
+        },
+        "ST JULIEN SANCY": {
+            "operator_ref": "25",
+            "lat": "45.6663047",
+            "lon": "2.6824524",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "288149616",
+                "444805506"
+            ],
+            "ways_id": []
+        },
+        "USSEL EST": {
+            "operator_ref": "24",
+            "lat": "45.5889363",
+            "lon": "2.4145518",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "944248712",
+                "944248772"
+            ],
+            "ways_id": []
+        },
+        "USSEL OUEST": {
+            "operator_ref": "23",
+            "lat": "45.5124063",
+            "lon": "2.2588909",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "705563120",
+                "4422912952"
+            ],
+            "ways_id": []
+        },
+        "EGLETONS": {
+            "operator_ref": "22",
+            "lat": "45.4073918",
+            "lon": "2.0211932",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "921929655"
+            ],
+            "ways_id": []
+        },
+        "TULLE EST": {
+            "operator_ref": "21",
+            "lat": "45.3181188",
+            "lon": "1.8503589",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "3922204754",
+                "3922204755"
+            ],
+            "ways_id": []
+        },
+        "TULLE NORD": {
+            "operator_ref": "20",
+            "lat": "45.3290189",
+            "lon": "1.7639661",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1125653080"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE ST GERMAIN LES VERGNES": {
+            "operator_ref": "Péage de Saint-Germain-les-Vergnes",
+            "lat": "45.2839317",
+            "lon": "1.6171681",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "28126039",
+                "28126040"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE CLERMONT": {
+            "operator_ref": "Clermont Barrière",
+            "lat": "45.8413126",
+            "lon": "3.1610281",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "2015469",
+                "26188874"
+            ],
+            "ways_id": []
+        },
+        "GERZAT": {
+            "operator_ref": "14",
+            "lat": "45.8419673",
+            "lon": "3.1608014",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "26189019",
+                "360688779",
+                "376962116",
+                "376962319"
+            ],
+            "ways_id": []
+        },
+        "RIOM": {
+            "operator_ref": "13",
+            "lat": "45.8955545",
+            "lon": "3.1481729",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "6306677688",
+                "6306677694"
+            ],
+            "ways_id": []
+        },
+        "COMBRONDE": {
+            "operator_ref": "12.1",
+            "lat": "45.9960339",
+            "lon": "3.1046691",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "2441958671",
+                "2441958683",
+                "6289699841",
+                "6311518304"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE GANNAT": {
+            "operator_ref": "Gannat",
+            "lat": "46.0980771",
+            "lon": "3.1356526",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "50771124",
+                "429833002"
+            ],
+            "ways_id": []
+        },
+        "MONTMARAULT": {
+            "operator_ref": "11",
+            "lat": "46.3276582",
+            "lon": "2.9663511",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "26265393",
+                "239563333"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE DEUX CHAISES": {
+            "operator_ref": "APRR",
+            "lat": "46.3703031",
+            "lon": "3.0276811",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "10601205061",
+                "10601205062"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE MONTLUCON": {
+            "operator_ref": "Montluçon",
+            "lat": "46.3964311",
+            "lon": "2.7112613",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "4330970608",
+                "4330970609"
+            ],
+            "ways_id": []
+        },
+        "FORET DE TRONCAIS": {
+            "operator_ref": "9",
+            "lat": "46.5064795",
+            "lon": "2.6303355",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "327506022"
+            ],
+            "ways_id": []
+        },
+        "ST AMAND MONTROND": {
+            "operator_ref": "8",
+            "lat": "46.7220021",
+            "lon": "2.4583168",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "190755700"
+            ],
+            "ways_id": []
+        },
+        "BOURGES": {
+            "operator_ref": "7",
+            "lat": "47.0448918",
+            "lon": "2.3417968",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "33148650",
+                "2095595179"
+            ],
+            "ways_id": []
+        },
+        "VIERZON EST": {
+            "operator_ref": "6",
+            "lat": "47.2118385",
+            "lon": "2.1184157",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "303191561",
+                "369043557"
+            ],
+            "ways_id": []
+        },
+        "VIERZON NORD": {
+            "operator_ref": "5",
+            "lat": "47.2438063",
+            "lon": "2.0644035",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "26265822",
+                "482593907"
+            ],
+            "ways_id": []
+        },
+        "VILLEFRANCHE SUR CHER": {
+            "operator_ref": "14",
+            "lat": "47.3245608",
+            "lon": "1.7656674",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "58917023",
+                "1902659897"
+            ],
+            "ways_id": []
+        },
+        "CHEMERY": {
+            "operator_ref": "13",
+            "lat": "47.3246739",
+            "lon": "1.5001828",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "28099229",
+                "28121110"
+            ],
+            "ways_id": []
+        },
+        "ST ROMAIN SUR CHER": {
+            "operator_ref": "12",
+            "lat": "47.3065782",
+            "lon": "1.3531066",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1405976152",
+                "1405976248"
+            ],
+            "ways_id": []
+        },
+        "BLERE": {
+            "operator_ref": "11",
+            "lat": "47.2864836",
+            "lon": "0.9844652",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "228863617",
+                "2105191531"
+            ],
+            "ways_id": []
+        },
+        "ESVRES": {
+            "operator_ref": "10",
+            "lat": "47.3071705",
+            "lon": "0.7960772",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "61275307"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE VEIGNE": {
+            "operator_ref": "Péage de Veigné",
+            "lat": "47.3120032",
+            "lon": "0.7352858",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1911871879",
+                "1911871885"
+            ],
+            "ways_id": []
+        },
+        "SALBRIS": {
+            "operator_ref": "4",
+            "lat": "47.4185485",
+            "lon": "2.025665",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "578797805",
+                "578799574"
+            ],
+            "ways_id": []
+        },
+        "LAMOTTE BEUVRON": {
+            "operator_ref": "3",
+            "lat": "47.5817361",
+            "lon": "1.9910306",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "370669859"
+            ],
+            "ways_id": []
+        },
+        "OLIVET": {
+            "operator_ref": "2",
+            "lat": "47.8408587",
+            "lon": "1.8693513",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "300994716",
+                "314081185"
+            ],
+            "ways_id": []
+        },
+        "ORLEANS CENTRE": {
+            "operator_ref": "1",
+            "lat": "47.8982384",
+            "lon": "1.8531879",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "250286697",
+                "393454821",
+                "11101216886"
+            ],
+            "ways_id": []
+        },
+        "ALLAINVILLE": {
+            "operator_ref": "11",
+            "lat": "48.456566",
+            "lon": "1.9083125",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "292944726",
+                "292944753",
+                "5702872167"
+            ],
+            "ways_id": []
+        },
+        "ALLAINES": {
+            "operator_ref": "12",
+            "lat": "48.205309",
+            "lon": "1.8459556",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "247189294",
+                "303811524"
+            ],
+            "ways_id": []
+        },
+        "ARTENAY": {
+            "operator_ref": "13",
+            "lat": "48.0841897",
+            "lon": "1.8557181",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "26228454",
+                "26228469"
+            ],
+            "ways_id": []
+        },
+        "GIDY": {
+            "operator_ref": "13.1",
+            "lat": "47.9670494",
+            "lon": "1.8515589",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "11380222931",
+                "11380222932"
+            ],
+            "ways_id": []
+        },
+        "ORLEANS NORD": {
+            "operator_ref": "14",
+            "lat": "47.9495887",
+            "lon": "1.8546514",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "26209874",
+                "26210037"
+            ],
+            "ways_id": []
+        },
+        "MEUNG SUR LOIRE": {
+            "operator_ref": "15",
+            "lat": "47.832803",
+            "lon": "1.6690019",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "303350369"
+            ],
+            "ways_id": []
+        },
+        "MER": {
+            "operator_ref": "16",
+            "lat": "47.7285632",
+            "lon": "1.5086201",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "448438837"
+            ],
+            "ways_id": []
+        },
+        "BLOIS": {
+            "operator_ref": "17",
+            "lat": "47.6215008",
+            "lon": "1.3464557",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "95914543",
+                "3722209738"
+            ],
+            "ways_id": []
+        },
+        "AMBOISE CHATEAU RENAULT": {
+            "operator_ref": "18",
+            "lat": "47.5428585",
+            "lon": "0.9848382",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "306620171",
+                "11004965800"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE MONNAIE": {
+            "operator_ref": "",
+            "lat": "47.4903389",
+            "lon": "0.8194191",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "306622478",
+                "306622595"
+            ],
+            "ways_id": []
+        },
+        "ESCRENNES": {
+            "operator_ref": "8",
+            "lat": "48.11639",
+            "lon": "2.1911176",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "461625472",
+                "3736753049"
+            ],
+            "ways_id": []
+        },
+        "AUXY": {
+            "operator_ref": "7",
+            "lat": "48.0853357",
+            "lon": "2.4727593",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1651430004",
+                "1651430019"
+            ],
+            "ways_id": []
+        },
+        "GONDREVILLE NORD": {
+            "operator_ref": "6",
+            "lat": "48.0607779",
+            "lon": "2.6676442",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "4434463568",
+                "4434463569",
+                "6392046370"
+            ],
+            "ways_id": []
+        },
+        "GONDREVILLE SUD": {
+            "operator_ref": "6",
+            "lat": "48.0607779",
+            "lon": "2.6676442",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "4434463567",
+                "4434463570",
+                "6392046377"
+            ],
+            "ways_id": []
+        },
+        "FONTENAY SUR LOING": {
+            "operator_ref": "5",
+            "lat": "48.0641618",
+            "lon": "2.7670794",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1339371506",
+                "4332104483"
+            ],
+            "ways_id": []
+        },
+        "ST HILAIRE LES ANDRESIS": {
+            "operator_ref": "4",
+            "lat": "48.0368366",
+            "lon": "3.0225587",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1264038008",
+                "1810705536"
+            ],
+            "ways_id": []
+        },
+        "SAVIGNY SUR CLAIRIS": {
+            "operator_ref": "3",
+            "lat": "48.0559454",
+            "lon": "3.0880896",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1820927791",
+                "1820927832"
+            ],
+            "ways_id": []
+        },
+        "VILLENEUVE DONDAGRE": {
+            "operator_ref": "2",
+            "lat": "48.1496404",
+            "lon": "3.1713746",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "3296768915",
+                "3296768950"
+            ],
+            "ways_id": []
+        },
+        "ST DENIS LES SENS": {
+            "operator_ref": "1",
+            "lat": "48.2369888",
+            "lon": "3.2622010",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "332248643",
+                "924440768",
+                "6134878380",
+                "6134878383",
+                "6134878384",
+                "6134879085",
+                "6134879086",
+                "6134879090"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE FLEURY EN BIERE": {
+            "operator_ref": "Péage de Fleury-en-Bière",
+            "lat": "48.4266295",
+            "lon": "2.5401807",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "35675144",
+                "1801078049",
+                "1883772392"
+            ],
+            "ways_id": []
+        },
+        "URY": {
+            "operator_ref": "14",
+            "lat": "48.338634",
+            "lon": "2.5954312",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "28870546",
+                "28870547"
+            ],
+            "ways_id": []
+        },
+        "FONTAINEBLEAU": {
+            "operator_ref": "15",
+            "lat": "48.2896884",
+            "lon": "2.6832481",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "456955619",
+                "650926914"
+            ],
+            "ways_id": []
+        },
+        "NEMOURS": {
+            "operator_ref": "16",
+            "lat": "48.2695319",
+            "lon": "2.71338",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "649150142",
+                "649587072"
+            ],
+            "ways_id": []
+        },
+        "COURTENAY": {
+            "operator_ref": "17",
+            "lat": "48.0597651",
+            "lon": "3.0952651",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "260171882",
+                "1820928798"
+            ],
+            "ways_id": []
+        },
+        "JOIGNY": {
+            "operator_ref": "18",
+            "lat": "47.9383172",
+            "lon": "3.244093",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "140090191",
+                "247389529",
+                "1430770870",
+                "1825795624"
+            ],
+            "ways_id": []
+        },
+        "AUXERRE NORD": {
+            "operator_ref": "19",
+            "lat": "47.8516154",
+            "lon": "3.5486952",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "126217",
+                "255936638"
+            ],
+            "ways_id": []
+        },
+        "AUXERRE SUD": {
+            "operator_ref": "20",
+            "lat": "47.7967621",
+            "lon": "3.6528479",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "811337384"
+            ],
+            "ways_id": []
+        },
+        "NITRY": {
+            "operator_ref": "21",
+            "lat": "47.6591113",
+            "lon": "3.8795829",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "828809344",
+                "1098856873"
+            ],
+            "ways_id": []
+        },
+        "AVALLON": {
+            "operator_ref": "22",
+            "lat": "47.5093282",
+            "lon": "3.992068",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "28868612",
+                "28868623"
+            ],
+            "ways_id": []
+        },
+        "BIERRE LES SEMUR": {
+            "operator_ref": "23",
+            "lat": "47.4365874",
+            "lon": "4.3094972",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "289537324",
+                "289537367"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE POUILLY EN AUXOIS": {
+            "operator_ref": "Péage de Pouilly-en-Auxois",
+            "lat": "47.2524848",
+            "lon": "4.5611717",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "28868663",
+                "58805387"
+            ],
+            "ways_id": []
+        },
+        "BEAUNE NORD": {
+            "operator_ref": "24",
+            "lat": "47.0419741",
+            "lon": "4.850623",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "279341406",
+                "711774392"
+            ],
+            "ways_id": []
+        },
+        "BEAUNE SUD": {
+            "operator_ref": "24.1",
+            "lat": "47.0024231",
+            "lon": "4.8547961",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "245806764",
+                "289537452",
+                "5741047101"
+            ],
+            "ways_id": []
+        },
+        "CHALON NORD": {
+            "operator_ref": "APRR",
+            "lat": "46.8304241",
+            "lon": "4.8317434",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "12171437315",
+                "12171437316"
+            ],
+            "ways_id": []
+        },
+        "CHALON CENTRE": {
+            "operator_ref": "25.2",
+            "lat": "46.8025546",
+            "lon": "4.829904",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1693318417",
+                "1693318419",
+                "2385615588",
+                "2385615592",
+                "2385615595",
+                "2385615599",
+                "2385615601",
+                "9713436538"
+            ],
+            "ways_id": []
+        },
+        "CHALON SUD": {
+            "operator_ref": "26",
+            "lat": "46.754768",
+            "lon": "4.8331365",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "289537479",
+                "720744291",
+                "2385481454",
+                "2385481455",
+                "2385481456",
+                "2385481457",
+                "2385483658",
+                "2385483659"
+            ],
+            "ways_id": []
+        },
+        "TOURNUS": {
+            "operator_ref": "27",
+            "lat": "46.5790969",
+            "lon": "4.9011715",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "211475830",
+                "258942957"
+            ],
+            "ways_id": []
+        },
+        "MACON NORD": {
+            "operator_ref": "28",
+            "lat": "46.365966",
+            "lon": "4.8393236",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "211276424",
+                "258934071"
+            ],
+            "ways_id": []
+        },
+        "MACON SUD": {
+            "operator_ref": "29",
+            "lat": "46.2830087",
+            "lon": "4.7928327",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "13380042",
+                "13380044"
+            ],
+            "ways_id": []
+        },
+        "BELLEVILLE SUR SAONE": {
+            "operator_ref": "30",
+            "lat": "46.1038175",
+            "lon": "4.7502931",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "276599460",
+                "392059515"
+            ],
+            "ways_id": []
+        },
+        "VILLEFRANCHE NORD": {
+            "operator_ref": "31.1",
+            "lat": "46.0223536",
+            "lon": "4.7220235",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "256748954",
+                "290195298"
+            ],
+            "ways_id": []
+        },
+        "VILLEFRANCHE VILLE": {
+            "operator_ref": "31.2",
+            "lat": "45.9768763",
+            "lon": "4.7347339",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "7623043929",
+                "7623043930",
+                "7623043933",
+                "7623043934",
+                "12463829779"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE VILLEFRANCHE LIMAS": {
+            "operator_ref": "Péage de Villefranche-Limas",
+            "lat": "45.9732236",
+            "lon": "4.7324254",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "2408730593",
+                "2408730611"
+            ],
+            "ways_id": []
+        },
+        "VAL DE LOING SOUPPES": {
+            "operator_ref": "17",
+            "lat": "48.1763227",
+            "lon": "2.7668025",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "35665218",
+                "35665220"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE VAL DE LOING BARRIERE": {
+            "operator_ref": "17",
+            "lat": "48.1763308",
+            "lon": "2.7668822",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "247393077",
+                "247393080"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DES EPRUNES": {
+            "operator_ref": "Péage des Eprunes",
+            "lat": "48.5891526",
+            "lon": "2.65705",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1389350279",
+                "1389350280"
+            ],
+            "ways_id": []
+        },
+        "ST GERMAIN LAXIS": {
+            "operator_ref": "15",
+            "lat": "48.5880155",
+            "lon": "2.7247238",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "690686570",
+                "1477388127"
+            ],
+            "ways_id": []
+        },
+        "CHATILLON LABORDE": {
+            "operator_ref": "16",
+            "lat": "48.5422046",
+            "lon": "2.7975037",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "131854822",
+                "261058618"
+            ],
+            "ways_id": []
+        },
+        "FORGES": {
+            "operator_ref": "17",
+            "lat": "48.4213725",
+            "lon": "2.9432973",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "323144666",
+                "324391958"
+            ],
+            "ways_id": []
+        },
+        "MAROLLES SUR SEINE": {
+            "operator_ref": "18",
+            "lat": "48.3801783",
+            "lon": "3.0203703",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "317670287",
+                "317670314"
+            ],
+            "ways_id": []
+        },
+        "VULAINES": {
+            "operator_ref": "19",
+            "lat": "48.2377942",
+            "lon": "3.6012971",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "331203148",
+                "828930660"
+            ],
+            "ways_id": []
+        },
+        "TORVILLIERS": {
+            "operator_ref": "20",
+            "lat": "48.2844446",
+            "lon": "3.965953",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "4189960633",
+                "4189960634"
+            ],
+            "ways_id": []
+        },
+        "ST THIBAULT": {
+            "operator_ref": "21",
+            "lat": "48.2233891",
+            "lon": "4.1297359",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "3089029407",
+                "3089029424"
+            ],
+            "ways_id": []
+        },
+        "MAGNANT": {
+            "operator_ref": "22",
+            "lat": "48.1791079",
+            "lon": "4.4406086",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "828894371",
+                "1665577393"
+            ],
+            "ways_id": []
+        },
+        "VILLE SOUS LA FERTE": {
+            "operator_ref": "23",
+            "lat": "48.1149682",
+            "lon": "4.7855547",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "511062430"
+            ],
+            "ways_id": []
+        },
+        "CHAUMONT SEMOUTIERS": {
+            "operator_ref": "24",
+            "lat": "48.0428105",
+            "lon": "5.0592698",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "412553203",
+                "540556952"
+            ],
+            "ways_id": []
+        },
+        "THENNELIERES": {
+            "operator_ref": "23",
+            "lat": "48.289342",
+            "lon": "4.1629475",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "502976800",
+                "1049830277"
+            ],
+            "ways_id": []
+        },
+        "CHARMONT SOUS BARBUISE": {
+            "operator_ref": "22",
+            "lat": "48.4103294",
+            "lon": "4.1438377",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "673351722",
+                "3050827007"
+            ],
+            "ways_id": []
+        },
+        "VALLEE DE L AUBE": {
+            "operator_ref": "21",
+            "lat": "48.5254684",
+            "lon": "4.1855778",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1695359055",
+                "1695359059"
+            ],
+            "ways_id": []
+        },
+        "SOMMESOUS": {
+            "operator_ref": "20",
+            "lat": "48.7298276",
+            "lon": "4.2292654",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "865277253",
+                "865277258"
+            ],
+            "ways_id": []
+        },
+        "VATRY": {
+            "operator_ref": "19",
+            "lat": "48.7676355",
+            "lon": "4.2399554",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1344207311",
+                "1344207363"
+            ],
+            "ways_id": []
+        },
+        "MONT CHOISY": {
+            "operator_ref": "18",
+            "lat": "48.910712",
+            "lon": "4.2881712",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "243198059",
+                "1575767382"
+            ],
+            "ways_id": []
+        },
+        "ST GIBRIEN": {
+            "operator_ref": "17",
+            "lat": "48.9735998",
+            "lon": "4.2886495",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "264756447",
+                "1042719181"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE REIMS EST": {
+            "operator_ref": "Péage de Reims Est",
+            "lat": "49.2115374",
+            "lon": "4.0785028",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "23217938",
+                "23217941"
+            ],
+            "ways_id": []
+        },
+        "REIMS SUD": {
+            "operator_ref": "23",
+            "lat": "49.2051715",
+            "lon": "4.0065175",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1927899111",
+                "1927899628"
+            ],
+            "ways_id": []
+        },
+        "PEAGE REIMS NORD": {
+            "operator_ref": "Péage de Reims Nord",
+            "lat": "49.2462360",
+            "lon": "3.9622758",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1520347089",
+                "1520347114"
+            ],
+            "ways_id": []
+        },
+        "REIMS OUEST": {
+            "operator_ref": "22",
+            "lat": "49.2496005",
+            "lon": "3.9558387",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1433077455",
+                "1520347094"
+            ],
+            "ways_id": []
+        },
+        "DORMANS": {
+            "operator_ref": "21",
+            "lat": "49.153751",
+            "lon": "3.7169903",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1830159108",
+                "1830159112"
+            ],
+            "ways_id": []
+        },
+        "CHATEAU THIERRY": {
+            "operator_ref": "20",
+            "lat": "49.0784022",
+            "lon": "3.3987808",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1382180500",
+                "1382180508"
+            ],
+            "ways_id": []
+        },
+        "MONTREUIL REIMS": {
+            "operator_ref": "19",
+            "lat": "49.0132565",
+            "lon": "3.1552689",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "4390079353",
+                "4390079354",
+                "4390079355",
+                "4390079356"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE MONTREUIL AUX LIONS": {
+            "operator_ref": "19",
+            "lat": "49.0096803",
+            "lon": "3.1456152",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "635884768",
+                "635884770",
+                "5702872138"
+            ],
+            "ways_id": []
+        },
+        "CHALONS LA VEUVE": {
+            "operator_ref": "24",
+            "lat": "49.0428396",
+            "lon": "4.3217468",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "30813498",
+                "1871925918",
+                "3149727734",
+                "3149752422"
+            ],
+            "ways_id": []
+        },
+        "ST ETIENNE AU TEMPLE": {
+            "operator_ref": "28",
+            "lat": "49.0334402",
+            "lon": "4.4358734",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1575874810",
+                "1575874813"
+            ],
+            "ways_id": []
+        },
+        "STE MENEHOULD": {
+            "operator_ref": "29",
+            "lat": "49.0763749",
+            "lon": "4.8837392",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "21528882",
+                "310301329"
+            ],
+            "ways_id": []
+        },
+        "CLERMONT EN ARGONNE": {
+            "operator_ref": "29.1",
+            "lat": "49.0944409",
+            "lon": "5.1017163",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "307631007",
+                "9241234240"
+            ],
+            "ways_id": []
+        },
+        "VOIE SACREE": {
+            "operator_ref": "30",
+            "lat": "49.0938355",
+            "lon": "5.2784389",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1575874816",
+                "5636803321"
+            ],
+            "ways_id": []
+        },
+        "VERDUN": {
+            "operator_ref": "31",
+            "lat": "49.1109692",
+            "lon": "5.4138552",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "230233305"
+            ],
+            "ways_id": []
+        },
+        "FRESNES EN WOEVRE": {
+            "operator_ref": "32",
+            "lat": "49.1291065",
+            "lon": "5.6212762",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1387739267",
+                "3921619586"
+            ],
+            "ways_id": []
+        },
+        "JARNY": {
+            "operator_ref": "33",
+            "lat": "49.1999154",
+            "lon": "5.9016705",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1575874809"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE BEAUMONT": {
+            "operator_ref": "Péage de Beaumont",
+            "lat": "49.1990129",
+            "lon": "5.9242368",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "30801937",
+                "150873766"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE GYE": {
+            "operator_ref": "Péage de Gye",
+            "lat": "48.6297148",
+            "lon": "5.8833117",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1482474156",
+                "1482474157"
+            ],
+            "ways_id": []
+        },
+        "COLOMBEY LES BELLES": {
+            "operator_ref": "11",
+            "lat": "48.5406483",
+            "lon": "5.9089246",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "6283553420",
+                "6283553421"
+            ],
+            "ways_id": []
+        },
+        "CHATENOIS SUD": {
+            "operator_ref": "10",
+            "lat": "48.2994713",
+            "lon": "5.8529366",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1054617575"
+            ],
+            "ways_id": []
+        },
+        "BULGNEVILLE": {
+            "operator_ref": "9",
+            "lat": "48.2157812",
+            "lon": "5.8325029",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "289635259"
+            ],
+            "ways_id": []
+        },
+        "ROBECOURT": {
+            "operator_ref": "8.1",
+            "lat": "48.1460604",
+            "lon": "5.6874369",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "613525527",
+                "613525538",
+                "659768198",
+                "659768209"
+            ],
+            "ways_id": []
+        },
+        "MONTIGNY LE ROI": {
+            "operator_ref": "8",
+            "lat": "47.997372",
+            "lon": "5.5118949",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "586530226",
+                "1054665949"
+            ],
+            "ways_id": []
+        },
+        "LANGRES NORD": {
+            "operator_ref": "7",
+            "lat": "47.9351554",
+            "lon": "5.2867691",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "243763172",
+                "1054674013"
+            ],
+            "ways_id": []
+        },
+        "LANGRES SUD": {
+            "operator_ref": "6",
+            "lat": "47.7923617",
+            "lon": "5.2262935",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1419329118",
+                "1419329124"
+            ],
+            "ways_id": []
+        },
+        "TIL CHATEL": {
+            "operator_ref": "5",
+            "lat": "47.5387434",
+            "lon": "5.1947119",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "839038429",
+                "6017249052"
+            ],
+            "ways_id": []
+        },
+        "DIJON ARC SUR TILLE": {
+            "operator_ref": "4",
+            "lat": "47.3446742",
+            "lon": "5.1593268",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "934821090",
+                "934821205"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE DIJON SUD": {
+            "operator_ref": "Péage de Dijon Sud",
+            "lat": "47.2612255",
+            "lon": "5.0333664",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "27509156",
+                "27509158",
+                "31415199"
+            ],
+            "ways_id": []
+        },
+        "NUITS ST GEORGES": {
+            "operator_ref": "1",
+            "lat": "47.1309722",
+            "lon": "4.9672925",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "57760493",
+                "279441849"
+            ],
+            "ways_id": []
+        },
+        "SEURRE": {
+            "operator_ref": "1",
+            "lat": "47.0293728",
+            "lon": "5.1702888",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1034029729",
+                "1034029730"
+            ],
+            "ways_id": []
+        },
+        "DOLE": {
+            "operator_ref": "2",
+            "lat": "47.1360589",
+            "lon": "5.5062258",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "609217653",
+                "609218048"
+            ],
+            "ways_id": []
+        },
+        "GENDREY": {
+            "operator_ref": "2.1",
+            "lat": "47.1835108",
+            "lon": "5.7088685",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "2561189904",
+                "2561189908"
+            ],
+            "ways_id": []
+        },
+        "BESANCON OUEST": {
+            "operator_ref": "3",
+            "lat": "47.2347307",
+            "lon": "5.8981115",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "343206372",
+                "343206373"
+            ],
+            "ways_id": []
+        },
+        "BESANCON NORD": {
+            "operator_ref": "4",
+            "lat": "47.2761169",
+            "lon": "5.9879716",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "317071039",
+                "1373677796"
+            ],
+            "ways_id": []
+        },
+        "BESANCON EST": {
+            "operator_ref": "4.1",
+            "lat": "47.3323071",
+            "lon": "6.1512694",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "814664691",
+                "814664757"
+            ],
+            "ways_id": []
+        },
+        "BAUME LES DAMES": {
+            "operator_ref": "5",
+            "lat": "47.3710062",
+            "lon": "6.3797317",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "341343259",
+                "370025627"
+            ],
+            "ways_id": []
+        },
+        "L ISLE SUR LE DOUBS": {
+            "operator_ref": "6",
+            "lat": "47.4125179",
+            "lon": "6.5856079",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "32699885",
+                "32699891"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE ST MAURICE": {
+            "operator_ref": "Péage de Saint-Maurice",
+            "lat": "47.4253686",
+            "lon": "6.6711249",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "13835106",
+                "36304281"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE DIJON CRIMOLOIS": {
+            "operator_ref": "Péage de Dijon-Crimolois",
+            "lat": "47.2769114",
+            "lon": "5.1379222",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "13835994",
+                "24922276"
+            ],
+            "ways_id": []
+        },
+        "SOIRANS": {
+            "operator_ref": "5",
+            "lat": "47.2053403",
+            "lon": "5.3050035",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "609200151"
+            ],
+            "ways_id": []
+        },
+        "CHOISEY": {
+            "operator_ref": "6",
+            "lat": "47.0646274",
+            "lon": "5.4468518",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "410642970",
+                "410650377"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE BERSAILLIN": {
+            "operator_ref": "Péage de Bersaillin",
+            "lat": "46.8492838",
+            "lon": "5.5745067",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "207278408",
+                "664688045"
+            ],
+            "ways_id": []
+        },
+        "ARLAY": {
+            "operator_ref": "7.1",
+            "lat": "46.7778289",
+            "lon": "5.5185989",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "4415773260"
+            ],
+            "ways_id": []
+        },
+        "BEAUREPAIRE": {
+            "operator_ref": "8",
+            "lat": "46.6664307",
+            "lon": "5.4189821",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1581498325",
+                "2199932050"
+            ],
+            "ways_id": []
+        },
+        "LE MIROIR": {
+            "operator_ref": "9",
+            "lat": "46.5474715",
+            "lon": "5.3265684",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "4415774336",
+                "4415774337"
+            ],
+            "ways_id": []
+        },
+        "BEAUPONT": {
+            "operator_ref": "10",
+            "lat": "46.4409805",
+            "lon": "5.2698552",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "727755213",
+                "2833842348"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE VAL DE SAONE": {
+            "operator_ref": "Péage Val de Saône",
+            "lat": "46.2953901",
+            "lon": "4.8978335",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "291747385",
+                "471330156"
+            ],
+            "ways_id": []
+        },
+        "MACON CENTRE": {
+            "operator_ref": "1",
+            "lat": "46.3401042",
+            "lon": "4.8472814",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1732420087",
+                "1732420093",
+                "1739757654"
+            ],
+            "ways_id": []
+        },
+        "FEILLENS": {
+            "operator_ref": "2",
+            "lat": "46.3288346",
+            "lon": "4.8824112",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "469060027"
+            ],
+            "ways_id": []
+        },
+        "REPLONGES": {
+            "operator_ref": "3",
+            "lat": "46.3007801",
+            "lon": "4.8957548",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "228876004",
+                "1597432903"
+            ],
+            "ways_id": []
+        },
+        "ST GENIS": {
+            "operator_ref": "4",
+            "lat": "46.2722265",
+            "lon": "5.0158394",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "987093311",
+                "987094003"
+            ],
+            "ways_id": []
+        },
+        "BOURG NORD": {
+            "operator_ref": "5",
+            "lat": "46.2599489",
+            "lon": "5.1669614",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "21760589",
+                "652123095"
+            ],
+            "ways_id": []
+        },
+        "VIRIAT": {
+            "operator_ref": "6",
+            "lat": "46.2357293",
+            "lon": "5.2734836",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1330238093",
+                "1330238094"
+            ],
+            "ways_id": []
+        },
+        "BOURG SUD": {
+            "operator_ref": "7",
+            "lat": "46.1456922",
+            "lon": "5.2862738",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "25946087",
+                "317802090"
+            ],
+            "ways_id": []
+        },
+        "ST MARTIN DU FRESNE": {
+            "operator_ref": "8",
+            "lat": "46.1324281",
+            "lon": "5.5415206",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "410246295"
+            ],
+            "ways_id": []
+        },
+        "SYLANS SUD": {
+            "operator_ref": "9",
+            "lat": "46.1585737",
+            "lon": "5.6483351",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "292356937",
+                "292356996"
+            ],
+            "ways_id": []
+        },
+        "BELLEGARDE": {
+            "operator_ref": "10",
+            "lat": "46.1160243",
+            "lon": "5.795008",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "2150890046",
+                "2150890048"
+            ],
+            "ways_id": []
+        },
+        "ELOISE": {
+            "operator_ref": "11",
+            "lat": "46.06516",
+            "lon": "5.8639647",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "30781582",
+                "410245598"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE VIRY": {
+            "operator_ref": "Péage de Viry",
+            "lat": "46.1200143",
+            "lon": "6.0095423",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "21700511",
+                "21700610"
+            ],
+            "ways_id": []
+        },
+        "LA CROIX CHALON": {
+            "operator_ref": "9",
+            "lat": "46.1777171",
+            "lon": "5.5590084",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "291568677",
+                "291568687"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE GROISSIAT": {
+            "operator_ref": "Groissiat",
+            "lat": "46.2237181",
+            "lon": "5.6140918",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "18267636",
+                "18267637",
+                "9247763979",
+                "9247763980",
+                "9247763981",
+                "9247763982",
+                "9247763993"
+            ],
+            "ways_id": []
+        },
+        "PONT D AIN": {
+            "operator_ref": "9",
+            "lat": "46.0481257",
+            "lon": "5.3278855",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "84428307"
+            ],
+            "ways_id": []
+        },
+        "AMBERIEU": {
+            "operator_ref": "8",
+            "lat": "45.9776792",
+            "lon": "5.3125990",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "142831",
+                "36534628"
+            ],
+            "ways_id": []
+        },
+        "PEROUGES": {
+            "operator_ref": "7",
+            "lat": "45.8607917",
+            "lon": "5.1812783",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "1374640112",
+                "1374640131"
+            ],
+            "ways_id": []
+        },
+        "BALAN": {
+            "operator_ref": "6",
+            "lat": "45.851012",
+            "lon": "5.0994272",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "25783301",
+                "774739116",
+                "2422255483",
+                "2422255492",
+                "2422255497"
+            ],
+            "ways_id": []
+        },
+        "LA BOISE MONTUEL": {
+            "operator_ref": "5.1",
+            "lat": "45.8407595",
+            "lon": "5.0469894",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "773072337",
+                "773072342"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE BEYNOST": {
+            "operator_ref": "Beynost",
+            "lat": "45.8206664",
+            "lon": "4.9939405",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "143584",
+                "21670932"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE LA COTIERE": {
+            "operator_ref": "Péage de la Côtière",
+            "lat": "45.83428",
+            "lon": "5.0314003",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "727671128",
+                "1190068311",
+                "2596549075"
+            ],
+            "ways_id": []
+        },
+        "PEAGE DE LA BOISSE": {
+            "operator_ref": "Péage de La Boisse",
+            "lat": "45.8277301",
+            "lon": "5.0326389",
+            "operator": "APRR",
+            "type": "close",
+            "node_id": [
+                "143602",
+                "18169277",
+                "1405960889"
+            ],
+            "ways_id": []
+        }
+    },
+    "networks": [
+        {
+            "network_name": "component_1",
+            "tolls": [
+                "ABLIS",
+                "ALENCON NORD",
+                "ALENCON SUD",
+                "ALLAINES",
+                "ALLAINVILLE",
+                "AMBERIEU",
+                "AMBOISE CHATEAU RENAULT",
+                "ARLAY",
+                "ARTENAY",
+                "AUVOURS",
+                "AUXERRE NORD",
+                "AUXERRE SUD",
+                "AUXY",
+                "AVALLON",
+                "BALAN",
+                "BAUME LES DAMES",
+                "BEAUFORT EN VALLEE",
+                "BEAUNE NORD",
+                "BEAUNE SUD",
+                "BEAUPONT",
+                "BEAUREPAIRE",
+                "BELLEGARDE",
+                "BELLEVILLE SUR SAONE",
+                "BERNAY",
+                "BESANCON EST",
+                "BESANCON NORD",
+                "BESANCON OUEST",
+                "BIERRE LES SEMUR",
+                "BLERE",
+                "BLOIS",
+                "BOURG NORD",
+                "BOURG SUD",
+                "BOURGES",
+                "BOURGUEIL",
+                "BRIONNE",
+                "BROGLIE OUEST",
+                "BULGNEVILLE",
+                "CHALON CENTRE",
+                "CHALON NORD",
+                "CHALON SUD",
+                "CHALONS LA VEUVE",
+                "CHARMONT SOUS BARBUISE",
+                "CHARTRES EST",
+                "CHATEAU THIERRY",
+                "CHATENOIS SUD",
+                "CHATILLON LABORDE",
+                "CHAUMONT SEMOUTIERS",
+                "CHEMERY",
+                "CHOISEY",
+                "CLERMONT EN ARGONNE",
+                "COLOMBEY LES BELLES",
+                "COMBRONDE",
+                "CONNERRE",
+                "COURTENAY",
+                "DIJON ARC SUR TILLE",
+                "DOLE",
+                "DORMANS",
+                "DURTAL",
+                "ECOMMOY",
+                "EGLETONS",
+                "ELOISE",
+                "ESCRENNES",
+                "ESVRES",
+                "FEILLENS",
+                "FONTAINEBLEAU",
+                "FONTENAY SUR LOING",
+                "FORET DE TRONCAIS",
+                "FORGES",
+                "FRESNES EN WOEVRE",
+                "GACE",
+                "GENDREY",
+                "GERZAT",
+                "GIDY",
+                "GONDREVILLE NORD",
+                "GONDREVILLE SUD",
+                "ILLIERS COMBRAY",
+                "JARNY",
+                "JOIGNY",
+                "JOUE EN CHARNIE",
+                "L ISLE SUR LE DOUBS",
+                "LA BOISE MONTUEL",
+                "LA CROIX CHALON",
+                "LA FERTE BERNARD",
+                "LAMOTTE BEUVRON",
+                "LANGRES NORD",
+                "LANGRES SUD",
+                "LAVAL EST",
+                "LAVAL OUEST",
+                "LE MANS NORD",
+                "LE MANS OUEST",
+                "LE MANS SUD",
+                "LE MIROIR",
+                "LONGUE",
+                "LUIGNY",
+                "MACON CENTRE",
+                "MACON NORD",
+                "MACON SUD",
+                "MAGNANT",
+                "MANZAT",
+                "MARESCHE",
+                "MAROLLES SUR SEINE",
+                "MER",
+                "MEUNG SUR LOIRE",
+                "MONT CHOISY",
+                "MONTABON",
+                "MONTIGNY LE ROI",
+                "MONTMARAULT",
+                "MONTREUIL REIMS",
+                "NEMOURS",
+                "NITRY",
+                "NUITS ST GEORGES",
+                "OLIVET",
+                "ORLEANS CENTRE",
+                "ORLEANS NORD",
+                "PARIGNE L EVEQUE",
+                "PEAGE D ARGENTAN",
+                "PEAGE DE BEAUMONT",
+                "PEAGE DE BERSAILLIN",
+                "PEAGE DE BEYNOST",
+                "PEAGE DE CLERMONT",
+                "PEAGE DE CORZE",
+                "PEAGE DE DEUX CHAISES",
+                "PEAGE DE DIJON CRIMOLOIS",
+                "PEAGE DE DIJON SUD",
+                "PEAGE DE FLEURY EN BIERE",
+                "PEAGE DE GANNAT",
+                "PEAGE DE GROISSIAT",
+                "PEAGE DE GYE",
+                "PEAGE DE LA BOISSE",
+                "PEAGE DE LA COTIERE",
+                "PEAGE DE LA GRAVELLE",
+                "PEAGE DE MONNAIE",
+                "PEAGE DE MONTLUCON",
+                "PEAGE DE MONTREUIL AUX LIONS",
+                "PEAGE DE POUILLY EN AUXOIS",
+                "PEAGE DE REIMS EST",
+                "PEAGE DE RESTIGNE",
+                "PEAGE DE ST ARNOULT",
+                "PEAGE DE ST CHRISTOPHE",
+                "PEAGE DE ST GERMAIN LES VERGNES",
+                "PEAGE DE ST MAURICE",
+                "PEAGE DE VAL DE LOING BARRIERE",
+                "PEAGE DE VAL DE SAONE",
+                "PEAGE DE VEIGNE",
+                "PEAGE DE VILLEFRANCHE LIMAS",
+                "PEAGE DE VIRY",
+                "PEAGE DES EPRUNES",
+                "PEAGE DU ROUMOIS",
+                "PEAGE REIMS NORD",
+                "PEROUGES",
+                "PONT D AIN",
+                "REIMS OUEST",
+                "REIMS SUD",
+                "REPLONGES",
+                "RIOM",
+                "ROBECOURT",
+                "ROUESSE FONTAINE",
+                "SABLE LA FLECHE",
+                "SALBRIS",
+                "SAVIGNY SUR CLAIRIS",
+                "SEES",
+                "SEICHES SUR LE LOIR",
+                "SEURRE",
+                "SOIRANS",
+                "SOMMESOUS",
+                "ST AMAND MONTROND",
+                "ST DENIS LES SENS",
+                "ST ETIENNE AU TEMPLE",
+                "ST GENIS",
+                "ST GERMAIN LAXIS",
+                "ST GIBRIEN",
+                "ST HILAIRE LES ANDRESIS",
+                "ST JULIEN SANCY",
+                "ST MARTIN DU FRESNE",
+                "ST ROMAIN SUR CHER",
+                "ST THIBAULT",
+                "STE MENEHOULD",
+                "SYLANS SUD",
+                "THENNELIERES",
+                "THIVARS",
+                "TIL CHATEL",
+                "TORVILLIERS",
+                "TOURNUS",
+                "TULLE EST",
+                "TULLE NORD",
+                "URY",
+                "USSEL EST",
+                "USSEL OUEST",
+                "VAIGES",
+                "VAL DE LOING SOUPPES",
+                "VALLEE DE L AUBE",
+                "VATRY",
+                "VERDUN",
+                "VIERZON EST",
+                "VIERZON NORD",
+                "VILLE SOUS LA FERTE",
+                "VILLEFRANCHE NORD",
+                "VILLEFRANCHE SUR CHER",
+                "VILLEFRANCHE VILLE",
+                "VILLENEUVE DONDAGRE",
+                "VIRIAT",
+                "VIVY SAUMUR",
+                "VOIE SACREE",
+                "VULAINES",
+                "VULCANIA BROMONT"
+            ]
+        },
+        {
+            "network_name": "component_2",
+            "tolls": [
+                "AGDE PEZENAS",
+                "AUBERIVES",
+                "AVIGNON NORD",
+                "AVIGNON SUD",
+                "BEZIERS OUEST",
+                "BOLLENE",
+                "BRAM",
+                "CARCASSONNE EST",
+                "CARCASSONNE OUEST",
+                "CASTELNAUDARY",
+                "CAVAILLON",
+                "CHANAS",
+                "GALLARGUES",
+                "GRANS",
+                "LE BOULOU",
+                "LE BOULOU SYSTEME FERME",
+                "LEUCATE",
+                "LEZIGNAN",
+                "LORIOL",
+                "LUNEL",
+                "MAZERES SAVERDUN",
+                "MONTELIMAR NORD",
+                "MONTELIMAR SUD",
+                "MONTGISCARD",
+                "NAILLOUX",
+                "NARBONNE EST",
+                "NARBONNE SUD",
+                "NIMES CENTRE",
+                "NIMES EST",
+                "NIMES GARONS",
+                "NIMES OUEST",
+                "ORANGE",
+                "ORANGE CENTRE",
+                "ORANGE NORD",
+                "ORANGE SUD",
+                "PEAGE D ARLES",
+                "PEAGE DE BAILLARGUES",
+                "PEAGE DE BEZIERS CABRIALS",
+                "PEAGE DE LANCON",
+                "PEAGE DE MONTPELLIER ST JEAN",
+                "PEAGE DE PAMIERS",
+                "PEAGE DE SAINT MARTIN DE CRAU",
+                "PEAGE DE TOULOUSE SUD EST",
+                "PEAGE DE TOULOUSE SUD OUEST",
+                "PEAGE DE VIENNE",
+                "PEAGE DU PERTHUS",
+                "PERPIGNAN NORD",
+                "PERPIGNAN SUD",
+                "REMOULINS",
+                "ROQUEMAURE",
+                "SALON NORD",
+                "SALON OUEST",
+                "SALON SUD",
+                "SENAS",
+                "SETE",
+                "SIGEAN",
+                "TAIN",
+                "VALENCE NORD",
+                "VALENCE SUD",
+                "VILLEFRANCHE DE LAURAGAIS"
+            ]
+        },
+        {
+            "network_name": "component_3",
+            "tolls": [
+                "AGEN",
+                "AGEN OUEST",
+                "AIGUILLON",
+                "AIRE SUR ADOUR NORD",
+                "AIRE SUR ADOUR SUD",
+                "ARTIX",
+                "BAZAS",
+                "CAPTIEUX",
+                "CAPVERN",
+                "CASTELSARRASIN",
+                "EUROCENTRE",
+                "GARLIN",
+                "LA REOLE",
+                "LANGON",
+                "LANNEMEZAN",
+                "LE CALOY",
+                "LESCAR",
+                "MARMANDE",
+                "MONTAUBAN",
+                "MONTREJEAU",
+                "ORTHEZ",
+                "PAU CENTRE",
+                "PEAGE DE LESTELLE",
+                "PEAGE DE SAINT SELVE",
+                "PEAGE DE SAMES",
+                "PEAGE DE TOULOUSE NORD OUEST",
+                "PEYREHORADE",
+                "PODENSAC",
+                "ROQUEFORT",
+                "SAINT GAUDENS",
+                "SAINT JORY",
+                "SALIES",
+                "SOUMOULOU",
+                "TARBES EST",
+                "TARBES OUEST",
+                "THEZE",
+                "TOURNAY",
+                "VALENCE D AGEN"
+            ]
+        },
+        {
+            "network_name": "component_4",
+            "tolls": [
+                "AIGREFEUILLE",
+                "CHANTONNAY",
+                "CHATELLERAULT NORD",
+                "CHATELLERAULT SUD",
+                "CHEMILLE",
+                "CHOLET NORD",
+                "CHOLET SUD",
+                "FONTENAY CENTRE",
+                "FONTENAY OUEST",
+                "FUTUROSCOPE",
+                "LA ROCHELLE NIORT SUD",
+                "LA VERRIE",
+                "LES ESSARTS",
+                "LES HERBIERS",
+                "MIRAMBEAU",
+                "MONTAIGU",
+                "NIORT EST",
+                "NIORT NORD",
+                "NIORT OUEST",
+                "PEAGE DE BEAULIEU S LAYON",
+                "PEAGE DE CABARIOT",
+                "PEAGE DE LA ROCHE SUR YON",
+                "PEAGE DE TOURS CENTRE",
+                "PEAGE DE VIRSAC",
+                "PEAGE DU BIGNON",
+                "POITIERS NORD",
+                "POITIERS SUD",
+                "PONS",
+                "SAINTE HERMINE",
+                "SAINTE MAURE",
+                "SAINTES",
+                "ST AUBIN DE BLAYE",
+                "ST JEAN D ANGELY",
+                "ST MAIXENT SOUDAN",
+                "VOUILLE"
+            ]
+        },
+        {
+            "network_name": "component_5",
+            "tolls": [
+                "AIGUEBELETTE",
+                "AIX NORD",
+                "AIX SUD",
+                "ALLONZIER",
+                "ANNECY CENTRE",
+                "ANNECY NORD",
+                "BOURGOIN",
+                "CHAMBERY NORD",
+                "CHATUZANGE BARRIERE",
+                "ISLE D ABEAU CENTRE",
+                "LA BAUME D HOSTUN",
+                "LA TOUR DU PIN",
+                "LA TOUR DU PIN EST",
+                "LES ABRETS",
+                "MOIRANS",
+                "MOIRANS NORD",
+                "RIVES",
+                "RUMILLY",
+                "SAINT GENIX SUR GUIERS",
+                "SAINT MARCELLIN",
+                "SEYNOD SUD",
+                "ST MARTIN BELLEVUE A41 N",
+                "ST MARTIN BELLEVUE A410",
+                "ST QUENTIN FAL BARRIERE",
+                "ST QUENTIN FAL BRETELLE",
+                "TULLINS",
+                "VILLEFONTAINE",
+                "VINAY",
+                "VOIRON",
+                "VOREPPE BARRIERE"
+            ]
+        },
+        {
+            "network_name": "component_6",
+            "tolls": [
+                "AITON",
+                "CHIGNIN BARRIERE",
+                "CHIGNIN LES MARCHES",
+                "CROLLES BARRIERE",
+                "CROLLES BRIGNOUD",
+                "HERMILLON",
+                "LE TOUVET",
+                "MONTMELIAN",
+                "PONTCHARRA",
+                "SAINT PIERRE D ALBIGNY",
+                "ST MICHEL MAURIENNE BAR",
+                "ST MICHEL MAURIENNE ECH",
+                "ST PIERRE BELLEVILLE",
+                "STE HELENE BARRIERE",
+                "STE MARIE DE CUINES"
+            ]
+        },
+        {
+            "network_name": "component_7",
+            "tolls": [
+                "BALBIGNY",
+                "FEURS",
+                "LEZOUX",
+                "MONTBRISON MONTROND",
+                "NOIRETABLE",
+                "PEAGE DE ST ROMAIN DE POPEY",
+                "PEAGE DE VEAUCHETTE",
+                "PEAGE DES MARTRES D ARTIERE",
+                "ST GERMAIN LAVAL",
+                "TARARE EST FERME",
+                "TARARE OUEST",
+                "THIERS EST",
+                "THIERS OUEST"
+            ]
+        },
+        {
+            "network_name": "component_8",
+            "tolls": [
+                "CAHORS NORD",
+                "CAHORS SUD",
+                "CAUSSADE",
+                "LABASTIDE MURAT",
+                "PEAGE DE GIGNAC",
+                "PEAGE DE MONTAUBAN NORD",
+                "SOUILLAC"
+            ]
+        },
+        {
+            "network_name": "component_9",
+            "tolls": [
+                "COUTRAS",
+                "LIBOURNE NORD",
+                "MONTPON MENESTEROL",
+                "MUSSIDAN EST",
+                "MUSSIDAN SUD",
+                "PEAGE D ARVEYRES"
+            ]
+        }
+    ]
+}

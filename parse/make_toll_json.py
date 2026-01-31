@@ -1,6 +1,8 @@
-
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
+# This file is part of TollData - Open French Highway Toll Database
 """
 Build a toll network JSON from three CSVs and validate consistency.
 
@@ -21,6 +23,11 @@ Output JSON structure:
     "date": "DD/MM/YYYY",
     "version": "<version>",
     "name": "<name>",
+    "license": {
+        "data": "ODbL-1.0",
+        "url": "https://opendatacommons.org/licenses/odbl/1-0/"
+    },
+    "copyright": "(c) 2025-2026 Louis TRIOULEYRE-ROBERJOT",
     "list_of_operator": [...],
     "list_of_toll": [...],
     "currency": "<currency>",
@@ -74,6 +81,7 @@ Usage:
       --version 1.0 --name price_format --currency EUR
 
 """
+
 import argparse
 import ast
 import csv
@@ -84,8 +92,10 @@ import os
 import sys
 from collections import defaultdict, deque
 
+
 def _strip(s):
     return s.strip() if isinstance(s, str) else s
+
 
 def _as_list_from_brackets(s):
     """Parse a bracketed list like '[1, 2, 3]' into a list of strings. Empty/None -> []."""
@@ -105,6 +115,7 @@ def _as_list_from_brackets(s):
             return []
         return [x.strip() for x in s2.split(",")]
 
+
 def _to_float(value):
     """Accept both '3.5' and '3,5', return float. Empty -> None. Raise on bad format."""
     if value is None:
@@ -118,9 +129,12 @@ def _to_float(value):
     s = s.replace(",", ".")
     return float(s)
 
+
 def _to_str_number(value):
     """Serialize a float as a compact string, without trailing zeros (e.g., 3.5 -> '3.5', 5.0 -> '5')."""
-    if value is None or (isinstance(value, float) and (math.isnan(value) or math.isinf(value))):
+    if value is None or (
+        isinstance(value, float) and (math.isnan(value) or math.isinf(value))
+    ):
         return None
     if isinstance(value, str):
         return value
@@ -129,6 +143,7 @@ def _to_str_number(value):
     # float
     s = f"{value:.10f}".rstrip("0").rstrip(".")
     return s if s else "0"
+
 
 def read_toll_info(path):
     info = {}
@@ -153,32 +168,43 @@ def read_toll_info(path):
                 operators.add(rec["operator"])
     return info, sorted(operators)
 
+
 def read_price_close(path):
     edges = []  # list of dicts: {from, to, distance, prices{class_1..class_5}}
     errors = []
     with open(path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter=";")
-        required = ["name_from", "name_to", "distance", "price1", "price2", "price3", "price4", "price5"]
+        required = [
+            "name_from",
+            "name_to",
+            "distance",
+            "price1",
+            "price2",
+            "price3",
+            "price4",
+            "price5",
+        ]
         missing = [c for c in required if c not in reader.fieldnames]
         if missing:
             errors.append(f"[close] Colonnes manquantes: {missing}")
             return edges, errors
         for i, row in enumerate(reader, start=2):
             frm = _strip(row["name_from"])
-            to  = _strip(row["name_to"])
+            to = _strip(row["name_to"])
             try:
                 dist = _to_float(row["distance"])
-                p1 = _to_float(row["price1"]); p2 = _to_float(row["price2"]); p3 = _to_float(row["price3"])
-                p4 = _to_float(row["price4"]); p5 = _to_float(row["price5"])
+                p1 = _to_float(row["price1"])
+                p2 = _to_float(row["price2"])
+                p3 = _to_float(row["price3"])
+                p4 = _to_float(row["price4"])
+                p5 = _to_float(row["price5"])
             except Exception as ex:
                 errors.append(f"[close] Ligne {i}: erreur de parsing numérique ({ex}).")
                 continue
             if not frm or not to:
                 errors.append(f"[close] Ligne {i}: name_from/name_to manquant.")
                 continue
-            if dist is None:
-                errors.append(f"[close] Ligne {i}: distance manquante.")
-                continue
+            # Distance manquante est acceptée (sera None)
             prices = {
                 "class_1": _to_str_number(p1),
                 "class_2": _to_str_number(p2),
@@ -186,20 +212,24 @@ def read_price_close(path):
                 "class_4": _to_str_number(p4),
                 "class_5": _to_str_number(p5),
             }
-            edges.append({
-                "from": frm,
-                "to": to,
-                "distance": dist,
-                "price": prices
-            })
+            edges.append({"from": frm, "to": to, "distance": dist, "price": prices})
     return edges, errors
+
 
 def read_price_open(path):
     rows = {}  # name -> {distance, price{class_1..class_5}}
     errors = []
     with open(path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter=";")
-        required = ["name", "distance", "price1", "price2", "price3", "price4", "price5"]
+        required = [
+            "name",
+            "distance",
+            "price1",
+            "price2",
+            "price3",
+            "price4",
+            "price5",
+        ]
         missing = [c for c in required if c not in reader.fieldnames]
         if missing:
             errors.append(f"[open] Colonnes manquantes: {missing}")
@@ -211,14 +241,15 @@ def read_price_open(path):
                 continue
             try:
                 dist = _to_float(row["distance"])
-                p1 = _to_float(row["price1"]); p2 = _to_float(row["price2"]); p3 = _to_float(row["price3"])
-                p4 = _to_float(row["price4"]); p5 = _to_float(row["price5"])
+                p1 = _to_float(row["price1"])
+                p2 = _to_float(row["price2"])
+                p3 = _to_float(row["price3"])
+                p4 = _to_float(row["price4"])
+                p5 = _to_float(row["price5"])
             except Exception as ex:
                 errors.append(f"[open] Ligne {i}: erreur de parsing numérique ({ex}).")
                 continue
-            if dist is None:
-                errors.append(f"[open] Ligne {i}: distance manquante.")
-                continue
+            # Distance manquante est acceptée (sera None)
             rows[name] = {
                 "distance": dist,
                 "price": {
@@ -227,9 +258,10 @@ def read_price_open(path):
                     "class_3": _to_str_number(p3),
                     "class_4": _to_str_number(p4),
                     "class_5": _to_str_number(p5),
-                }
+                },
             }
     return rows, errors
+
 
 def validate_cross(info, close_edges, open_rows):
     errors = []
@@ -246,7 +278,9 @@ def validate_cross(info, close_edges, open_rows):
                 errors.append(f"[close] Nom inconnu dans toll_info: '{nm}'")
             else:
                 if type_by_name[nm] != "close":
-                    errors.append(f"[close] Type attendu 'close' pour '{nm}', trouvé '{type_by_name[nm]}'")
+                    errors.append(
+                        f"[close] Type attendu 'close' pour '{nm}', trouvé '{type_by_name[nm]}'"
+                    )
 
     # Validate open
     for nm in open_rows.keys():
@@ -254,9 +288,12 @@ def validate_cross(info, close_edges, open_rows):
             errors.append(f"[open] Nom inconnu dans toll_info: '{nm}'")
         else:
             if type_by_name[nm] != "open":
-                errors.append(f"[open] Type attendu 'open' pour '{nm}', trouvé '{type_by_name[nm]}'")
+                errors.append(
+                    f"[open] Type attendu 'open' pour '{nm}', trouvé '{type_by_name[nm]}'"
+                )
 
     return errors, warnings
+
 
 def connected_components(nodes, edges):
     """Undirected graph components using close edges (connections exist if an edge in either direction is present)."""
@@ -284,10 +321,13 @@ def connected_components(nodes, edges):
         comps.append(sorted(cur))
     return comps
 
+
 def build_networks_from_close(close_edges):
     """Return list of components; each with tolls and directional connection mapping"""
     # Nodes involved in close edges only
-    nodes = sorted(set([e["from"] for e in close_edges]) | set([e["to"] for e in close_edges]))
+    nodes = sorted(
+        set([e["from"] for e in close_edges]) | set([e["to"] for e in close_edges])
+    )
     comps = connected_components(nodes, close_edges)
 
     # Map to index for naming
@@ -308,20 +348,25 @@ def build_networks_from_close(close_edges):
                 if to not in comp:
                     continue
                 outs[to] = {
-                    "distance": _to_str_number(e["distance"]),
-                    "price": e["price"]
+                    "distance": _to_str_number(e["distance"])
+                    if e["distance"] is not None
+                    else "",
+                    "price": e["price"],
                 }
             if outs:
                 connection[frm] = outs
             else:
                 # still include node with empty dict to be explicit
                 connection[frm] = {}
-        networks.append({
-            "network_name": f"component_{idx}",
-            "tolls": comp,
-            "connection": connection
-        })
+        networks.append(
+            {
+                "network_name": f"component_{idx}",
+                "tolls": comp,
+                "connection": connection,
+            }
+        )
     return networks
+
 
 def build_toll_description(info):
     out = {}
@@ -333,9 +378,10 @@ def build_toll_description(info):
             "operator": rec.get("operator") or "",
             "type": rec.get("type") or "",
             "node_id": rec.get("node_id") or [],
-            "ways_id": rec.get("ways_id") or []
+            "ways_id": rec.get("ways_id") or [],
         }
     return out
+
 
 def main():
     ap = argparse.ArgumentParser(description="Validate toll CSVs and build JSON.")
@@ -377,8 +423,10 @@ def main():
     open_toll_price = {}
     for name, rec in open_rows.items():
         open_toll_price[name] = {
-            "distance": _to_str_number(rec["distance"]),
-            "price": {k: (v if v is not None else "") for k, v in rec["price"].items()}
+            "distance": _to_str_number(rec["distance"])
+            if rec["distance"] is not None
+            else "",
+            "price": {k: (v if v is not None else "") for k, v in rec["price"].items()},
         }
 
     # Compose final JSON
@@ -386,6 +434,11 @@ def main():
         "date": today,
         "version": args.version,
         "name": args.name,
+        "license": {
+            "data": "ODbL-1.0",
+            "url": "https://opendatacommons.org/licenses/odbl/1-0/",
+        },
+        "copyright": "(c) 2025-2026 Louis TRIOULEYRE-ROBERJOT",
         "list_of_operator": operators,
         "list_of_toll": list_of_toll,
         "currency": args.currency,
@@ -403,6 +456,7 @@ def main():
     print(f"- Nombre de péages: {len(list_of_toll)}")
     print(f"- Nombre de réseaux (composantes connexes): {len(networks)}")
     print(f"- Opérateurs détectés: {', '.join(operators) if operators else '(aucun)'}")
+
 
 if __name__ == "__main__":
     main()

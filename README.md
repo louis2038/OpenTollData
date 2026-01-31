@@ -1,3 +1,19 @@
+# TollData - Open French Highway Toll Database
+
+---
+
+## License
+
+This project uses a **dual-licensing model**:
+
+| Type | License | File |
+|------|---------|------|
+| **Code** (Python scripts) | [AGPL-3.0-or-later](LICENSE) | `LICENSE` |
+| **Data** (CSV, JSON, TXT) | [ODbL-1.0](LICENSE-DATA) | `LICENSE-DATA` |
+
+See [NOTICE.md](NOTICE.md) for detailed attribution and usage information.
+
+---
 
 # Context
 
@@ -24,10 +40,10 @@ Data processing status by operator:
 
 **Completed:**
 - AREA
-- ASF (page 1)
+- ASF
 
 **In Progress:**
-- ASF
+- Cofiroute
 
 # JSON Data Format
 
@@ -324,4 +340,3 @@ make_by_way_with_json_price_and_overpass.py
 ```
 
 It outputs a CSV that can then be used to enrich a routing engine with cost estimates.
-
