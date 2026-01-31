@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
+# This file is part of TollData - Open French Highway Toll Database
 """
 Convertisseur PDF -> PNG simple.
 

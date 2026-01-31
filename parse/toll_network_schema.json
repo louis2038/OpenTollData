@@ -41,7 +41,9 @@
       "type": "array",
       "description": "List of all toll names",
       "items": {
-        "type": "string"
+        "type": "string",
+        "pattern": "^[A-Z0-9 _-]+$",
+        "description": "Toll name: uppercase ASCII letters, digits, spaces, underscores, and hyphens"
       },
       "uniqueItems": true
     },
@@ -74,11 +76,11 @@
             "type": "object",
             "description": "Directional connections between tolls",
             "patternProperties": {
-              "^.*$": {
+              "^[A-Z0-9 _-]+$": {
                 "type": "object",
                 "description": "Connections from a specific toll",
                 "patternProperties": {
-                  "^.*$": {
+                  "^[A-Z0-9 _-]+$": {
                     "$ref": "#/definitions/edge"
                   }
                 },
@@ -95,16 +97,10 @@
       "type": "object",
       "description": "Detailed information about each toll",
       "patternProperties": {
-        "^.*$": {
+        "^[A-Z0-9 _-]+$": {
           "type": "object",
           "required": [
-            "operator_ref",
-            "lat",
-            "lon",
-            "operator",
-            "type",
-            "node_id",
-            "ways_id"
+            "type"
           ],
           "properties": {
             "operator_ref": {
@@ -130,16 +126,18 @@
             },
             "node_id": {
               "type": "array",
-              "description": "OSM node IDs for toll booths",
+              "description": "OSM node IDs for toll booths (at least one of node_id or ways_id required)",
               "items": {
-                "type": "string"
+                "type": "string",
+                "pattern": "^[0-9]+$"
               }
             },
             "ways_id": {
               "type": "array",
-              "description": "OSM way IDs for toll booths",
+              "description": "OSM way IDs for toll booths (at least one of node_id or ways_id required)",
               "items": {
-                "type": "string"
+                "type": "string",
+                "pattern": "^[0-9]+$"
               }
             }
           },
@@ -152,7 +150,7 @@
       "type": "object",
       "description": "Pricing for open (flat rate) tolls",
       "patternProperties": {
-        "^.*$": {
+        "^[A-Z0-9 _-]+$": {
           "$ref": "#/definitions/edge"
         }
       },
@@ -163,12 +161,12 @@
   "definitions": {
     "edge": {
       "type": "object",
-      "required": ["distance", "price"],
+      "required": ["price"],
       "properties": {
         "distance": {
           "type": "string",
-          "pattern": "^\\d+(\\.\\d+)?$",
-          "description": "Distance in kilometers"
+          "pattern": "^(\\d+(\\.\\d+)?)?$",
+          "description": "Distance in kilometers (optional, can be empty string)"
         },
         "price": {
           "$ref": "#/definitions/priceClasses"
@@ -178,33 +176,33 @@
     },
     "priceClasses": {
       "type": "object",
-      "description": "Prices for different vehicle classes",
+      "description": "Prices for different vehicle classes (all required)",
       "required": ["class_1", "class_2", "class_3", "class_4", "class_5"],
       "properties": {
         "class_1": {
-          "type": ["string", "null"],
-          "pattern": "^(\\d+(\\.\\d+)?)?$",
-          "description": "Price for vehicle class 1 (light vehicles)"
+          "type": "string",
+          "pattern": "^\\d+(\\.\\d+)?$",
+          "description": "Price for vehicle class 1 (light vehicles) - required"
         },
         "class_2": {
-          "type": ["string", "null"],
-          "pattern": "^(\\d+(\\.\\d+)?)?$",
-          "description": "Price for vehicle class 2"
+          "type": "string",
+          "pattern": "^\\d+(\\.\\d+)?$",
+          "description": "Price for vehicle class 2 - required"
         },
         "class_3": {
-          "type": ["string", "null"],
-          "pattern": "^(\\d+(\\.\\d+)?)?$",
-          "description": "Price for vehicle class 3"
+          "type": "string",
+          "pattern": "^\\d+(\\.\\d+)?$",
+          "description": "Price for vehicle class 3 - required"
         },
         "class_4": {
-          "type": ["string", "null"],
-          "pattern": "^(\\d+(\\.\\d+)?)?$",
-          "description": "Price for vehicle class 4"
+          "type": "string",
+          "pattern": "^\\d+(\\.\\d+)?$",
+          "description": "Price for vehicle class 4 - required"
         },
         "class_5": {
-          "type": ["string", "null"],
-          "pattern": "^(\\d+(\\.\\d+)?)?$",
-          "description": "Price for vehicle class 5 (heavy vehicles)"
+          "type": "string",
+          "pattern": "^\\d+(\\.\\d+)?$",
+          "description": "Price for vehicle class 5 (heavy vehicles) - required"
         }
       },
       "additionalProperties": false

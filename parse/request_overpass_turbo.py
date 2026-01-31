@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
+# This file is part of TollData - Open French Highway Toll Database
 import json
 import time
 
@@ -37,15 +40,15 @@ def save_json(data: dict, output_file: str):
 def main():
     # Requête Overpass
     query = """
-    [out:json][timeout:180];
-   area[name="France"][boundary=administrative][admin_level=2]->.searchArea;
-(
- node["barrier"="toll_booth"]["operator"="ASF"](area.searchArea);
- node["barrier"="toll_booth"]["operator"="A'LIENOR"](area.searchArea);
-);
-   out body;
-   >;
-   out skel qt;
+    [out:json][timeout:900][maxsize:1073741824];
+    area["name"="Bretagne"]["admin_level"="4"]->.searchArea;
+    (
+      way["highway"~"^(motorway|motorway_link|trunk|trunk_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link)$"](area.searchArea);
+      node["barrier"="toll_booth"](area.searchArea);
+    );
+    out body;
+    >;
+    out skel qt;
     """
 
     """
@@ -73,7 +76,7 @@ def main():
         response_data = query_overpass(query)
 
         # Sauvegarder la réponse
-        output_file = "overpass_booth_ASF.json"
+        output_file = "overpass_network_bretagne.json"
         save_json(response_data, output_file)
 
         # Afficher quelques statistiques

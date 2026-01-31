@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
+# This file is part of TollData - Open French Highway Toll Database
 import csv
 import re
 import unicodedata

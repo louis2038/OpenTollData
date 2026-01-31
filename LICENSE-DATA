@@ -1,0 +1,82 @@
+Open Data Commons Open Database License (ODbL) v1.0
+
+This is a human-readable summary of the ODbL 1.0 license. Please see the full legal text at: https://opendatacommons.org/licenses/odbl/1-0/
+
+=======================================================================
+
+                    OPEN DATA COMMONS
+             OPEN DATABASE LICENSE (ODbL) v1.0
+
+=======================================================================
+
+The Open Database License (ODbL) is a license agreement intended to
+allow users to freely share, modify, and use this Database while
+maintaining this same freedom for others. Many databases are covered
+by copyright, and therefore this document licenses these rights.
+Some jurisdictions, mainly in the European Union, have specific rights
+that cover databases, and so the ODbL addresses these rights, too.
+Finally, the ODbL is also an agreement in contract for users of this
+Database to act in certain ways in return for accessing this Database.
+
+Databases can contain a wide variety of types of content (images,
+audiovisual material, and sounds all in the same database, for example),
+and so the ODbL only governs the rights over the Database, and not the
+contents of the Database individually. Licensors should use the ODbL
+together with another license for the contents, if the contents have a
+single set of rights that uniformly covers all of the contents.
+
+Sometimes the contents of a database, or the database itself, can be
+covered by other rights not addressed here (such as private contracts,
+trademark over the name, or privacy rights), and so you are advised to
+check what other rights may apply before using this license on the
+Database.
+
+Part I: Preamble
+
+The goals of the Open Database License (ODbL) are:
+
+- To promote the sharing of databases
+- To allow freedom to use and modify databases
+- To ensure that any modifications are shared equally
+
+Part II: Your Rights
+
+You are free:
+
+- To Share: To copy, distribute and use the database.
+- To Create: To produce works from the database.
+- To Adapt: To modify, transform and build upon the database.
+
+As long as you:
+
+- Attribute: You must attribute any public use of the database,
+  or works produced from the database, in the manner specified
+  in the ODbL. For any use or redistribution of the database,
+  or works produced from it, you must make clear to others the
+  license of the database and keep intact any notices on the
+  original database.
+
+- Share-Alike: If you publicly use any adapted version of this
+  database, or works produced from an adapted database, you must
+  also offer that adapted database under the ODbL.
+
+- Keep open: If you redistribute the database, or an adapted
+  version of it, then you may use technological measures that
+  restrict the work (such as DRM) as long as you also redistribute
+  a version without such measures.
+
+Part III: Disclaimer
+
+THIS DATABASE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THIS DATABASE.
+
+=======================================================================
+
+For the full legal text, please visit:
+https://opendatacommons.org/licenses/odbl/1-0/
+
+SPDX-License-Identifier: ODbL-1.0

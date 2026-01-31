@@ -1,3 +1,19 @@
+# TollData - Open French Highway Toll Database
+
+---
+
+## License
+
+This project uses a **dual-licensing model**:
+
+| Type | License | File |
+|------|---------|------|
+| **Code** (Python scripts) | [AGPL-3.0-or-later](LICENSE) | `LICENSE` |
+| **Data** (CSV, JSON, TXT) | [ODbL-1.0](LICENSE-DATA) | `LICENSE-DATA` |
+
+See [NOTICE.md](NOTICE.md) for detailed attribution and usage information.
+
+---
 
 # Context
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
+# This file is part of TollData - Open French Highway Toll Database
 """
 Validate a toll network JSON file against the JSON Schema.
 
@@ -54,6 +57,16 @@ def extra_validate(data):
     list_of_toll = data.get("list_of_toll", [])
     toll_set = set(list_of_toll) if isinstance(list_of_toll, list) else set()
 
+    # Validate toll names format (ASCII uppercase + digits + spaces + underscore + hyphen only)
+    import re
+
+    name_pattern = re.compile(r"^[A-Z0-9 _-]+$")
+    for toll_name in toll_set:
+        if not name_pattern.match(toll_name):
+            errors.append(
+                f"list_of_toll: invalid toll name '{toll_name}' (must contain only uppercase ASCII letters, digits, spaces, underscores, and hyphens)"
+            )
+
     list_of_operator = data.get("list_of_operator", [])
     operator_set = (
         set(list_of_operator) if isinstance(list_of_operator, list) else set()
@@ -69,21 +82,60 @@ def extra_validate(data):
     missing_td = toll_set - td_keys
     extra_td = td_keys - toll_set
     if missing_td:
-        errors.append(
-            f"toll_description: missing toll(s): {_fmt_set(missing_td)}"
-        )
+        errors.append(f"toll_description: missing toll(s): {_fmt_set(missing_td)}")
     if extra_td:
-        errors.append(
-            f"toll_description: unknown toll key(s): {_fmt_set(extra_td)}"
-        )
+        errors.append(f"toll_description: unknown toll key(s): {_fmt_set(extra_td)}")
 
     # operator must be in list_of_operator
     for toll_name, desc in toll_description.items():
         if not isinstance(desc, dict):
             errors.append(f"toll_description.{toll_name}: must be an object")
             continue
+
+        # Validate OSM node_id and ways_id (at least one must be present and non-empty)
+        node_id = desc.get("node_id")
+        ways_id = desc.get("ways_id")
+
+        # Check if at least one is present and non-empty
+        has_node = node_id and isinstance(node_id, list) and len(node_id) > 0
+        has_way = ways_id and isinstance(ways_id, list) and len(ways_id) > 0
+
+        if not has_node and not has_way:
+            errors.append(
+                f"toll_description.{toll_name}: must have at least one OSM node ID (in node_id) or one OSM way ID (in ways_id)"
+            )
+
+        # Validate node_id format if present
+        if node_id is not None:
+            if not isinstance(node_id, list):
+                errors.append(f"toll_description.{toll_name}.node_id: must be an array")
+            elif node_id and not all(
+                isinstance(n, str) and n.isdigit() for n in node_id
+            ):
+                errors.append(
+                    f"toll_description.{toll_name}.node_id: all IDs must be numeric strings"
+                )
+
+        # Validate ways_id format if present
+        if ways_id is not None:
+            if not isinstance(ways_id, list):
+                errors.append(f"toll_description.{toll_name}.ways_id: must be an array")
+            elif ways_id and not all(
+                isinstance(w, str) and w.isdigit() for w in ways_id
+            ):
+                errors.append(
+                    f"toll_description.{toll_name}.ways_id: all IDs must be numeric strings"
+                )
+
+        # Validate type (required)
+        toll_type = desc.get("type")
+        if not toll_type or toll_type not in ["open", "close"]:
+            errors.append(
+                f"toll_description.{toll_name}.type: required and must be 'open' or 'close'"
+            )
+
         operator = desc.get("operator")
-        if operator is not None and operator not in operator_set:
+        if operator and operator not in operator_set:
             errors.append(
                 f"toll_description.{toll_name}.operator: '{operator}' is not in list_of_operator"
             )
@@ -109,9 +161,7 @@ def extra_validate(data):
     otp_keys = set(open_toll_price.keys())
     otp_unknown = otp_keys - toll_set
     if otp_unknown:
-        errors.append(
-            f"open_toll_price: unknown toll key(s): {_fmt_set(otp_unknown)}"
-        )
+        errors.append(f"open_toll_price: unknown toll key(s): {_fmt_set(otp_unknown)}")
 
     missing_otp = open_tolls - otp_keys
     extra_otp = otp_keys - open_tolls
@@ -123,6 +173,25 @@ def extra_validate(data):
         errors.append(
             f"open_toll_price: contains non-open toll(s): {_fmt_set(extra_otp)}"
         )
+
+    # Validate prices in open_toll_price
+    for toll_name, edge in open_toll_price.items():
+        if isinstance(edge, dict):
+            price = edge.get("price")
+            if not price or not isinstance(price, dict):
+                errors.append(f"open_toll_price.{toll_name}: price is required")
+            else:
+                for cls in ["class_1", "class_2", "class_3", "class_4", "class_5"]:
+                    if cls not in price:
+                        errors.append(
+                            f"open_toll_price.{toll_name}.price: missing {cls}"
+                        )
+                    elif not isinstance(price[cls], str) or not re.match(
+                        r"^\d+(\.\d+)?$", price[cls]
+                    ):
+                        errors.append(
+                            f"open_toll_price.{toll_name}.price.{cls}: must be a numeric string"
+                        )
 
     # networks + connections cross-checks
     networks = data.get("networks", [])
@@ -177,9 +246,7 @@ def extra_validate(data):
                 continue
 
             if not isinstance(dsts, dict):
-                errors.append(
-                    f"networks[{idx}].connection.{src}: must be an object"
-                )
+                errors.append(f"networks[{idx}].connection.{src}: must be an object")
                 continue
 
             for dst in dsts.keys():
@@ -187,6 +254,33 @@ def extra_validate(data):
                     errors.append(
                         f"networks[{idx}].connection.{src}: unknown destination toll '{dst}' (not in networks[{idx}].tolls)"
                     )
+
+                # Validate price for each connection
+                edge = dsts[dst]
+                if isinstance(edge, dict):
+                    price = edge.get("price")
+                    if not price or not isinstance(price, dict):
+                        errors.append(
+                            f"networks[{idx}].connection.{src}.{dst}: price is required"
+                        )
+                    else:
+                        for cls in [
+                            "class_1",
+                            "class_2",
+                            "class_3",
+                            "class_4",
+                            "class_5",
+                        ]:
+                            if cls not in price:
+                                errors.append(
+                                    f"networks[{idx}].connection.{src}.{dst}.price: missing {cls}"
+                                )
+                            elif not isinstance(price[cls], str) or not re.match(
+                                r"^\d+(\.\d+)?$", price[cls]
+                            ):
+                                errors.append(
+                                    f"networks[{idx}].connection.{src}.{dst}.price.{cls}: must be a numeric string"
+                                )
 
     # all close tolls must belong to some closed network
     missing_close_in_networks = close_tolls - all_network_tolls
@@ -198,9 +292,7 @@ def extra_validate(data):
     # open tolls should not appear in closed networks
     open_in_networks = open_tolls & all_network_tolls
     if open_in_networks:
-        errors.append(
-            f"networks: contains open toll(s): {_fmt_set(open_in_networks)}"
-        )
+        errors.append(f"networks: contains open toll(s): {_fmt_set(open_in_networks)}")
 
     return errors
 

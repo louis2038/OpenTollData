@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
+# This file is part of TollData - Open French Highway Toll Database
 
 """
 Annoter les connexions de péages par les 'way.id' OSM réellement traversés.
@@ -18,24 +19,31 @@ import json
 import math
 import sys
 from collections import defaultdict
-from heapq import heappush, heappop
+from heapq import heappop, heappush
 
 # ----------------------------
 # Utilitaires géodésiques
 # ----------------------------
 
+
 def haversine(lat1, lon1, lat2, lon2):
     """Distance en mètres entre (lat1,lon1) et (lat2,lon2)."""
     R = 6371000.0  # rayon terrestre moyen (m)
-    phi1 = math.radians(lat1); phi2 = math.radians(lat2)
+    phi1 = math.radians(lat1)
+    phi2 = math.radians(lat2)
     dphi = math.radians(lat2 - lat1)
     dlmb = math.radians(lon2 - lon1)
-    a = math.sin(dphi/2)**2 + math.cos(phi1)*math.cos(phi2)*math.sin(dlmb/2)**2
-    return 2*R*math.asin(math.sqrt(a))
+    a = (
+        math.sin(dphi / 2) ** 2
+        + math.cos(phi1) * math.cos(phi2) * math.sin(dlmb / 2) ** 2
+    )
+    return 2 * R * math.asin(math.sqrt(a))
+
 
 # ----------------------------
 # Chargement Overpass -> Graphe
 # ----------------------------
+
 
 def build_graph_from_overpass(overpass):
     """
@@ -54,7 +62,9 @@ def build_graph_from_overpass(overpass):
             nid = int(el["id"])
             nodes[nid] = (float(el["lat"]), float(el["lon"]))
         elif t == "way":
-            ways.append({"id": int(el["id"]), "nodes": [int(n) for n in el.get("nodes", [])]})
+            ways.append(
+                {"id": int(el["id"]), "nodes": [int(n) for n in el.get("nodes", [])]}
+            )
 
     adj = defaultdict(list)
     edge_to_ways = defaultdict(set)
@@ -66,7 +76,7 @@ def build_graph_from_overpass(overpass):
         way_id_to_nodes[wid] = wnodes
         # Crée des arêtes pour chaque paire consécutive de nœuds
         for i in range(len(wnodes) - 1):
-            u, v = wnodes[i], wnodes[i+1]
+            u, v = wnodes[i], wnodes[i + 1]
             if u in nodes and v in nodes:
                 lat1, lon1 = nodes[u]
                 lat2, lon2 = nodes[v]
@@ -78,9 +88,11 @@ def build_graph_from_overpass(overpass):
                 edge_to_ways[key].add(wid)
     return nodes, adj, edge_to_ways, way_id_to_nodes
 
+
 # ----------------------------
 # Plus court chemin (Dijkstra)
 # ----------------------------
+
 
 def dijkstra_path(adj, nodes_coords, src, dst):
     """
@@ -120,9 +132,11 @@ def dijkstra_path(adj, nodes_coords, src, dst):
     path.reverse()
     return path
 
+
 # ----------------------------
 # Traduire un chemin de nodes -> suite de way.id
 # ----------------------------
+
 
 def ways_from_path(path_nodes, edge_to_ways):
     """
@@ -136,7 +150,7 @@ def ways_from_path(path_nodes, edge_to_ways):
     current_way = None
 
     for i in range(len(path_nodes) - 1):
-        u, v = path_nodes[i], path_nodes[i+1]
+        u, v = path_nodes[i], path_nodes[i + 1]
         key = (u, v) if u < v else (v, u)
         candidates = edge_to_ways.get(key)
         if not candidates:
@@ -149,8 +163,8 @@ def ways_from_path(path_nodes, edge_to_ways):
             # essayer d'anticiper le prochain segment pour rester sur la même way
             chosen = None
             if i + 2 < len(path_nodes):
-                w_next = path_nodes[i+1]
-                x_next = path_nodes[i+2]
+                w_next = path_nodes[i + 1]
+                x_next = path_nodes[i + 2]
                 key_next = (w_next, x_next) if w_next < x_next else (x_next, w_next)
                 next_candidates = edge_to_ways.get(key_next, set())
                 inter = candidates.intersection(next_candidates)
@@ -166,9 +180,11 @@ def ways_from_path(path_nodes, edge_to_ways):
 
     return way_sequence
 
+
 # ----------------------------
 # Récupérer le nœud OSM d’un péage
 # ----------------------------
+
 
 def pick_osm_node_for_toll(toll_entry, nodes):
     """
@@ -207,9 +223,11 @@ def pick_osm_node_for_toll(toll_entry, nodes):
             best = nid
     return best
 
+
 # ----------------------------
 # Pipeline principal
 # ----------------------------
+
 
 def annotate_connections_with_ways(price_data, overpass):
     nodes, adj, edge_to_ways, way_id_to_nodes = build_graph_from_overpass(overpass)
@@ -235,7 +253,9 @@ def annotate_connections_with_ways(price_data, overpass):
                 if src_node is None or dst_node is None:
                     # Impossible d'ancrer un des péages: on laisse tomber proprement
                     conn_payload["by_ways"] = []
-                    conn_payload["_note"] = "OSM node not found for source or destination toll"
+                    conn_payload["_note"] = (
+                        "OSM node not found for source or destination toll"
+                    )
                     continue
 
                 # Plus court chemin
@@ -253,13 +273,17 @@ def annotate_connections_with_ways(price_data, overpass):
 
     return price_data
 
+
 # ----------------------------
 # CLI
 # ----------------------------
 
+
 def main(argv):
     if len(argv) != 4:
-        print("Usage: python annotate_byways.py price_format.json overpass.json output.json")
+        print(
+            "Usage: python annotate_byways.py price_format.json overpass.json output.json"
+        )
         sys.exit(1)
 
     price_path = argv[1]
@@ -278,6 +302,7 @@ def main(argv):
         json.dump(enriched, f, ensure_ascii=False, indent=2)
 
     print(f"OK ✓  Fichier enrichi écrit dans: {output_path}")
+
 
 if __name__ == "__main__":
     main(sys.argv)
