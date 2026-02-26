@@ -3,19 +3,87 @@
 # Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
 # This file is part of TollData - Open French Highway Toll Database
 """
-Script de fusion globale des triplets ASF et AREA.
+Script de fusion globale des triplets ASF, AREA et APRR.
 
 Ce script fusionne les fichiers finaux de différents opérateurs pour créer
 un triplet global de données de péage.
 
 Utilisation:
-    python meta_global.py
+    python meta_global.py              # fusion seule
+    python meta_global.py --recompile  # re-exécute les parsers puis fusionne
 """
 
+import argparse
 import csv
+import subprocess
 import sys
 from pathlib import Path
 from typing import Set, Dict, List
+
+
+def recompile_operators(base_dir: Path) -> None:
+    """
+    Ré-exécute les scripts de parsing de chaque opérateur pour régénérer
+    leurs fichiers CSV avant la fusion.
+
+    Ordre d'exécution:
+        1. ASF  — meta_asf.py          (depuis parse/ASF/)
+        2. AREA — parse_AREA.py         (depuis parse/AREA/)
+        3. APRR — parse_APRR.py         (depuis parse/APRR/)
+
+    Lève SystemExit en cas d'échec d'un des scripts.
+    """
+    operators = [
+        {
+            "name": "ASF",
+            "cmd": [sys.executable, "meta_asf.py"],
+            "cwd": base_dir / "ASF",
+        },
+        {
+            "name": "AREA",
+            "cmd": [
+                sys.executable,
+                "parse_AREA.py",
+                "AREA_brut_data.txt",
+                "-o",
+                "AREA_data_price_close.csv",
+                "--delimiter",
+                ";",
+            ],
+            "cwd": base_dir / "AREA",
+        },
+        {
+            "name": "APRR",
+            "cmd": [sys.executable, "parse_APRR.py"],
+            "cwd": base_dir / "APRR",
+        },
+    ]
+
+    print("\n" + "=" * 80)
+    print("  RECOMPILATION DES OPERATEURS")
+    print("=" * 80)
+
+    for op in operators:
+        print(f"\n{'─' * 40}")
+        print(f"  Recompilation {op['name']}...")
+        print(f"  Commande: {' '.join(op['cmd'])}")
+        print(f"  Répertoire: {op['cwd']}")
+        print(f"{'─' * 40}\n")
+
+        result = subprocess.run(op["cmd"], cwd=op["cwd"])
+
+        if result.returncode != 0:
+            print(
+                f"\n❌ ERREUR: La recompilation de {op['name']} a échoué "
+                f"(code retour: {result.returncode})"
+            )
+            sys.exit(1)
+
+        print(f"\n  ✅ {op['name']} recompilé avec succès")
+
+    print("\n" + "=" * 80)
+    print("  ✅ RECOMPILATION DE TOUS LES OPERATEURS TERMINÉE")
+    print("=" * 80)
 
 
 def detect_delimiter(file_path: str) -> str:
@@ -156,12 +224,26 @@ def merge_csv_files(input_files: List[str], output_file: str, file_type: str) ->
 
 def main():
     """Point d'entrée principal du script."""
-    print("=" * 80)
-    print("🚀 FUSION GLOBALE DES TRIPLETS ASF ET AREA")
-    print("=" * 80)
+    parser = argparse.ArgumentParser(
+        description="Fusion globale des triplets ASF, AREA et APRR."
+    )
+    parser.add_argument(
+        "--recompile",
+        action="store_true",
+        help="Ré-exécute les scripts de parsing de chaque opérateur avant la fusion.",
+    )
+    args = parser.parse_args()
 
     # Répertoire de base
     base_dir = Path(__file__).parent
+
+    # Recompilation si demandée
+    if args.recompile:
+        recompile_operators(base_dir)
+
+    print("=" * 80)
+    print("🚀 FUSION GLOBALE DES TRIPLETS ASF, AREA ET APRR")
+    print("=" * 80)
 
     # Chemins des fichiers sources
     asf_close = base_dir / "ASF" / "ASF_data_price_close_2025.csv"
@@ -171,6 +253,10 @@ def main():
     area_close = base_dir / "AREA" / "AREA_data_price_close.csv"
     area_open = base_dir / "AREA" / "AREA_data_price_open.csv"
     area_toll_info = base_dir / "AREA" / "AREA_toll_info.csv"
+
+    aprr_close = base_dir / "APRR" / "APRR_data_price_close_2026.csv"
+    aprr_open = base_dir / "APRR" / "APRR_data_price_open_2026.csv"
+    aprr_toll_info = base_dir / "APRR" / "APRR_toll_info.csv"
 
     # Vérification de l'existence des fichiers
     print("\n📁 Vérification des fichiers sources...")
@@ -183,6 +269,9 @@ def main():
         area_close,
         area_open,
         area_toll_info,
+        aprr_close,
+        aprr_open,
+        aprr_toll_info,
     ]:
         if file_path.exists():
             print(f"  ✅ {file_path.relative_to(base_dir)}")
@@ -204,7 +293,7 @@ def main():
     print("=" * 80)
 
     close_count = merge_csv_files(
-        [str(asf_close), str(area_close)], str(output_close), "close"
+        [str(asf_close), str(area_close), str(aprr_close)], str(output_close), "close"
     )
 
     print("=" * 80)
@@ -212,7 +301,7 @@ def main():
     print("=" * 80)
 
     open_count = merge_csv_files(
-        [str(asf_open), str(area_open)], str(output_open), "open"
+        [str(asf_open), str(area_open), str(aprr_open)], str(output_open), "open"
     )
 
     print("=" * 80)
@@ -220,7 +309,9 @@ def main():
     print("=" * 80)
 
     toll_info_count = merge_csv_files(
-        [str(asf_toll_info), str(area_toll_info)], str(output_toll_info), "toll_info"
+        [str(asf_toll_info), str(area_toll_info), str(aprr_toll_info)],
+        str(output_toll_info),
+        "toll_info",
     )
 
     # Résumé final

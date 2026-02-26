@@ -26,6 +26,7 @@ Auteur: OpenCode
 Date: 2026-01-29
 """
 
+import argparse
 import subprocess
 import sys
 from pathlib import Path
@@ -204,8 +205,26 @@ def print_summary(close_csv: Path, open_csv: Path, toll_info_csv: Path) -> None:
     print(f"\n{'=' * 80}\n")
 
 
+def parse_arguments() -> argparse.Namespace:
+    """Parse les arguments CLI du meta-script."""
+    parser = argparse.ArgumentParser(
+        description=(
+            "Orchestre le traitement ASF complet. "
+            "La fusion Toll Info est activée avec --newinfo."
+        )
+    )
+    parser.add_argument(
+        "--newinfo",
+        action="store_true",
+        help="Régénère et fusionne les fichiers Toll Info vers ASF_toll_info.csv",
+    )
+    return parser.parse_args()
+
+
 def main():
     """Point d'entrée principal du meta-script."""
+    cli_args = parse_arguments()
+    regenerate_toll_info = cli_args.newinfo
     base_dir = Path(__file__).parent
 
     print("\n" + "=" * 80)
@@ -213,6 +232,9 @@ def main():
     print("=" * 80)
     print(f"\n📂 Répertoire de travail: {base_dir}")
     print(f"🎯 Objectif: Générer les triplets par page puis le triplet final ASF")
+    print(
+        f"🧾 Toll Info final: {'régénération activée (--newinfo)' if regenerate_toll_info else 'fichier existant conservé'}"
+    )
 
     try:
         # ========================================
@@ -326,17 +348,25 @@ def main():
         # ========================================
         print_banner("ÉTAPE 6/6: Fusion finale Toll Info & Validation")
 
-        toll_info_files = find_csv_files(base_dir, "ASF_page*_toll_info.csv")
         output_toll_info = base_dir / "ASF_toll_info.csv"
 
-        if toll_info_files:
-            print(f"📋 {len(toll_info_files)} fichier(s) trouvé(s)")
-            args = ["toll_info", str(output_toll_info)] + toll_info_files
-            run_command(merge_script, args)
+        if regenerate_toll_info:
+            toll_info_files = find_csv_files(base_dir, "ASF_page*_toll_info.csv")
+
+            if toll_info_files:
+                print(f"📋 {len(toll_info_files)} fichier(s) trouvé(s)")
+                args = ["toll_info", str(output_toll_info)] + toll_info_files
+                run_command(merge_script, args)
+            else:
+                raise MetaScriptError(
+                    "❌ Aucun fichier toll_info trouvé! Au moins un fichier toll_info est requis avec --newinfo."
+                )
         else:
-            raise MetaScriptError(
-                "❌ Aucun fichier toll_info trouvé! Au moins un fichier toll_info est requis."
-            )
+            print("ℹ️  Fusion Toll Info ignorée (option --newinfo absente)")
+            if not output_toll_info.exists():
+                raise MetaScriptError(
+                    "❌ ASF_toll_info.csv introuvable. Relancez avec --newinfo pour le générer."
+                )
 
         # Validation du triplet final
         print("\n  🔍 Validation du triplet final...")

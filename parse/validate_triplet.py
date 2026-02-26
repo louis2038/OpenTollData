@@ -3,120 +3,244 @@
 # Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
 # This file is part of TollData - Open French Highway Toll Database
 """
-Script de validation de cohérence pour les triplets de fichiers CSV ASF.
+Single source of truth for triplet validation.
 
-Ce script vérifie que les trois fichiers (close, open, toll_info) sont cohérents:
-- Tous les noms dans les fichiers de prix (close et open) doivent exister dans toll_info
-- Tous les noms dans toll_info doivent être utilisés dans au moins un fichier de prix
+This module validates the consistency of a triplet of CSV files
+(close, open, toll_info) used in the TollData pipeline. All validation
+rules live here so that adding or modifying a check requires editing
+only this file.
 
-Utilisation:
+Checks performed
+────────────────
+1. File existence (toll_info required, close/open optional but warned).
+2. CSV structure: required columns are present.
+3. Numeric parsing: distances and prices are valid numbers.
+4. Name consistency:
+   a. Every name in price files exists in toll_info.
+   b. Every name in toll_info appears in at least one price file (warning).
+ 5. Type coherence:
+     a. Stations in the close file must have type='close' in toll_info.
+     b. Stations in the open file must have type='open' in toll_info.
+  6. GPS uniqueness: every (lat, lon) pair in toll_info must be unique.
+  7. Booth node ID uniqueness: a booth_node_id must not be shared by 2 stations.
+
+Usage (CLI):
     python validate_triplet.py <close_csv> <open_csv> <toll_info_csv>
+
+Usage (import):
+    from validate_triplet import validate_triplet, TripletValidationError
+
+    try:
+        validate_triplet(close_csv, open_csv, toll_info_csv)
+    except TripletValidationError as e:
+        ...
 """
 
 import csv
+import math
 import sys
 from pathlib import Path
-from typing import Set, Tuple
+from typing import Dict, List, Optional, Set, Tuple
+
+
+# ───────────────────────────────────────────────────────────────────
+# Exception
+# ───────────────────────────────────────────────────────────────────
 
 
 class TripletValidationError(Exception):
-    """Exception levée lors d'erreurs de validation du triplet."""
+    """Raised when the triplet is inconsistent."""
 
     pass
 
 
+# ───────────────────────────────────────────────────────────────────
+# Helpers
+# ───────────────────────────────────────────────────────────────────
+
+
 def detect_delimiter(file_path: str) -> str:
-    """
-    Détecte automatiquement le délimiteur d'un fichier CSV.
-
-    Args:
-        file_path: Chemin du fichier CSV
-
-    Returns:
-        Le délimiteur détecté (';' ou ',')
-    """
+    """Auto-detect CSV delimiter (';' or ',')."""
     with open(file_path, "r", encoding="utf-8") as f:
         first_line = f.readline()
         if ";" in first_line:
             return ";"
         elif "," in first_line:
             return ","
-        else:
-            return ";"
+        return ";"
 
 
-def extract_names_from_close(file_path: str) -> Set[str]:
+def _to_float(value: str) -> Optional[float]:
+    """Parse a numeric string accepting both '3.5' and '3,5'. Empty → None."""
+    if value is None:
+        return None
+    s = value.strip() if isinstance(value, str) else str(value)
+    if s == "":
+        return None
+    s = s.replace(",", ".")
+    return float(s)
+
+
+# ───────────────────────────────────────────────────────────────────
+# CSV readers (validation-oriented)
+# ───────────────────────────────────────────────────────────────────
+
+CLOSE_REQUIRED_COLS = [
+    "name_from",
+    "name_to",
+    "distance",
+    "price1",
+    "price2",
+    "price3",
+    "price4",
+    "price5",
+]
+OPEN_REQUIRED_COLS = [
+    "name",
+    "distance",
+    "price1",
+    "price2",
+    "price3",
+    "price4",
+    "price5",
+]
+TOLL_INFO_REQUIRED_COLS = [
+    "name",
+    "type",
+    "booth_node_id",
+]
+
+
+def _read_and_validate_close(file_path: str) -> Tuple[Set[str], List[str]]:
     """
-    Extrait tous les noms de stations du fichier close (name_from et name_to).
-
-    Args:
-        file_path: Chemin du fichier CSV close
+    Read the close CSV, validate structure and numeric values.
 
     Returns:
-        Ensemble des noms de stations
+        (set of station names, list of error strings)
     """
-    names = set()
+    names: Set[str] = set()
+    errors: List[str] = []
+    fname = Path(file_path).name
 
     if not Path(file_path).exists():
-        return names  # Fichier n'existe pas, retourner ensemble vide
+        return names, errors  # absence handled elsewhere
 
     delimiter = detect_delimiter(file_path)
 
     with open(file_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter=delimiter)
+        missing_cols = [
+            c for c in CLOSE_REQUIRED_COLS if c not in (reader.fieldnames or [])
+        ]
+        if missing_cols:
+            errors.append(f"[{fname}] Colonnes manquantes: {missing_cols}")
+            return names, errors
 
-        for row in reader:
+        for i, row in enumerate(reader, start=2):
             name_from = row.get("name_from", "").strip()
             name_to = row.get("name_to", "").strip()
 
-            if name_from:
-                names.add(name_from)
-            if name_to:
-                names.add(name_to)
+            if not name_from or not name_to:
+                errors.append(f"[{fname}] Ligne {i}: name_from ou name_to manquant.")
+                continue
 
-    return names
+            names.add(name_from)
+            names.add(name_to)
+
+            # Numeric validation
+            for col in ("distance", "price1", "price2", "price3", "price4", "price5"):
+                try:
+                    val = _to_float(row.get(col, ""))
+                    if val is not None and (math.isnan(val) or math.isinf(val)):
+                        errors.append(
+                            f"[{fname}] Ligne {i}, colonne '{col}': valeur non-finie."
+                        )
+                except (ValueError, TypeError):
+                    errors.append(
+                        f"[{fname}] Ligne {i}, colonne '{col}': "
+                        f"valeur non numérique '{row.get(col, '')}'."
+                    )
+
+    return names, errors
 
 
-def extract_names_from_open(file_path: str) -> Set[str]:
+def _read_and_validate_open(file_path: str) -> Tuple[Set[str], List[str]]:
     """
-    Extrait tous les noms de stations du fichier open.
-
-    Args:
-        file_path: Chemin du fichier CSV open
+    Read the open CSV, validate structure and numeric values.
 
     Returns:
-        Ensemble des noms de stations
+        (set of station names, list of error strings)
     """
-    names = set()
+    names: Set[str] = set()
+    errors: List[str] = []
+    fname = Path(file_path).name
 
     if not Path(file_path).exists():
-        return names  # Fichier n'existe pas, retourner ensemble vide
+        return names, errors
 
     delimiter = detect_delimiter(file_path)
 
     with open(file_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter=delimiter)
+        missing_cols = [
+            c for c in OPEN_REQUIRED_COLS if c not in (reader.fieldnames or [])
+        ]
+        if missing_cols:
+            errors.append(f"[{fname}] Colonnes manquantes: {missing_cols}")
+            return names, errors
 
-        for row in reader:
+        for i, row in enumerate(reader, start=2):
             name = row.get("name", "").strip()
 
-            if name:
-                names.add(name)
+            if not name:
+                errors.append(f"[{fname}] Ligne {i}: name manquant.")
+                continue
 
-    return names
+            names.add(name)
+
+            for col in ("distance", "price1", "price2", "price3", "price4", "price5"):
+                try:
+                    val = _to_float(row.get(col, ""))
+                    if val is not None and (math.isnan(val) or math.isinf(val)):
+                        errors.append(
+                            f"[{fname}] Ligne {i}, colonne '{col}': valeur non-finie."
+                        )
+                except (ValueError, TypeError):
+                    errors.append(
+                        f"[{fname}] Ligne {i}, colonne '{col}': "
+                        f"valeur non numérique '{row.get(col, '')}'."
+                    )
+
+    return names, errors
 
 
-def extract_names_from_toll_info(file_path: str) -> Set[str]:
+def _read_toll_info(
+    file_path: str,
+) -> Tuple[
+    Set[str],
+    Dict[str, str],
+    Dict[str, Tuple[str, str]],
+    Dict[str, List[str]],
+    List[str],
+]:
     """
-    Extrait tous les noms de stations du fichier toll_info.
-
-    Args:
-        file_path: Chemin du fichier CSV toll_info
+    Read toll_info CSV, extract names, types, coordinates and booth node IDs.
 
     Returns:
-        Ensemble des noms de stations
+        (
+            set of names,
+            dict name→type,
+            dict name→(lat, lon),
+            dict name→list of booth node IDs,
+            list of error strings,
+        )
     """
-    names = set()
+    names: Set[str] = set()
+    types: Dict[str, str] = {}
+    coords: Dict[str, Tuple[str, str]] = {}
+    booth_nodes: Dict[str, List[str]] = {}
+    errors: List[str] = []
+    fname = Path(file_path).name
 
     if not Path(file_path).exists():
         raise FileNotFoundError(f"Fichier toll_info introuvable: {file_path}")
@@ -125,123 +249,279 @@ def extract_names_from_toll_info(file_path: str) -> Set[str]:
 
     with open(file_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter=delimiter)
+        missing_cols = [
+            c for c in TOLL_INFO_REQUIRED_COLS if c not in (reader.fieldnames or [])
+        ]
+        if missing_cols:
+            errors.append(f"[{fname}] Colonnes manquantes: {missing_cols}")
+            return names, types, coords, booth_nodes, errors
 
-        for row in reader:
+        for i, row in enumerate(reader, start=2):
             name = row.get("name", "").strip()
+            toll_type = row.get("type", "").strip()
 
-            if name:
-                names.add(name)
+            if not name:
+                errors.append(f"[{fname}] Ligne {i}: name manquant.")
+                continue
 
-    return names
+            if name in names:
+                errors.append(f"[{fname}] Ligne {i}: nom en double '{name}'.")
+
+            names.add(name)
+
+            if toll_type not in ("close", "open"):
+                errors.append(
+                    f"[{fname}] Ligne {i}: type invalide '{toll_type}' "
+                    f"pour '{name}' (attendu 'close' ou 'open')."
+                )
+            else:
+                types[name] = toll_type
+
+            # Extract coordinates
+            lat = row.get("lat", "").strip()
+            lon = row.get("lon", "").strip()
+            if lat and lon:
+                coords[name] = (lat, lon)
+
+            # Extract booth node IDs
+            booth_raw = row.get("booth_node_id", "")
+            try:
+                booth_ids = _parse_booth_node_ids(booth_raw)
+            except ValueError as exc:
+                errors.append(f"[{fname}] Ligne {i}, colonne 'booth_node_id': {exc}")
+                booth_ids = []
+
+            if len(booth_ids) != len(set(booth_ids)):
+                errors.append(
+                    f"[{fname}] Ligne {i}: doublon dans booth_node_id pour '{name}'."
+                )
+
+            booth_nodes[name] = booth_ids
+
+    return names, types, coords, booth_nodes, errors
 
 
-def validate_triplet(close_csv: str, open_csv: str, toll_info_csv: str) -> bool:
+def _parse_booth_node_ids(value: str) -> List[str]:
+    """Parse booth_node_id into a list of numeric node IDs."""
+    if value is None:
+        return []
+
+    raw = value.strip() if isinstance(value, str) else str(value).strip()
+    if raw == "":
+        return []
+
+    if raw.startswith("[") and raw.endswith("]"):
+        inner = raw[1:-1].strip()
+        if inner == "":
+            return []
+        parts = inner.split(",")
+    else:
+        parts = [raw]
+
+    node_ids: List[str] = []
+    for part in parts:
+        node_id = part.strip().strip('"').strip("'")
+        if not node_id:
+            continue
+        if not node_id.isdigit():
+            raise ValueError(
+                f"valeur non valide '{part.strip()}' (attendu une liste d'IDs numeriques)."
+            )
+        node_ids.append(node_id)
+
+    return node_ids
+
+
+# ───────────────────────────────────────────────────────────────────
+# Main validation
+# ───────────────────────────────────────────────────────────────────
+
+
+def validate_triplet(
+    close_csv: str,
+    open_csv: str,
+    toll_info_csv: str,
+    *,
+    verbose: bool = True,
+) -> bool:
     """
-    Valide la cohérence entre les trois fichiers CSV.
+    Validate consistency of a (close, open, toll_info) CSV triplet.
 
     Args:
-        close_csv: Chemin du fichier CSV des prix close
-        open_csv: Chemin du fichier CSV des prix open
-        toll_info_csv: Chemin du fichier CSV toll_info
+        close_csv:     Path to the close price CSV.
+        open_csv:      Path to the open price CSV.
+        toll_info_csv: Path to the toll_info CSV.
+        verbose:       If True, print progress/summary to stdout.
 
     Returns:
-        True si la validation réussit
+        True when validation passes.
 
     Raises:
-        TripletValidationError: Si des incohérences sont détectées
-        FileNotFoundError: Si le fichier toll_info n'existe pas
+        TripletValidationError: on any validation failure.
+        FileNotFoundError:      if toll_info_csv does not exist.
     """
-    print("\n🔍 Validation de la cohérence du triplet CSV...")
 
-    # Extraire les noms de chaque fichier
-    print(f"  📄 Extraction des noms depuis {Path(close_csv).name}...")
-    names_close = extract_names_from_close(close_csv)
-    print(f"    → {len(names_close)} station(s) unique(s) trouvée(s)")
+    def _log(msg: str) -> None:
+        if verbose:
+            print(msg)
 
-    print(f"  📄 Extraction des noms depuis {Path(open_csv).name}...")
-    names_open = extract_names_from_open(open_csv)
-    print(f"    → {len(names_open)} station(s) unique(s) trouvée(s)")
+    _log("\n  Validation de la cohérence du triplet CSV...")
 
-    print(f"  📄 Extraction des noms depuis {Path(toll_info_csv).name}...")
-    names_toll_info = extract_names_from_toll_info(toll_info_csv)
-    print(f"    → {len(names_toll_info)} station(s) unique(s) trouvée(s)")
+    errors: List[str] = []
+    warnings: List[str] = []
 
-    # Combiner tous les noms des fichiers de prix
+    # ── 1. Read & validate CSV structure ─────────────────────────
+
+    _log(f"  Lecture de {Path(close_csv).name}...")
+    names_close, close_errs = _read_and_validate_close(close_csv)
+    errors.extend(close_errs)
+    _log(f"    {len(names_close)} station(s) unique(s)")
+
+    _log(f"  Lecture de {Path(open_csv).name}...")
+    names_open, open_errs = _read_and_validate_open(open_csv)
+    errors.extend(open_errs)
+    _log(f"    {len(names_open)} station(s) unique(s)")
+
+    _log(f"  Lecture de {Path(toll_info_csv).name}...")
+    (
+        names_toll_info,
+        types_toll_info,
+        coords_toll_info,
+        booth_nodes_toll_info,
+        info_errs,
+    ) = _read_toll_info(toll_info_csv)
+    errors.extend(info_errs)
+    _log(f"    {len(names_toll_info)} station(s) unique(s)")
+
     names_in_prices = names_close | names_open
-    print(f"\n  Total de stations dans les fichiers de prix: {len(names_in_prices)}")
+    _log(f"\n  Total stations dans les fichiers de prix: {len(names_in_prices)}")
 
-    # Vérification 1: Tous les noms dans les prix doivent être dans toll_info
+    # ── 2. Name consistency ──────────────────────────────────────
+
+    # 2a. Every price name must exist in toll_info
     missing_in_toll_info = names_in_prices - names_toll_info
-
-    # Vérification 2: Tous les noms dans toll_info doivent être dans au moins un fichier de prix
-    missing_in_prices = names_toll_info - names_in_prices
-
-    # Construire le message d'erreur si des incohérences sont détectées
-    errors = []
-
     if missing_in_toll_info:
-        error_msg = (
-            f"\n  ❌ {len(missing_in_toll_info)} station(s) présente(s) dans les fichiers de prix "
-            f"mais ABSENTE(S) de toll_info:\n"
-        )
         for name in sorted(missing_in_toll_info):
-            in_close = "close" if name in names_close else ""
-            in_open = "open" if name in names_open else ""
-            source = f"[{', '.join(filter(None, [in_close, in_open]))}]"
-            error_msg += f"    - {name} {source}\n"
-        errors.append(error_msg)
+            sources = []
+            if name in names_close:
+                sources.append("close")
+            if name in names_open:
+                sources.append("open")
+            errors.append(
+                f"Station '{name}' [{', '.join(sources)}] absente de toll_info."
+            )
 
+    # 2b. Every toll_info name should appear in prices (warning only)
+    missing_in_prices = names_toll_info - names_in_prices
     if missing_in_prices:
-        # Warning seulement - certaines stations peuvent exister sans prix
-        warning_msg = (
-            f"\n  ⚠️  {len(missing_in_prices)} station(s) présente(s) dans toll_info "
-            f"mais ABSENTE(S) des fichiers de prix (normal si pas de données de prix):\n"
-        )
         for name in sorted(missing_in_prices):
-            warning_msg += f"    - {name}\n"
-        print(warning_msg)
+            warnings.append(
+                f"Station '{name}' dans toll_info mais absente des fichiers de prix."
+            )
+
+    # ── 3. Type coherence ────────────────────────────────────────
+
+    # 3a. Close stations must have type='close'
+    for name in sorted(names_close):
+        if name in types_toll_info and types_toll_info[name] != "close":
+            errors.append(
+                f"Station '{name}' est dans le fichier close "
+                f"mais a type='{types_toll_info[name]}' dans toll_info."
+            )
+
+    # 3b. Open stations must have type='open'
+    for name in sorted(names_open):
+        if name in types_toll_info and types_toll_info[name] != "open":
+            errors.append(
+                f"Station '{name}' est dans le fichier open "
+                f"mais a type='{types_toll_info[name]}' dans toll_info."
+            )
+
+    # ── 4. GPS coordinate uniqueness ─────────────────────────────
+
+    coord_to_names: Dict[Tuple[str, str], List[str]] = {}
+    for name, (lat, lon) in coords_toll_info.items():
+        key = (lat, lon)
+        coord_to_names.setdefault(key, []).append(name)
+
+    for (lat, lon), station_names in sorted(coord_to_names.items()):
+        if len(station_names) > 1:
+            errors.append(
+                f"Coordonnées GPS en double ({lat}, {lon}): "
+                f"{', '.join(sorted(station_names))}"
+            )
+
+    # ── 5. Booth node ID uniqueness ───────────────────────────────
+
+    booth_id_to_stations: Dict[str, Set[str]] = {}
+    for station_name, booth_ids in booth_nodes_toll_info.items():
+        for booth_id in booth_ids:
+            booth_id_to_stations.setdefault(booth_id, set()).add(station_name)
+
+    for booth_id, station_names in sorted(booth_id_to_stations.items()):
+        if len(station_names) > 1:
+            errors.append(
+                f"booth_node_id en double ({booth_id}): "
+                f"{', '.join(sorted(station_names))}"
+            )
+
+    # ── Report ───────────────────────────────────────────────────
+
+    if warnings:
+        _log(f"\n  {len(warnings)} avertissement(s):")
+        for w in warnings:
+            _log(f"    - {w}")
 
     if errors:
-        full_error_msg = (
-            "\n" + "=" * 80 + "\n❌ ERREUR DE VALIDATION DU TRIPLET\n" + "=" * 80
+        report = (
+            "\n" + "=" * 80 + "\n  ERREUR DE VALIDATION DU TRIPLET\n" + "=" * 80 + "\n"
         )
-        full_error_msg += "".join(errors)
-        full_error_msg += (
+        for e in errors:
+            report += f"  - {e}\n"
+        report += (
             "\n" + "=" * 80 + "\n"
-            "🔧 SOLUTION:\n"
-            "  - Vérifiez que tous les noms dans les prix existent dans toll_info\n"
-            "  - Vérifiez que tous les noms dans toll_info sont utilisés dans au moins un fichier de prix\n"
-            "  - Assurez-vous que les noms sont normalisés de manière cohérente\n"
+            "  SOLUTION:\n"
+            "  - Verifiez que tous les noms dans les prix existent dans toll_info\n"
+            "  - Verifiez que le type (open/close) dans toll_info correspond au fichier de prix utilise\n"
+            "  - Assurez-vous que les valeurs numeriques sont correctes\n"
+            "  - Assurez-vous qu'un booth_node_id n'est utilise que par une station\n"
             + "="
             * 80
         )
-        raise TripletValidationError(full_error_msg)
+        raise TripletValidationError(report)
 
-    # Validation réussie
-    print("\n  ✅ Validation réussie:")
-    print(f"    • Toutes les stations dans les prix existent dans toll_info")
+    # Success
+    _log("\n  Validation reussie:")
+    _log(f"    - Toutes les stations dans les prix existent dans toll_info")
+    _log(f"    - Coherence des types (open/close) verifiee")
+    _log(f"    - Coordonnees GPS uniques verifiees")
+    _log(f"    - booth_node_id uniques verifies")
     if missing_in_prices:
-        print(
-            f"    • {len(names_toll_info)} station(s) dans toll_info ({len(names_in_prices)} utilisées, {len(missing_in_prices)} sans prix)"
+        _log(
+            f"    - {len(names_toll_info)} station(s) dans toll_info "
+            f"({len(names_in_prices)} utilisees, {len(missing_in_prices)} sans prix)"
         )
     else:
-        print(f"    • Toutes les stations dans toll_info sont utilisées dans les prix")
-    print(f"    • {len(names_toll_info)} station(s) unique(s) validée(s)")
+        _log(f"    - Toutes les stations dans toll_info sont utilisees dans les prix")
+    _log(f"    - {len(names_toll_info)} station(s) unique(s) validees")
 
     return True
 
 
+# ───────────────────────────────────────────────────────────────────
+# CLI
+# ───────────────────────────────────────────────────────────────────
+
+
 def main():
-    """Point d'entrée principal du script."""
+    """Command-line entry point."""
     if len(sys.argv) != 4:
         print(
             "Usage: python validate_triplet.py <close_csv> <open_csv> <toll_info_csv>"
         )
-        print("\n  close_csv: Fichier CSV des prix close (name_from, name_to, ...)")
-        print("  open_csv: Fichier CSV des prix open (name, ...)")
-        print(
-            "  toll_info_csv: Fichier CSV des informations de péages (name, osm_name, ...)"
-        )
+        print("\n  close_csv:     Fichier CSV des prix close (name_from, name_to, ...)")
+        print("  open_csv:      Fichier CSV des prix open (name, ...)")
+        print("  toll_info_csv: Fichier CSV toll_info (name, osm_name, ...)")
         sys.exit(1)
 
     close_csv = sys.argv[1]
@@ -250,15 +530,12 @@ def main():
 
     try:
         validate_triplet(close_csv, open_csv, toll_info_csv)
-        print("\n✅ Validation du triplet terminée avec succès!\n")
-    except (TripletValidationError, FileNotFoundError) as e:
-        print(f"\n{e}\n")
+        print("\n  Validation du triplet terminee avec succes!\n")
+    except TripletValidationError as e:
+        print(f"\n{e}\n", file=sys.stderr)
         sys.exit(1)
-    except Exception as e:
-        print(f"\n❌ ERREUR INATTENDUE: {e}")
-        import traceback
-
-        traceback.print_exc()
+    except FileNotFoundError as e:
+        print(f"\n  ERREUR: {e}\n", file=sys.stderr)
         sys.exit(1)
 
 
