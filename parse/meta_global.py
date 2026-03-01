@@ -3,7 +3,7 @@
 # Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
 # This file is part of TollData - Open French Highway Toll Database
 """
-Script de fusion globale des triplets ASF, AREA et APRR.
+Script de fusion globale des triplets ASF, AREA, APRR et COFIROUTE.
 
 Ce script fusionne les fichiers finaux de différents opérateurs pour créer
 un triplet global de données de péage.
@@ -27,9 +27,10 @@ def recompile_operators(base_dir: Path) -> None:
     leurs fichiers CSV avant la fusion.
 
     Ordre d'exécution:
-        1. ASF  — meta_asf.py          (depuis parse/ASF/)
-        2. AREA — parse_AREA.py         (depuis parse/AREA/)
-        3. APRR — parse_APRR.py         (depuis parse/APRR/)
+        1. ASF       — meta_asf.py              (depuis parse/ASF/)
+        2. AREA      — parse_AREA.py            (depuis parse/AREA/)
+        3. APRR      — parse_APRR.py            (depuis parse/APRR/)
+        4. COFIROUTE — parse_cofiroute_close.py (depuis parse/COFIROUTE/all/)
 
     Lève SystemExit en cas d'échec d'un des scripts.
     """
@@ -56,6 +57,11 @@ def recompile_operators(base_dir: Path) -> None:
             "name": "APRR",
             "cmd": [sys.executable, "parse_APRR.py"],
             "cwd": base_dir / "APRR",
+        },
+        {
+            "name": "COFIROUTE",
+            "cmd": [sys.executable, "parse_cofiroute_close.py"],
+            "cwd": base_dir / "COFIROUTE" / "all",
         },
     ]
 
@@ -104,6 +110,33 @@ def detect_delimiter(file_path: str) -> str:
             return ","
         else:
             return ";"
+
+
+def normalize_osm_id_list(value: str) -> str:
+    """
+    Normalise une liste d'IDs OSM sérialisée en texte.
+
+    Exemple:
+        "[1, 2, 3]" -> "[1,2,3]"
+        "[1,2, 3]" -> "[1,2,3]"
+
+    Si la valeur n'est pas une liste entre crochets, on retourne la version trim.
+    """
+    if value is None:
+        return ""
+
+    s = value.strip()
+    if not s:
+        return ""
+
+    if s.startswith("[") and s.endswith("]"):
+        inner = s[1:-1].strip()
+        if not inner:
+            return "[]"
+        parts = [p.strip() for p in inner.split(",") if p.strip()]
+        return "[" + ",".join(parts) + "]"
+
+    return s
 
 
 def merge_csv_files(input_files: List[str], output_file: str, file_type: str) -> int:
@@ -187,10 +220,14 @@ def merge_csv_files(input_files: List[str], output_file: str, file_type: str) ->
             if name in name_to_row:
                 # Vérifier la cohérence des IDs OSM
                 existing = name_to_row[name]
-                booth_node_id = row.get("booth_node_id", "")
-                booth_way_id = row.get("booth_way_id", "")
-                existing_node_id = existing.get("booth_node_id", "")
-                existing_way_id = existing.get("booth_way_id", "")
+                booth_node_id = normalize_osm_id_list(row.get("booth_node_id", ""))
+                booth_way_id = normalize_osm_id_list(row.get("booth_way_id", ""))
+                existing_node_id = normalize_osm_id_list(
+                    existing.get("booth_node_id", "")
+                )
+                existing_way_id = normalize_osm_id_list(
+                    existing.get("booth_way_id", "")
+                )
 
                 if booth_node_id and booth_node_id != existing_node_id:
                     print(
@@ -225,7 +262,7 @@ def merge_csv_files(input_files: List[str], output_file: str, file_type: str) ->
 def main():
     """Point d'entrée principal du script."""
     parser = argparse.ArgumentParser(
-        description="Fusion globale des triplets ASF, AREA et APRR."
+        description="Fusion globale des triplets ASF, AREA, APRR et COFIROUTE."
     )
     parser.add_argument(
         "--recompile",
@@ -242,7 +279,7 @@ def main():
         recompile_operators(base_dir)
 
     print("=" * 80)
-    print("🚀 FUSION GLOBALE DES TRIPLETS ASF, AREA ET APRR")
+    print("🚀 FUSION GLOBALE DES TRIPLETS ASF, AREA, APRR ET COFIROUTE")
     print("=" * 80)
 
     # Chemins des fichiers sources
@@ -258,6 +295,16 @@ def main():
     aprr_open = base_dir / "APRR" / "APRR_data_price_open_2026.csv"
     aprr_toll_info = base_dir / "APRR" / "APRR_toll_info.csv"
 
+    cofiroute_close = (
+        base_dir / "COFIROUTE" / "all" / "COFIROUTE_data_price_close_2026.csv"
+    )
+    cofiroute_open = (
+        base_dir / "COFIROUTE" / "all" / "COFIROUTE_data_price_open_2026.csv"
+    )
+    cofiroute_toll_info = (
+        base_dir / "COFIROUTE" / "all" / "COFIROUTE_toll_info_2026.csv"
+    )
+
     # Vérification de l'existence des fichiers
     print("\n📁 Vérification des fichiers sources...")
     all_files_exist = True
@@ -272,6 +319,9 @@ def main():
         aprr_close,
         aprr_open,
         aprr_toll_info,
+        cofiroute_close,
+        cofiroute_open,
+        cofiroute_toll_info,
     ]:
         if file_path.exists():
             print(f"  ✅ {file_path.relative_to(base_dir)}")
@@ -293,7 +343,14 @@ def main():
     print("=" * 80)
 
     close_count = merge_csv_files(
-        [str(asf_close), str(area_close), str(aprr_close)], str(output_close), "close"
+        [
+            str(asf_close),
+            str(area_close),
+            str(aprr_close),
+            str(cofiroute_close),
+        ],
+        str(output_close),
+        "close",
     )
 
     print("=" * 80)
@@ -301,7 +358,9 @@ def main():
     print("=" * 80)
 
     open_count = merge_csv_files(
-        [str(asf_open), str(area_open), str(aprr_open)], str(output_open), "open"
+        [str(asf_open), str(area_open), str(aprr_open), str(cofiroute_open)],
+        str(output_open),
+        "open",
     )
 
     print("=" * 80)
@@ -309,7 +368,12 @@ def main():
     print("=" * 80)
 
     toll_info_count = merge_csv_files(
-        [str(asf_toll_info), str(area_toll_info), str(aprr_toll_info)],
+        [
+            str(asf_toll_info),
+            str(area_toll_info),
+            str(aprr_toll_info),
+            str(cofiroute_toll_info),
+        ],
         str(output_toll_info),
         "toll_info",
     )

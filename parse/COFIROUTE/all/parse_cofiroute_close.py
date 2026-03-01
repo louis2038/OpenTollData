@@ -12,7 +12,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
-INPUT_FILE = BASE_DIR / "cofiroute_data.txt"
+INPUT_FILE = BASE_DIR / "raw_data/cofiroute_data.txt"
+NAME_MAPPING_FILE = BASE_DIR / "cofiroute_to_asf_name_mapping.csv"
 OUTPUT_PRICE_CSV = BASE_DIR / "COFIROUTE_data_price_close_2026.csv"
 OUTPUT_STATIONS_CSV = BASE_DIR / "COFIROUTE_names.csv"
 OUTPUT_OPEN_CSV = BASE_DIR / "COFIROUTE_data_price_open_2026.csv"
@@ -20,18 +21,8 @@ OUTPUT_OPEN_CSV = BASE_DIR / "COFIROUTE_data_price_open_2026.csv"
 CSV_DELIMITER = ";"
 DISTANCE_DEFAULT = ""
 
-# Transformation manuelle d'un nom normalise vers un autre.
-TRANSFORME_NAME = [
-    {"from": "ANGERS CORZE", "to": "PEAGE DE CORZE"},
-    {"from": "AUVOURS LE MANS ZI SUD", "to": "AVOURS"},
-    {"from": "BARRIERE DE MONTREUIL AUX LIONS", "to": "PEAGE DE MONTREUIL AUX LIONS"},
-    {"from": "BEAULIEU", "to": "PEAGE DE BEAULIEU S LAYON"},
-    {"from": "BEAUMONT", "to": "PEAGE DE BEAUMONT"},
-    {"from": "BEAUMONT SUR SARTHE", "to": "MARESCHE"},
-]
-
 # Noms de gares a exclure (normalisation appliquee automatiquement).
-EXCLUDED_STATIONS = {"ANGERS"}
+EXCLUDED_STATIONS = {"ANGERS", "DRUYE CANDE", "NANTES", "ANCENIS", "TOURS CENTRE"}
 
 # Regles manuelles de generation du CSV open.
 # Format de chaque regle:
@@ -74,6 +65,11 @@ MANUAL_OPEN_RULES = [
         "to": "NANTES",
         "open_name": "VIEILLEVILLE",
     },
+    {
+        "from": "DRUYE CANDE",
+        "to": "TOURS CENTRE CANDE",
+        "open_name": "TOURS CENTRE CANDE",
+    },
 ]
 
 
@@ -112,19 +108,44 @@ def fr_to_float_str(x: str) -> str:
     return x.replace(",", ".")
 
 
-def apply_name_transform(name: str) -> str:
-    from_name = normalize_name(TRANSFORME_NAME.get("from", ""))
-    to_name = normalize_name(TRANSFORME_NAME.get("to", ""))
-    if from_name and to_name and name == from_name:
-        return to_name
-    return name
+def load_name_mapping() -> dict[str, str]:
+    mapping: dict[str, str] = {}
+
+    if not NAME_MAPPING_FILE.exists():
+        print(
+            f"[WARN] Fichier de mapping introuvable: {NAME_MAPPING_FILE}",
+            file=sys.stderr,
+        )
+        return mapping
+
+    with open(NAME_MAPPING_FILE, "r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            src = normalize_name(row.get("cofiroute_name", "").strip())
+            dst = normalize_name(row.get("asf_name", "").strip())
+            if src and dst:
+                mapping[src] = dst
+
+    return mapping
 
 
-def load_excluded_stations() -> set[str]:
-    return {normalize_name(name) for name in EXCLUDED_STATIONS if name.strip()}
+def apply_name_mapping(name: str, name_mapping: dict[str, str]) -> str:
+    return name_mapping.get(name, name)
 
 
-def parse_lines(lines: list[str], excluded_stations: set[str]):
+def load_excluded_stations(name_mapping: dict[str, str]) -> set[str]:
+    excluded = set()
+    for name in EXCLUDED_STATIONS:
+        if not name.strip():
+            continue
+        normalized = normalize_name(name)
+        excluded.add(apply_name_mapping(normalized, name_mapping))
+    return excluded
+
+
+def parse_lines(
+    lines: list[str], excluded_stations: set[str], name_mapping: dict[str, str]
+):
     rows = []
     stations = set()
     excluded_count = 0
@@ -142,8 +163,8 @@ def parse_lines(lines: list[str], excluded_stations: set[str]):
             continue
 
         d = m.groupdict()
-        name_from = apply_name_transform(normalize_name(d["name_from"]))
-        name_to = apply_name_transform(normalize_name(d["name_to"]))
+        name_from = apply_name_mapping(normalize_name(d["name_from"]), name_mapping)
+        name_to = apply_name_mapping(normalize_name(d["name_to"]), name_mapping)
 
         if name_from in excluded_stations or name_to in excluded_stations:
             excluded_count += 1
@@ -189,6 +210,7 @@ def build_close_price_lookup(rows: list[list[str]]) -> dict[tuple[str, str], lis
 
 def generate_open_rows_from_manual_rules(
     close_lookup: dict[tuple[str, str], list[str]],
+    name_mapping: dict[str, str],
 ) -> tuple[list[list[str]], int]:
     open_rows: list[list[str]] = []
     missing_rules = 0
@@ -204,9 +226,9 @@ def generate_open_rows_from_manual_rules(
             missing_rules += 1
             continue
 
-        from_norm = apply_name_transform(normalize_name(rule["from"]))
-        to_norm = apply_name_transform(normalize_name(rule["to"]))
-        open_name = apply_name_transform(normalize_name(rule["open_name"]))
+        from_norm = apply_name_mapping(normalize_name(rule["from"]), name_mapping)
+        to_norm = apply_name_mapping(normalize_name(rule["to"]), name_mapping)
+        open_name = normalize_name(rule["open_name"])
 
         close_row = close_lookup.get((from_norm, to_norm))
 
@@ -291,14 +313,17 @@ def main() -> None:
         sys.exit(1)
 
     lines = INPUT_FILE.read_text(encoding="utf-8").splitlines()
-    excluded_stations = load_excluded_stations()
+    name_mapping = load_name_mapping()
+    excluded_stations = load_excluded_stations(name_mapping)
 
     rows, stations, excluded_count, unparsed_count = parse_lines(
-        lines, excluded_stations
+        lines, excluded_stations, name_mapping
     )
-    all_rows, _, _, _ = parse_lines(lines, set())
+    all_rows, _, _, _ = parse_lines(lines, set(), name_mapping)
     close_lookup = build_close_price_lookup(all_rows)
-    open_rows, missing_open_rules = generate_open_rows_from_manual_rules(close_lookup)
+    open_rows, missing_open_rules = generate_open_rows_from_manual_rules(
+        close_lookup, name_mapping
+    )
 
     write_price_csv(rows)
     write_stations_csv(stations)
