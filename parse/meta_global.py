@@ -18,7 +18,7 @@ import csv
 import subprocess
 import sys
 from pathlib import Path
-from typing import Set, Dict, List
+from typing import Dict, List, Optional, Tuple
 
 
 def recompile_operators(base_dir: Path) -> None:
@@ -139,24 +139,59 @@ def normalize_osm_id_list(value: str) -> str:
     return s
 
 
-def merge_csv_files(input_files: List[str], output_file: str, file_type: str) -> int:
-    """
-    Fusionne plusieurs fichiers CSV en un seul.
+def normalize_text(value: Optional[str]) -> str:
+    """Normalise une valeur texte simple."""
+    return value.strip() if isinstance(value, str) else ""
 
-    Args:
-        input_files: Liste des chemins des fichiers à fusionner
-        output_file: Chemin du fichier de sortie
-        file_type: Type de fichier ('close', 'open', ou 'toll_info')
 
-    Returns:
-        Nombre de lignes écrites (hors header)
-    """
+def normalize_number(value: Optional[str]) -> str:
+    """Normalise une valeur numérique texte en supprimant les zéros inutiles."""
+    text = normalize_text(value)
+    if not text:
+        return ""
+
+    try:
+        number = float(text.replace(",", "."))
+    except ValueError:
+        return text
+
+    if number.is_integer():
+        return str(int(number))
+
+    return f"{number:.10f}".rstrip("0").rstrip(".")
+
+
+def normalize_row(row: Dict[str, str]) -> Dict[str, str]:
+    """Retourne une copie nettoyée d'une ligne CSV."""
+    normalized = {key: normalize_text(value) for key, value in row.items()}
+
+    if "booth_node_id" in normalized:
+        normalized["booth_node_id"] = normalize_osm_id_list(
+            normalized.get("booth_node_id", "")
+        )
+    if "booth_way_id" in normalized:
+        normalized["booth_way_id"] = normalize_osm_id_list(
+            normalized.get("booth_way_id", "")
+        )
+    if "lat" in normalized:
+        normalized["lat"] = normalize_number(normalized.get("lat", ""))
+    if "lon" in normalized:
+        normalized["lon"] = normalize_number(normalized.get("lon", ""))
+    if "nbs_booth" in normalized:
+        normalized["nbs_booth"] = normalize_number(normalized.get("nbs_booth", ""))
+
+    return normalized
+
+
+def read_csv_rows(
+    input_files: List[str], file_type: str
+) -> Tuple[List[str], List[Dict[str, str]]]:
+    """Lit plusieurs CSV homogènes et retourne leur en-tête et leurs lignes."""
     print(f"\n📋 Fusion de {len(input_files)} fichier(s) de type '{file_type}'...")
 
-    all_rows = []
-    header = None
+    all_rows: List[Dict[str, str]] = []
+    header: Optional[List[str]] = None
 
-    # Lecture de tous les fichiers
     for file_path in input_files:
         if not Path(file_path).exists():
             print(f"  ⚠️  Fichier non trouvé: {file_path}")
@@ -167,96 +202,304 @@ def merge_csv_files(input_files: List[str], output_file: str, file_type: str) ->
         with open(file_path, "r", encoding="utf-8") as f:
             reader = csv.DictReader(f, delimiter=delimiter)
 
-            # Récupérer le header du premier fichier
             if header is None:
-                header = reader.fieldnames
+                header = reader.fieldnames or []
 
-            # Vérifier la cohérence des headers
             if reader.fieldnames != header:
                 print(f"  ⚠️  Attention: Headers différents dans {Path(file_path).name}")
 
-            # Lire toutes les lignes
             rows_read = 0
             for row in reader:
-                all_rows.append(row)
+                all_rows.append(normalize_row(row))
                 rows_read += 1
 
             print(f"  📄 Lecture: {Path(file_path).name}")
             print(f"    → {rows_read} ligne(s) lues")
 
-    if not all_rows:
-        print("  ⚠️  Aucune donnée à écrire")
-        return 0
+    if header is None:
+        header = []
 
     print(f"\n  Total avant dédoublonnage: {len(all_rows)} ligne(s)")
+    return header, all_rows
 
-    # Dédoublonnage
-    if file_type in ["close", "open"]:
-        # Pour les fichiers de prix, on dédoublonne sur name_from/name_to ou name
-        seen = set()
-        unique_rows = []
 
-        for row in all_rows:
-            if file_type == "close":
-                key = (row.get("name_from", ""), row.get("name_to", ""))
-            else:  # open
-                key = row.get("name", "")
-
-            if key not in seen:
-                seen.add(key)
-                unique_rows.append(row)
-
-        all_rows = unique_rows
-
-    elif file_type == "toll_info":
-        # Pour toll_info, on dédoublonne sur name et on vérifie la cohérence des OSM IDs
-        name_to_row = {}
-
-        for row in all_rows:
-            name = row.get("name", "").strip()
-            if not name:
-                continue
-
-            if name in name_to_row:
-                # Vérifier la cohérence des IDs OSM
-                existing = name_to_row[name]
-                booth_node_id = normalize_osm_id_list(row.get("booth_node_id", ""))
-                booth_way_id = normalize_osm_id_list(row.get("booth_way_id", ""))
-                existing_node_id = normalize_osm_id_list(
-                    existing.get("booth_node_id", "")
-                )
-                existing_way_id = normalize_osm_id_list(
-                    existing.get("booth_way_id", "")
-                )
-
-                if booth_node_id and booth_node_id != existing_node_id:
-                    print(
-                        f"  ⚠️  Conflit OSM node_id pour '{name}': {existing_node_id} vs {booth_node_id}"
-                    )
-
-                if booth_way_id and booth_way_id != existing_way_id:
-                    print(
-                        f"  ⚠️  Conflit OSM way_id pour '{name}': {existing_way_id} vs {booth_way_id}"
-                    )
-            else:
-                name_to_row[name] = row
-
-        all_rows = list(name_to_row.values())
-
-    print(f"  Total après dédoublonnage: {len(all_rows)} ligne(s)")
-
-    # Écriture du fichier de sortie
+def write_csv_rows(
+    output_file: str, header: List[str], rows: List[Dict[str, str]], file_type: str
+) -> int:
+    """Écrit un CSV en conservant l'en-tête d'origine."""
+    print(f"  Total après dédoublonnage: {len(rows)} ligne(s)")
     print(f"\n  💾 Écriture du fichier: {Path(output_file).name}")
 
     with open(output_file, "w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=header, delimiter=";")
         writer.writeheader()
-        writer.writerows(all_rows)
+        writer.writerows(rows)
 
-    print(f"    ✅ {len(all_rows)} ligne(s) écrite(s)")
+    print(f"    ✅ {len(rows)} ligne(s) écrite(s)")
     print(f"\n✅ Fusion terminée avec succès: {output_file}\n")
+    return len(rows)
 
-    return len(all_rows)
+
+def ordered_unique(values: List[str]) -> List[str]:
+    """Supprime les doublons tout en conservant l'ordre d'apparition."""
+    seen = set()
+    out = []
+    for value in values:
+        if value and value not in seen:
+            seen.add(value)
+            out.append(value)
+    return out
+
+
+def merge_distinct_field(values: List[str]) -> str:
+    """Concatène des valeurs distinctes en conservant l'ordre."""
+    distinct = ordered_unique(
+        [normalize_text(value) for value in values if normalize_text(value)]
+    )
+    return " - ".join(distinct)
+
+
+def choose_first_non_empty(rows: List[Dict[str, str]], field: str) -> str:
+    """Retourne la première valeur non vide pour un champ donné."""
+    for row in rows:
+        value = normalize_text(row.get(field, ""))
+        if value:
+            return value
+    return ""
+
+
+def get_signature(row: Dict[str, str]) -> Optional[Tuple[str, str, str]]:
+    """Construit une signature d'identité OSM à partir des IDs disponibles."""
+    node_ids = row.get("booth_node_id", "")
+    way_ids = row.get("booth_way_id", "")
+    toll_type = row.get("type", "")
+
+    if node_ids and node_ids != "[]":
+        return ("node", node_ids, toll_type)
+    if way_ids and way_ids != "[]":
+        return ("way", way_ids, toll_type)
+    return None
+
+
+def collect_field_values(
+    rows: List[Dict[str, str]], field: str
+) -> Dict[str, List[str]]:
+    """Retourne les valeurs non vides d'un champ indexées par leur forme normalisée."""
+    values: Dict[str, List[str]] = {}
+    for row in rows:
+        raw = normalize_text(row.get(field, ""))
+        if not raw:
+            continue
+        values.setdefault(raw, []).append(row.get("name", ""))
+    return values
+
+
+def find_alias_conflicts(rows: List[Dict[str, str]]) -> List[str]:
+    """Retourne les incompatibilités bloquant une fusion par alias."""
+    conflicts = []
+    fields_to_check = ["lat", "lon", "nbs_booth", "type"]
+
+    for field in fields_to_check:
+        distinct_values = collect_field_values(rows, field)
+        if len(distinct_values) <= 1:
+            continue
+        formatted = ", ".join(
+            f"{value} ({', '.join(sorted(set(names)))})"
+            for value, names in sorted(distinct_values.items())
+        )
+        conflicts.append(f"champ '{field}' incompatible: {formatted}")
+
+    distinct_way_ids = collect_field_values(rows, "booth_way_id")
+    if len(distinct_way_ids) > 1:
+        formatted = ", ".join(
+            f"{value} ({', '.join(sorted(set(names)))})"
+            for value, names in sorted(distinct_way_ids.items())
+        )
+        conflicts.append(f"champ 'booth_way_id' incompatible: {formatted}")
+
+    return conflicts
+
+
+def merge_duplicate_name_row(
+    existing: Dict[str, str], row: Dict[str, str]
+) -> Tuple[Dict[str, str], List[str]]:
+    """Fusionne deux lignes portant exactement le même nom."""
+    merged = dict(existing)
+    warnings = []
+    name = existing.get("name", "")
+
+    strict_fields = [
+        "booth_node_id",
+        "booth_way_id",
+        "lat",
+        "lon",
+        "nbs_booth",
+        "type",
+        "osm_name",
+    ]
+
+    for field in strict_fields:
+        existing_value = normalize_text(existing.get(field, ""))
+        new_value = normalize_text(row.get(field, ""))
+
+        if existing_value and new_value and existing_value != new_value:
+            warnings.append(
+                f"  ⚠️  Conflit pour '{name}' sur '{field}': {existing_value} vs {new_value}"
+            )
+            continue
+
+        if not existing_value and new_value:
+            merged[field] = new_value
+
+    operator_refs = merge_distinct_field(
+        [existing.get("operator_ref", ""), row.get("operator_ref", "")]
+    )
+    if operator_refs:
+        merged["operator_ref"] = operator_refs
+
+    return merged, warnings
+
+
+def merge_toll_info_rows(
+    rows: List[Dict[str, str]],
+) -> Tuple[List[Dict[str, str]], Dict[str, str], List[str], List[str]]:
+    """
+    Fusionne toll_info en regroupant les alias qui partagent strictement les mêmes IDs OSM.
+
+    Returns:
+        merged_rows, alias_map, warnings, merged_groups
+    """
+    warnings: List[str] = []
+    alias_map: Dict[str, str] = {}
+    merged_groups: List[str] = []
+
+    rows_by_name: Dict[str, Dict[str, str]] = {}
+    ordered_names: List[str] = []
+
+    for row in rows:
+        name = normalize_text(row.get("name", ""))
+        if not name:
+            continue
+
+        if name in rows_by_name:
+            merged_row, row_warnings = merge_duplicate_name_row(rows_by_name[name], row)
+            rows_by_name[name] = merged_row
+            warnings.extend(row_warnings)
+        else:
+            rows_by_name[name] = dict(row)
+            ordered_names.append(name)
+
+    rows_after_exact_name_merge = [rows_by_name[name] for name in ordered_names]
+
+    grouped_by_signature: Dict[Tuple[str, str, str], List[Dict[str, str]]] = {}
+    rows_without_signature: List[Dict[str, str]] = []
+
+    for row in rows_after_exact_name_merge:
+        signature = get_signature(row)
+        if signature is None:
+            rows_without_signature.append(row)
+            alias_map[row["name"]] = row["name"]
+            continue
+
+        grouped_by_signature.setdefault(signature, []).append(row)
+
+    merged_rows: List[Dict[str, str]] = []
+
+    for row in rows_without_signature:
+        merged_rows.append(row)
+
+    for grouped_rows in grouped_by_signature.values():
+        if len(grouped_rows) == 1:
+            row = grouped_rows[0]
+            alias_map[row["name"]] = row["name"]
+            merged_rows.append(row)
+            continue
+
+        conflicts = find_alias_conflicts(grouped_rows)
+        if conflicts:
+            names = ", ".join(row["name"] for row in grouped_rows)
+            warnings.append(
+                f"  ⚠️  Fusion alias ignorée pour [{names}] malgré IDs OSM communs: "
+                + " | ".join(conflicts)
+            )
+            for row in grouped_rows:
+                alias_map[row["name"]] = row["name"]
+                merged_rows.append(row)
+            continue
+
+        ordered_names_in_group = ordered_unique([row["name"] for row in grouped_rows])
+        merged_name = " - ".join(ordered_names_in_group)
+        merged_row = dict(grouped_rows[0])
+        merged_row["name"] = merged_name
+        merged_row["osm_name"] = choose_first_non_empty(grouped_rows, "osm_name")
+        merged_row["operator_ref"] = merge_distinct_field(
+            [row.get("operator_ref", "") for row in grouped_rows]
+        )
+        merged_row["lat"] = choose_first_non_empty(grouped_rows, "lat")
+        merged_row["lon"] = choose_first_non_empty(grouped_rows, "lon")
+        merged_row["nbs_booth"] = choose_first_non_empty(grouped_rows, "nbs_booth")
+        merged_row["booth_node_id"] = choose_first_non_empty(
+            grouped_rows, "booth_node_id"
+        )
+        merged_row["booth_way_id"] = choose_first_non_empty(
+            grouped_rows, "booth_way_id"
+        )
+        merged_row["type"] = choose_first_non_empty(grouped_rows, "type")
+        merged_row["operator_osm"] = choose_first_non_empty(
+            grouped_rows, "operator_osm"
+        )
+
+        for original_name in ordered_names_in_group:
+            alias_map[original_name] = merged_name
+
+        merged_rows.append(merged_row)
+        merged_groups.append(merged_name)
+
+    return merged_rows, alias_map, warnings, merged_groups
+
+
+def apply_aliases_to_price_rows(
+    rows: List[Dict[str, str]], file_type: str, alias_map: Dict[str, str]
+) -> List[Dict[str, str]]:
+    """Réécrit les noms des CSV de prix avec les alias fusionnés."""
+    rewritten_rows = []
+    for row in rows:
+        new_row = dict(row)
+        if file_type == "close":
+            new_row["name_from"] = alias_map.get(
+                new_row.get("name_from", ""), new_row.get("name_from", "")
+            )
+            new_row["name_to"] = alias_map.get(
+                new_row.get("name_to", ""), new_row.get("name_to", "")
+            )
+        else:
+            new_row["name"] = alias_map.get(
+                new_row.get("name", ""), new_row.get("name", "")
+            )
+        rewritten_rows.append(new_row)
+    return rewritten_rows
+
+
+def deduplicate_price_rows(
+    rows: List[Dict[str, str]], file_type: str
+) -> List[Dict[str, str]]:
+    """Dédoublonne les lignes de prix après réécriture des alias."""
+    seen = set()
+    unique_rows = []
+
+    for row in rows:
+        if file_type == "close":
+            key = (row.get("name_from", ""), row.get("name_to", ""))
+        else:
+            key = row.get("name", "")
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+        unique_rows.append(row)
+
+    return unique_rows
 
 
 def main():
@@ -338,45 +581,76 @@ def main():
     output_open = base_dir / "GLOBAL_data_price_open.csv"
     output_toll_info = base_dir / "GLOBAL_toll_info.csv"
 
+    close_inputs = [
+        str(asf_close),
+        str(area_close),
+        str(aprr_close),
+        str(cofiroute_close),
+    ]
+    open_inputs = [str(asf_open), str(area_open), str(aprr_open), str(cofiroute_open)]
+    toll_info_inputs = [
+        str(asf_toll_info),
+        str(area_toll_info),
+        str(aprr_toll_info),
+        str(cofiroute_toll_info),
+    ]
+
     print("\n" + "=" * 80)
-    print("  ÉTAPE 1/3: Fusion des fichiers Close")
+    print("  ÉTAPE 1/4: Lecture des fichiers sources")
     print("=" * 80)
 
-    close_count = merge_csv_files(
-        [
-            str(asf_close),
-            str(area_close),
-            str(aprr_close),
-            str(cofiroute_close),
-        ],
-        str(output_close),
-        "close",
+    close_header, close_rows = read_csv_rows(close_inputs, "close")
+    open_header, open_rows = read_csv_rows(open_inputs, "open")
+    toll_info_header, toll_info_rows = read_csv_rows(toll_info_inputs, "toll_info")
+
+    print("\n" + "=" * 80)
+    print("  ÉTAPE 2/4: Fusion intelligente du Toll Info")
+    print("=" * 80)
+
+    merged_toll_info_rows, alias_map, toll_info_warnings, merged_alias_groups = (
+        merge_toll_info_rows(toll_info_rows)
+    )
+
+    for warning in toll_info_warnings:
+        print(warning)
+
+    if merged_alias_groups:
+        print(
+            f"  🔗 {len(merged_alias_groups)} groupe(s) d'alias fusionné(s) sur IDs OSM identiques"
+        )
+        for merged_name in merged_alias_groups:
+            print(f"    - {merged_name}")
+    else:
+        print("  ℹ️  Aucun alias supplémentaire à fusionner")
+
+    toll_info_count = write_csv_rows(
+        str(output_toll_info), toll_info_header, merged_toll_info_rows, "toll_info"
     )
 
     print("=" * 80)
-    print("  ÉTAPE 2/3: Fusion des fichiers Open")
+    print("  ÉTAPE 3/4: Réécriture et fusion des fichiers Close/Open")
     print("=" * 80)
 
-    open_count = merge_csv_files(
-        [str(asf_open), str(area_open), str(aprr_open), str(cofiroute_open)],
+    rewritten_close_rows = apply_aliases_to_price_rows(close_rows, "close", alias_map)
+    rewritten_open_rows = apply_aliases_to_price_rows(open_rows, "open", alias_map)
+
+    close_count = write_csv_rows(
+        str(output_close),
+        close_header,
+        deduplicate_price_rows(rewritten_close_rows, "close"),
+        "close",
+    )
+
+    open_count = write_csv_rows(
         str(output_open),
+        open_header,
+        deduplicate_price_rows(rewritten_open_rows, "open"),
         "open",
     )
 
     print("=" * 80)
-    print("  ÉTAPE 3/3: Fusion des fichiers Toll Info")
+    print("  ÉTAPE 4/4: Résumé")
     print("=" * 80)
-
-    toll_info_count = merge_csv_files(
-        [
-            str(asf_toll_info),
-            str(area_toll_info),
-            str(aprr_toll_info),
-            str(cofiroute_toll_info),
-        ],
-        str(output_toll_info),
-        "toll_info",
-    )
 
     # Résumé final
     print("=" * 80)
