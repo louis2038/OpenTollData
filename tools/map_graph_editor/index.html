@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Map Graph Editor</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <style>
+      html,
+      body,
+      #map {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .toolbar {
+        position: absolute;
+        top: 12px;
+        left: 50px;
+        z-index: 1000;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        max-width: calc(100vw - 80px);
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      .toolbar button,
+      .toolbar select {
+        height: 32px;
+      }
+
+      .mode-btn.active {
+        background: #111827;
+        color: white;
+      }
+
+      .hint {
+        position: absolute;
+        left: 50px;
+        bottom: 18px;
+        z-index: 1000;
+        max-width: 640px;
+        padding: 10px 12px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .editor {
+        position: absolute;
+        top: 78px;
+        right: 12px;
+        z-index: 1000;
+        display: none;
+        width: 300px;
+        padding: 12px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+        font-size: 13px;
+      }
+
+      .editor.open {
+        display: block;
+      }
+
+      .editor h3 {
+        margin: 0 0 10px;
+        font-size: 16px;
+      }
+
+      .editor label {
+        display: block;
+        margin-top: 8px;
+        font-weight: bold;
+      }
+
+      .editor input,
+      .editor select,
+      .editor textarea {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 4px;
+      }
+
+      .editor textarea {
+        min-height: 120px;
+        font-family: monospace;
+      }
+
+      .connect-options {
+        display: none;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 10px;
+        margin-top: 6px;
+      }
+
+      .connect-options.open {
+        display: grid;
+      }
+
+      .connect-options label {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin: 0;
+        font-weight: normal;
+      }
+
+      .connect-options input {
+        width: auto;
+        margin: 0;
+      }
+
+      .editor-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-top: 10px;
+      }
+
+      .selected-node {
+        filter: drop-shadow(0 0 8px #111827);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button class="mode-btn" data-mode="none" type="button">Rien</button>
+      <button class="mode-btn" data-mode="create" type="button">
+        Créer sommet
+      </button>
+      <button class="mode-btn" data-mode="move" type="button">Déplacer</button>
+      <button class="mode-btn" data-mode="delete" type="button">Suppr</button>
+      <button class="mode-btn" data-mode="connect" type="button">Relier</button>
+      <button class="mode-btn" data-mode="edit" type="button">Edit</button>
+      <button class="mode-btn" data-mode="connect-all" type="button">
+        Connect all
+      </button>
+
+      <label for="nodeType">Type</label>
+      <select id="nodeType"></select>
+
+      <label for="baseLayer">Fond</label>
+      <select id="baseLayer"></select>
+
+      <button id="exportBtn" type="button">Export JSON</button>
+      <button id="importBtn" type="button">Import JSON</button>
+      <input
+        id="importFile"
+        type="file"
+        accept="application/json,.json"
+        hidden
+      />
+    </div>
+
+    <div id="map"></div>
+
+    <form class="editor" id="nodeEditor">
+      <h3>Edition du noeud</h3>
+      <div>ID: <strong id="editNodeId"></strong></div>
+      <div>Toll name: <strong id="editTollName"></strong></div>
+      <div>nbs_booth: <strong id="editNbsBooth"></strong></div>
+
+      <label for="editName">Nom</label>
+      <input id="editName" type="text" placeholder="optionnel" />
+
+      <label for="editType">Type</label>
+      <select id="editType"></select>
+
+      <label>Options connect</label>
+      <div class="connect-options" id="connectOptions">
+        <label
+          ><input class="connect-option" type="checkbox" value="Ss" /> Ss -
+          sortie sud</label
+        >
+        <label
+          ><input class="connect-option" type="checkbox" value="Sn" /> Sn -
+          sortie nord</label
+        >
+        <label
+          ><input class="connect-option" type="checkbox" value="Es" /> Es -
+          entré sud</label
+        >
+        <label
+          ><input class="connect-option" type="checkbox" value="En" /> En -
+          entré nord</label
+        >
+      </div>
+
+      <label for="editAttrs">Attributs JSON</label>
+      <textarea
+        id="editAttrs"
+        spellcheck="false"
+        placeholder='{"source":"manual"}'
+      ></textarea>
+
+      <div class="editor-actions">
+        <button id="closeEditorBtn" type="button">Fermer</button>
+        <button type="submit">Enregistrer</button>
+      </div>
+    </form>
+
+    <div class="hint" id="hint"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      const nodeTypes = ["empty", "toll", "open", "connect"];
+
+      const typeStyles = {
+        empty: { color: "#334155", fillColor: "#cbd5e1", radius: 11 },
+        toll: { color: "#991b1b", fillColor: "#ef4444", radius: 13 },
+        open: { color: "#a16207", fillColor: "#facc15", radius: 13 },
+        connect: { color: "#166534", fillColor: "#22c55e", radius: 12 },
+      };
+
+      const graph = {
+        nodes: [],
+        edges: [],
+      };
+
+      const markers = new Map();
+      const lines = new Map();
+      let selectedNodeId = null;
+      let currentMode = "create";
+      let draggedNodeId = null;
+      let nextNodeId = 1;
+      let nextEdgeId = 1;
+
+      const hints = {
+        none: "Mode Rien: navigation carte uniquement. Aucun ajout, déplacement ou suppression.",
+        create:
+          "Mode Créer sommet: clique sur la carte pour créer un sommet du type sélectionné.",
+        move: "Mode Déplacer: clique-glisse un sommet pour le déplacer.",
+        delete:
+          "Mode Suppr: clique sur un sommet ou une ligne pour le supprimer.",
+        connect:
+          "Mode Relier: clique sur deux sommets pour créer une ligne droite entre eux.",
+        edit: "Mode Edit: clique sur un sommet pour modifier son nom, son type et ses attributs JSON.",
+        "connect-all":
+          "Mode Connect all: clique sur un sommet pour le passer en connect avec Ss, Sn, Es et En activés.",
+      };
+
+      const baseLayers = {
+        "OSM autoroutes (HOT)": {
+          url: "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+          options: {
+            maxZoom: 20,
+            attribution: "&copy; OpenStreetMap contributors, Tiles style HOT",
+          },
+        },
+        "OSM FR": {
+          url: "https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",
+          options: {
+            maxZoom: 20,
+            attribution:
+              "&copy; OpenStreetMap contributors, Tiles style OSM-FR",
+          },
+        },
+        "Carto Light": {
+          url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+          options: {
+            subdomains: "abcd",
+            maxZoom: 20,
+            attribution: "&copy; OpenStreetMap contributors &copy; CARTO",
+          },
+        },
+        "Carto Dark": {
+          url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+          options: {
+            subdomains: "abcd",
+            maxZoom: 20,
+            attribution: "&copy; OpenStreetMap contributors &copy; CARTO",
+          },
+        },
+        "OSM standard": {
+          url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          options: {
+            maxZoom: 19,
+            attribution: "&copy; OpenStreetMap contributors",
+          },
+        },
+      };
+
+      const map = L.map("map").setView([46.7, 2.6], 6);
+      let currentBaseLayer = null;
+
+      const nodeTypeSelect = document.getElementById("nodeType");
+      const editTypeSelect = document.getElementById("editType");
+      for (const type of nodeTypes) {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        nodeTypeSelect.appendChild(option);
+
+        const editOption = document.createElement("option");
+        editOption.value = type;
+        editOption.textContent = type;
+        editTypeSelect.appendChild(editOption);
+      }
+
+      const baseLayerSelect = document.getElementById("baseLayer");
+      for (const name of Object.keys(baseLayers)) {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        baseLayerSelect.appendChild(option);
+      }
+
+      function setBaseLayer(name) {
+        if (currentBaseLayer) map.removeLayer(currentBaseLayer);
+        const layer = baseLayers[name];
+        currentBaseLayer = L.tileLayer(layer.url, layer.options).addTo(map);
+      }
+
+      setBaseLayer("OSM autoroutes (HOT)");
+
+      function setMode(mode) {
+        currentMode = mode;
+        clearSelection();
+        closeEditor();
+        document.querySelectorAll(".mode-btn").forEach((button) => {
+          button.classList.toggle("active", button.dataset.mode === mode);
+        });
+        document.getElementById("hint").textContent = hints[mode];
+      }
+
+      setMode(currentMode);
+
+      function styleFor(type) {
+        return typeStyles[type] || typeStyles.empty;
+      }
+
+      function makeMarker(node) {
+        const style = styleFor(node.type);
+        const marker = L.circleMarker([node.lat, node.lng], {
+          radius: style.radius,
+          color: style.color,
+          fillColor: style.fillColor,
+          fillOpacity: 0.9,
+          weight: 3,
+        }).addTo(map);
+
+        marker.bindTooltip(labelForNode(node));
+
+        marker.on("click", (event) => {
+          L.DomEvent.stopPropagation(event);
+          handleNodeClick(node.id);
+        });
+
+        marker.on("mousedown", (event) => {
+          if (currentMode !== "move") return;
+          L.DomEvent.stopPropagation(event);
+          map.dragging.disable();
+          draggedNodeId = node.id;
+        });
+
+        markers.set(node.id, marker);
+        return marker;
+      }
+
+      function addNode(latlng, type) {
+        const node = {
+          id: `n${nextNodeId++}`,
+          type,
+          name: "",
+          toll_name: "",
+          nbs_booth: "",
+          connectOptions: [],
+          attrs: {},
+          lat: latlng.lat,
+          lng: latlng.lng,
+        };
+        graph.nodes.push(node);
+        makeMarker(node);
+        return node;
+      }
+
+      function getNode(id) {
+        return graph.nodes.find((node) => node.id === id);
+      }
+
+      function edgeExists(from, to) {
+        return graph.edges.some((edge) => {
+          return (
+            (edge.from === from && edge.to === to) ||
+            (edge.from === to && edge.to === from)
+          );
+        });
+      }
+
+      function addEdge(from, to) {
+        if (from === to || edgeExists(from, to)) return;
+
+        const edge = {
+          id: `e${nextEdgeId++}`,
+          from,
+          to,
+        };
+        graph.edges.push(edge);
+        drawEdge(edge);
+      }
+
+      function drawEdge(edge) {
+        const from = getNode(edge.from);
+        const to = getNode(edge.to);
+        if (!from || !to) return;
+
+        const line = L.polyline(
+          [
+            [from.lat, from.lng],
+            [to.lat, to.lng],
+          ],
+          {
+            color: "#111827",
+            weight: 3,
+            opacity: 0.8,
+          },
+        ).addTo(map);
+
+        line.on("click", (event) => {
+          L.DomEvent.stopPropagation(event);
+          if (currentMode === "delete") deleteEdge(edge.id);
+        });
+
+        lines.set(edge.id, line);
+      }
+
+      function redrawEdge(edge) {
+        const line = lines.get(edge.id);
+        const from = getNode(edge.from);
+        const to = getNode(edge.to);
+        if (line && from && to) {
+          line.setLatLngs([
+            [from.lat, from.lng],
+            [to.lat, to.lng],
+          ]);
+        }
+      }
+
+      function updateConnectedEdges(nodeId) {
+        for (const edge of graph.edges) {
+          if (edge.from === nodeId || edge.to === nodeId) redrawEdge(edge);
+        }
+      }
+
+      function moveDraggedNode(latlng) {
+        if (!draggedNodeId) return;
+
+        const node = getNode(draggedNodeId);
+        const marker = markers.get(draggedNodeId);
+        if (!node || !marker) return;
+
+        node.lat = latlng.lat;
+        node.lng = latlng.lng;
+        marker.setLatLng(latlng);
+        updateConnectedEdges(node.id);
+      }
+
+      function stopDraggingNode() {
+        if (!draggedNodeId) return;
+        draggedNodeId = null;
+        map.dragging.enable();
+      }
+
+      function selectNode(id) {
+        clearSelection();
+        selectedNodeId = id;
+        const marker = markers.get(id);
+        if (marker && marker.getElement())
+          marker.getElement().classList.add("selected-node");
+      }
+
+      function clearSelection() {
+        if (selectedNodeId) {
+          const marker = markers.get(selectedNodeId);
+          if (marker && marker.getElement())
+            marker.getElement().classList.remove("selected-node");
+        }
+        selectedNodeId = null;
+      }
+
+      function handleNodeClick(id) {
+        if (currentMode === "delete") {
+          deleteNode(id);
+          return;
+        }
+
+        if (currentMode === "edit") {
+          openEditor(id);
+          return;
+        }
+
+        if (currentMode === "connect-all") {
+          convertNodeToFullConnect(id);
+          return;
+        }
+
+        if (currentMode !== "connect") return;
+
+        if (!selectedNodeId) {
+          selectNode(id);
+          return;
+        }
+
+        addEdge(selectedNodeId, id);
+        clearSelection();
+      }
+
+      function deleteNode(id) {
+        if (selectedNodeId === id) clearSelection();
+
+        graph.nodes = graph.nodes.filter((node) => node.id !== id);
+        const marker = markers.get(id);
+        if (marker) {
+          map.removeLayer(marker);
+          markers.delete(id);
+        }
+
+        const removedEdges = graph.edges.filter(
+          (edge) => edge.from === id || edge.to === id,
+        );
+        graph.edges = graph.edges.filter(
+          (edge) => edge.from !== id && edge.to !== id,
+        );
+        for (const edge of removedEdges) removeEdgeLayer(edge.id);
+      }
+
+      function removeEdgeLayer(id) {
+        const line = lines.get(id);
+        if (line) map.removeLayer(line);
+        lines.delete(id);
+      }
+
+      function deleteEdge(id) {
+        graph.edges = graph.edges.filter((edge) => edge.id !== id);
+        removeEdgeLayer(id);
+      }
+
+      function convertNodeToFullConnect(id) {
+        const node = getNode(id);
+        if (!node) return;
+
+        node.type = "connect";
+        node.connectOptions = ["Ss", "Sn", "Es", "En"];
+        refreshNodeStyle(node);
+      }
+
+      function labelForNode(node) {
+        const displayName = node.name || node.toll_name || "";
+        const name = displayName ? ` - ${displayName}` : "";
+        const options =
+          node.type === "connect" &&
+          node.connectOptions &&
+          node.connectOptions.length
+            ? ` [${node.connectOptions.join(",")}]`
+            : "";
+        return `${node.id} (${node.type}${options})${name}`;
+      }
+
+      function refreshNodeStyle(node) {
+        const marker = markers.get(node.id);
+        if (!marker) return;
+
+        const style = styleFor(node.type);
+        marker.setStyle({
+          radius: style.radius,
+          color: style.color,
+          fillColor: style.fillColor,
+        });
+        marker.bindTooltip(labelForNode(node));
+      }
+
+      function openEditor(id) {
+        const node = getNode(id);
+        if (!node) return;
+
+        selectNode(id);
+        document.getElementById("editNodeId").textContent = node.id;
+        document.getElementById("editTollName").textContent =
+          node.toll_name || "";
+        document.getElementById("editNbsBooth").textContent =
+          node.nbs_booth || "";
+        document.getElementById("editName").value = node.name || "";
+        editTypeSelect.value = node.type || "empty";
+        updateConnectOptionsVisibility();
+        setConnectOptionChecks(node.connectOptions || []);
+        document.getElementById("editAttrs").value = JSON.stringify(
+          node.attrs || {},
+          null,
+          2,
+        );
+        document.getElementById("nodeEditor").classList.add("open");
+      }
+
+      function closeEditor() {
+        document.getElementById("nodeEditor").classList.remove("open");
+      }
+
+      function updateConnectOptionsVisibility() {
+        document
+          .getElementById("connectOptions")
+          .classList.toggle("open", editTypeSelect.value === "connect");
+      }
+
+      function setConnectOptionChecks(options) {
+        const selected = new Set(options);
+        document.querySelectorAll(".connect-option").forEach((checkbox) => {
+          checkbox.checked = selected.has(checkbox.value);
+        });
+      }
+
+      function getConnectOptionChecks() {
+        return Array.from(document.querySelectorAll(".connect-option"))
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => checkbox.value);
+      }
+
+      function clearGraphLayers() {
+        for (const marker of markers.values()) map.removeLayer(marker);
+        for (const line of lines.values()) map.removeLayer(line);
+        markers.clear();
+        lines.clear();
+        clearSelection();
+      }
+
+      function renderGraph() {
+        clearGraphLayers();
+        for (const node of graph.nodes) makeMarker(node);
+        for (const edge of graph.edges) drawEdge(edge);
+      }
+
+      function resetCounters() {
+        const nodeNumbers = graph.nodes
+          .map((node) => Number(String(node.id).replace(/^n/, "")))
+          .filter(Number.isFinite);
+        const edgeNumbers = graph.edges
+          .map((edge) => Number(String(edge.id).replace(/^e/, "")))
+          .filter(Number.isFinite);
+        nextNodeId = Math.max(0, ...nodeNumbers) + 1;
+        nextEdgeId = Math.max(0, ...edgeNumbers) + 1;
+      }
+
+      function exportJson() {
+        const blob = new Blob([JSON.stringify(graph, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "graph.json";
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function importJson(file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const imported = JSON.parse(reader.result);
+          graph.nodes = Array.isArray(imported.nodes) ? imported.nodes : [];
+          for (const node of graph.nodes) {
+            if (typeof node.name !== "string") node.name = "";
+            if (typeof node.toll_name !== "string") node.toll_name = "";
+            if (typeof node.nbs_booth !== "string")
+              node.nbs_booth = String(node.nbs_booth || "");
+            if (!Array.isArray(node.connectOptions)) node.connectOptions = [];
+            if (
+              !node.attrs ||
+              typeof node.attrs !== "object" ||
+              Array.isArray(node.attrs)
+            )
+              node.attrs = {};
+          }
+          graph.edges = Array.isArray(imported.edges) ? imported.edges : [];
+          resetCounters();
+          renderGraph();
+        };
+        reader.readAsText(file);
+      }
+
+      map.on("click", (event) => {
+        if (currentMode === "create")
+          addNode(event.latlng, nodeTypeSelect.value);
+      });
+
+      map.on("mousemove", (event) => {
+        if (currentMode === "move") moveDraggedNode(event.latlng);
+      });
+
+      map.on("mouseup", stopDraggingNode);
+      document.addEventListener("mouseup", stopDraggingNode);
+
+      document.querySelectorAll(".mode-btn").forEach((button) => {
+        button.addEventListener("click", () => setMode(button.dataset.mode));
+      });
+
+      baseLayerSelect.addEventListener("change", () =>
+        setBaseLayer(baseLayerSelect.value),
+      );
+      document
+        .getElementById("exportBtn")
+        .addEventListener("click", exportJson);
+      document
+        .getElementById("importBtn")
+        .addEventListener("click", () =>
+          document.getElementById("importFile").click(),
+        );
+      document
+        .getElementById("importFile")
+        .addEventListener("change", (event) => {
+          const file = event.target.files[0];
+          if (file) importJson(file);
+          event.target.value = "";
+        });
+
+      document
+        .getElementById("closeEditorBtn")
+        .addEventListener("click", () => {
+          closeEditor();
+          clearSelection();
+        });
+
+      editTypeSelect.addEventListener("change", updateConnectOptionsVisibility);
+
+      document
+        .getElementById("nodeEditor")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          if (!selectedNodeId) return;
+
+          const node = getNode(selectedNodeId);
+          if (!node) return;
+
+          let attrs;
+          try {
+            attrs = JSON.parse(
+              document.getElementById("editAttrs").value || "{}",
+            );
+          } catch (error) {
+            alert("Attributs JSON invalides");
+            return;
+          }
+
+          if (!attrs || typeof attrs !== "object" || Array.isArray(attrs)) {
+            alert(
+              'Les attributs doivent être un objet JSON, par exemple {"source":"manual"}',
+            );
+            return;
+          }
+
+          node.name = document.getElementById("editName").value.trim();
+          node.type = editTypeSelect.value;
+          node.connectOptions =
+            node.type === "connect" ? getConnectOptionChecks() : [];
+          node.attrs = attrs;
+          refreshNodeStyle(node);
+        });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") clearSelection();
+        if (/^[1-9]$/.test(event.key)) {
+          const index = Number(event.key) - 1;
+          if (nodeTypes[index]) nodeTypeSelect.value = nodeTypes[index];
+        }
+      });
+
+      window.addEventListener("beforeunload", (event) => {
+        event.preventDefault();
+        event.returnValue = "";
+      });
+    </script>
+  </body>
+</html>

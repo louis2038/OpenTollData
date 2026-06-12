@@ -9,7 +9,8 @@ Ce script fusionne les fichiers finaux de différents opérateurs pour créer
 un triplet global de données de péage.
 
 Utilisation:
-    python meta_global.py              # fusion seule
+    python meta_global.py              # fusion des prix uniquement, conserve GLOBAL_toll_info.csv
+    python meta_global.py --forceinfo  # régénère aussi GLOBAL_toll_info.csv
     python meta_global.py --recompile  # re-exécute les parsers puis fusionne
 """
 
@@ -30,7 +31,7 @@ def recompile_operators(base_dir: Path) -> None:
         1. ASF       — meta_asf.py              (depuis parse/ASF/)
         2. AREA      — parse_AREA.py            (depuis parse/AREA/)
         3. APRR      — parse_APRR.py            (depuis parse/APRR/)
-        4. COFIROUTE — parse_cofiroute_close.py (depuis parse/COFIROUTE/all/)
+        4. COFIROUTE — parse_cofiroute_close.py (depuis parse/COFIROUTE/)
 
     Lève SystemExit en cas d'échec d'un des scripts.
     """
@@ -61,7 +62,7 @@ def recompile_operators(base_dir: Path) -> None:
         {
             "name": "COFIROUTE",
             "cmd": [sys.executable, "parse_cofiroute_close.py"],
-            "cwd": base_dir / "COFIROUTE" / "all",
+            "cwd": base_dir / "COFIROUTE",
         },
     ]
 
@@ -502,6 +503,21 @@ def deduplicate_price_rows(
     return unique_rows
 
 
+def read_toll_info_alias_map(toll_info_file: Path) -> Dict[str, str]:
+    """Construit une table d'alias identité depuis le toll_info global existant."""
+    delimiter = detect_delimiter(str(toll_info_file))
+    alias_map: Dict[str, str] = {}
+
+    with open(toll_info_file, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f, delimiter=delimiter)
+        for row in reader:
+            name = normalize_text(row.get("name", ""))
+            if name:
+                alias_map[name] = name
+
+    return alias_map
+
+
 def main():
     """Point d'entrée principal du script."""
     parser = argparse.ArgumentParser(
@@ -511,6 +527,14 @@ def main():
         "--recompile",
         action="store_true",
         help="Ré-exécute les scripts de parsing de chaque opérateur avant la fusion.",
+    )
+    parser.add_argument(
+        "--forceinfo",
+        action="store_true",
+        help=(
+            "Régénère GLOBAL_toll_info.csv depuis les toll_info opérateurs. "
+            "Par défaut, le fichier existant est conservé."
+        ),
     )
     args = parser.parse_args()
 
@@ -538,15 +562,14 @@ def main():
     aprr_open = base_dir / "APRR" / "APRR_data_price_open_2026.csv"
     aprr_toll_info = base_dir / "APRR" / "APRR_toll_info.csv"
 
-    cofiroute_close = (
-        base_dir / "COFIROUTE" / "all" / "COFIROUTE_data_price_close_2026.csv"
-    )
-    cofiroute_open = (
-        base_dir / "COFIROUTE" / "all" / "COFIROUTE_data_price_open_2026.csv"
-    )
-    cofiroute_toll_info = (
-        base_dir / "COFIROUTE" / "all" / "COFIROUTE_toll_info_2026.csv"
-    )
+    cofiroute_close = base_dir / "COFIROUTE" / "COFIROUTE_data_price_close_2026.csv"
+    cofiroute_open = base_dir / "COFIROUTE" / "COFIROUTE_data_price_open_2026.csv"
+    cofiroute_toll_info = base_dir / "COFIROUTE" / "COFIROUTE_toll_info_2026.csv"
+
+    # Chemins des fichiers de sortie
+    output_close = base_dir / "GLOBAL_data_price_close.csv"
+    output_open = base_dir / "GLOBAL_data_price_open.csv"
+    output_toll_info = base_dir / "GLOBAL_toll_info.csv"
 
     # Vérification de l'existence des fichiers
     print("\n📁 Vérification des fichiers sources...")
@@ -555,16 +578,12 @@ def main():
     for file_path in [
         asf_close,
         asf_open,
-        asf_toll_info,
         area_close,
         area_open,
-        area_toll_info,
         aprr_close,
         aprr_open,
-        aprr_toll_info,
         cofiroute_close,
         cofiroute_open,
-        cofiroute_toll_info,
     ]:
         if file_path.exists():
             print(f"  ✅ {file_path.relative_to(base_dir)}")
@@ -572,14 +591,23 @@ def main():
             print(f"  ❌ MANQUANT: {file_path.relative_to(base_dir)}")
             all_files_exist = False
 
+    toll_info_files = [asf_toll_info, area_toll_info, aprr_toll_info, cofiroute_toll_info]
+    if args.forceinfo:
+        for file_path in toll_info_files:
+            if file_path.exists():
+                print(f"  ✅ {file_path.relative_to(base_dir)}")
+            else:
+                print(f"  ❌ MANQUANT: {file_path.relative_to(base_dir)}")
+                all_files_exist = False
+    elif output_toll_info.exists():
+        print(f"  ✅ {output_toll_info.relative_to(base_dir)} (conservé)")
+    else:
+        print(f"  ❌ MANQUANT: {output_toll_info.relative_to(base_dir)}")
+        all_files_exist = False
+
     if not all_files_exist:
         print("\n❌ ERREUR: Certains fichiers sources sont manquants!")
         sys.exit(1)
-
-    # Chemins des fichiers de sortie
-    output_close = base_dir / "GLOBAL_data_price_close.csv"
-    output_open = base_dir / "GLOBAL_data_price_open.csv"
-    output_toll_info = base_dir / "GLOBAL_toll_info.csv"
 
     close_inputs = [
         str(asf_close),
@@ -596,36 +624,41 @@ def main():
     ]
 
     print("\n" + "=" * 80)
-    print("  ÉTAPE 1/4: Lecture des fichiers sources")
+    print("  ÉTAPE 1/4: Lecture des fichiers de prix")
     print("=" * 80)
 
     close_header, close_rows = read_csv_rows(close_inputs, "close")
     open_header, open_rows = read_csv_rows(open_inputs, "open")
-    toll_info_header, toll_info_rows = read_csv_rows(toll_info_inputs, "toll_info")
 
     print("\n" + "=" * 80)
-    print("  ÉTAPE 2/4: Fusion intelligente du Toll Info")
+    print("  ÉTAPE 2/4: Toll Info global")
     print("=" * 80)
 
-    merged_toll_info_rows, alias_map, toll_info_warnings, merged_alias_groups = (
-        merge_toll_info_rows(toll_info_rows)
-    )
-
-    for warning in toll_info_warnings:
-        print(warning)
-
-    if merged_alias_groups:
-        print(
-            f"  🔗 {len(merged_alias_groups)} groupe(s) d'alias fusionné(s) sur IDs OSM identiques"
+    if args.forceinfo:
+        toll_info_header, toll_info_rows = read_csv_rows(toll_info_inputs, "toll_info")
+        merged_toll_info_rows, alias_map, toll_info_warnings, merged_alias_groups = (
+            merge_toll_info_rows(toll_info_rows)
         )
-        for merged_name in merged_alias_groups:
-            print(f"    - {merged_name}")
-    else:
-        print("  ℹ️  Aucun alias supplémentaire à fusionner")
 
-    toll_info_count = write_csv_rows(
-        str(output_toll_info), toll_info_header, merged_toll_info_rows, "toll_info"
-    )
+        for warning in toll_info_warnings:
+            print(warning)
+
+        if merged_alias_groups:
+            print(
+                f"  🔗 {len(merged_alias_groups)} groupe(s) d'alias fusionné(s) sur IDs OSM identiques"
+            )
+            for merged_name in merged_alias_groups:
+                print(f"    - {merged_name}")
+        else:
+            print("  ℹ️  Aucun alias supplémentaire à fusionner")
+
+        toll_info_count = write_csv_rows(
+            str(output_toll_info), toll_info_header, merged_toll_info_rows, "toll_info"
+        )
+    else:
+        print("  ℹ️  GLOBAL_toll_info.csv conservé (utiliser --forceinfo pour le régénérer)")
+        alias_map = read_toll_info_alias_map(output_toll_info)
+        toll_info_count = len(alias_map)
 
     print("=" * 80)
     print("  ÉTAPE 3/4: Réécriture et fusion des fichiers Close/Open")
@@ -661,7 +694,8 @@ def main():
     print("-" * 15 + " " + "-" * 40 + " " + "-" * 10)
     print(f"{'Prix Close':<15} {'GLOBAL_data_price_close.csv':<40} {close_count:>10}")
     print(f"{'Prix Open':<15} {'GLOBAL_data_price_open.csv':<40} {open_count:>10}")
-    print(f"{'Toll Info':<15} {'GLOBAL_toll_info.csv':<40} {toll_info_count:>10}")
+    toll_info_label = "Toll Info" if args.forceinfo else "Toll Info gardé"
+    print(f"{toll_info_label:<15} {'GLOBAL_toll_info.csv':<40} {toll_info_count:>10}")
     print("-" * 15 + " " + "-" * 40 + " " + "-" * 10)
     print(f"{'TOTAL':<15} {'':<40} {close_count + open_count + toll_info_count:>10}")
     print()
