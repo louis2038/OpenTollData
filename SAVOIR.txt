@@ -1,0 +1,4 @@
+En bref : la “meilleure méthode actuelle” pour ton cas (approx ε, très grands réseaux)
+
+Apex / A-Apex sur un overlay hiérarchique bi-objectif (CH bi-objectif) + déroulage de shortcuts pour la complétion, le tout dopé par BO-DH.
+→ C’est l’assemblage qui a aujourd’hui le plus de preuves empiriques à l’échelle (temps mémoire/requêtes) tout en gardant la borne ε.

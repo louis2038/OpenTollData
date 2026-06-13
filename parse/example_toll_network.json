@@ -1,0 +1,187 @@
+{
+  "$schema": "./toll_network_schema.json",
+  "date": "15/01/2024",
+  "version": "1.0",
+  "name": "example_price_format",
+  "list_of_operator": ["APRR", "Sanef", "Vinci Autoroutes"],
+  "list_of_toll": [
+    "Fleury",
+    "Bourg-en-Bresse",
+    "Macon-Sud",
+    "Villefranche",
+    "Lyon-Sud",
+    "Saint-Arnoult",
+    "Dourdan"
+  ],
+  "currency": "EUR",
+
+  "networks": [
+    {
+      "network_name": "component_1",
+      "tolls": [
+        "Bourg-en-Bresse",
+        "Fleury",
+        "Lyon-Sud",
+        "Macon-Sud",
+        "Villefranche"
+      ],
+      "connection": {
+        "Bourg-en-Bresse": {
+          "Macon-Sud": {
+            "distance": "45.2",
+            "price": {
+              "class_1": "5.80",
+              "class_2": "8.70",
+              "class_3": "11.60",
+              "class_4": "14.50",
+              "class_5": "17.40"
+            }
+          }
+        },
+        "Fleury": {
+          "Bourg-en-Bresse": {
+            "distance": "72.5",
+            "price": {
+              "class_1": "9.30",
+              "class_2": "13.95",
+              "class_3": "18.60",
+              "class_4": "23.25",
+              "class_5": "27.90"
+            }
+          }
+        },
+        "Lyon-Sud": {},
+        "Macon-Sud": {
+          "Villefranche": {
+            "distance": "38.7",
+            "price": {
+              "class_1": "4.90",
+              "class_2": "7.35",
+              "class_3": "9.80",
+              "class_4": "12.25",
+              "class_5": "14.70"
+            }
+          }
+        },
+        "Villefranche": {
+          "Lyon-Sud": {
+            "distance": "25.3",
+            "price": {
+              "class_1": "3.20",
+              "class_2": "4.80",
+              "class_3": "6.40",
+              "class_4": "8.00",
+              "class_5": "9.60"
+            }
+          }
+        }
+      }
+    },
+    {
+      "network_name": "component_2",
+      "tolls": ["Dourdan", "Saint-Arnoult"],
+      "connection": {
+        "Dourdan": {},
+        "Saint-Arnoult": {
+          "Dourdan": {
+            "distance": "18.5",
+            "price": {
+              "class_1": "2.40",
+              "class_2": "3.60",
+              "class_3": "4.80",
+              "class_4": "6.00",
+              "class_5": "7.20"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "toll_description": {
+    "Bourg-en-Bresse": {
+      "operator_ref": "A40",
+      "lat": "46.2054",
+      "lon": "5.2258",
+      "operator": "APRR",
+      "type": "close",
+      "node_id": ["123456789", "987654321"],
+      "ways_id": ["456789123"]
+    },
+    "Dourdan": {
+      "operator_ref": "A10",
+      "lat": "48.5292",
+      "lon": "2.0128",
+      "operator": "Vinci Autoroutes",
+      "type": "open",
+      "node_id": ["555666777"],
+      "ways_id": ["888999000"]
+    },
+    "Fleury": {
+      "operator_ref": "A6",
+      "lat": "47.8533",
+      "lon": "4.8478",
+      "operator": "APRR",
+      "type": "close",
+      "node_id": ["111222333"],
+      "ways_id": ["444555666", "777888999"]
+    },
+    "Lyon-Sud": {
+      "operator_ref": "A7",
+      "lat": "45.7272",
+      "lon": "4.8342",
+      "operator": "APRR",
+      "type": "close",
+      "node_id": ["333444555"],
+      "ways_id": ["666777888"]
+    },
+    "Macon-Sud": {
+      "operator_ref": "A6",
+      "lat": "46.2961",
+      "lon": "4.8267",
+      "operator": "APRR",
+      "type": "close",
+      "node_id": ["222333444", "555666777"],
+      "ways_id": ["888999111"]
+    },
+    "Saint-Arnoult": {
+      "operator_ref": "A10",
+      "lat": "48.5712",
+      "lon": "1.9353",
+      "operator": "Vinci Autoroutes",
+      "type": "open",
+      "node_id": ["999000111"],
+      "ways_id": ["222333444"]
+    },
+    "Villefranche": {
+      "operator_ref": "A6",
+      "lat": "45.9859",
+      "lon": "4.7186",
+      "operator": "APRR",
+      "type": "close",
+      "node_id": ["666777888"],
+      "ways_id": ["999111222"]
+    }
+  },
+  "open_toll_price": {
+    "Dourdan": {
+      "distance": "5.0",
+      "price": {
+        "class_1": "1.50",
+        "class_2": "2.25",
+        "class_3": "3.00",
+        "class_4": "3.75",
+        "class_5": "4.50"
+      }
+    },
+    "Saint-Arnoult": {
+      "distance": "8.3",
+      "price": {
+        "class_1": "2.10",
+        "class_2": "3.15",
+        "class_3": "4.20",
+        "class_4": "5.25",
+        "class_5": "6.30"
+      }
+    }
+  }
+}

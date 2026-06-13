@@ -4,19 +4,16 @@
 # Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
 # This file is part of TollData - Open French Highway Toll Database
 """
-Build a toll network JSON from three CSVs and validate consistency.
+Build a toll network JSON from three CSVs.
+
+Validation is delegated entirely to validate_triplet.py which is called
+before any JSON generation.  If you need to add or modify a validation
+rule, edit validate_triplet.py only.
 
 Inputs:
   - price_close CSV (semicolon-separated): name_from;name_to;distance;price1;...;price5
   - price_open  CSV (semicolon-separated with decimal commas possible): name;distance;price1;...;price5
   - toll_info   CSV (semicolon-separated): name;osm_name;operator_ref;lat;lon;nbs_booth;booth_node_id;booth_way_id;type;operator_osm
-
-Validation performed:
-  - Every name present in price_close or price_open must exist in toll_info.
-  - Names used in price_close must have type == "close" in toll_info.
-  - Names used in price_open  must have type == "open"  in toll_info.
-  - Basic numeric parsing checks for distances/prices.
-If any error is found, a detailed report is printed and the program exits with code 1.
 
 Output JSON structure:
 {
@@ -88,9 +85,15 @@ import csv
 import datetime as dt
 import json
 import math
-import os
 import sys
 from collections import defaultdict, deque
+
+from validate_triplet import TripletValidationError, validate_triplet
+
+
+# ───────────────────────────────────────────────────────────────────
+# Helpers
+# ───────────────────────────────────────────────────────────────────
 
 
 def _strip(s):
@@ -117,7 +120,7 @@ def _as_list_from_brackets(s):
 
 
 def _to_float(value):
-    """Accept both '3.5' and '3,5', return float. Empty -> None. Raise on bad format."""
+    """Accept both '3.5' and '3,5', return float. Empty -> None."""
     if value is None:
         return None
     if isinstance(value, (int, float)):
@@ -125,13 +128,12 @@ def _to_float(value):
     s = _strip(value)
     if s == "" or s is None:
         return None
-    # replace decimal comma by dot
     s = s.replace(",", ".")
     return float(s)
 
 
 def _to_str_number(value):
-    """Serialize a float as a compact string, without trailing zeros (e.g., 3.5 -> '3.5', 5.0 -> '5')."""
+    """Serialize a float as a compact string, without trailing zeros."""
     if value is None or (
         isinstance(value, float) and (math.isnan(value) or math.isinf(value))
     ):
@@ -140,9 +142,13 @@ def _to_str_number(value):
         return value
     if isinstance(value, (int,)):
         return str(value)
-    # float
     s = f"{value:.10f}".rstrip("0").rstrip(".")
     return s if s else "0"
+
+
+# ───────────────────────────────────────────────────────────────────
+# CSV readers (data extraction only, no validation)
+# ───────────────────────────────────────────────────────────────────
 
 
 def read_toll_info(path):
@@ -170,133 +176,49 @@ def read_toll_info(path):
 
 
 def read_price_close(path):
-    edges = []  # list of dicts: {from, to, distance, prices{class_1..class_5}}
-    errors = []
+    edges = []
     with open(path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter=";")
-        required = [
-            "name_from",
-            "name_to",
-            "distance",
-            "price1",
-            "price2",
-            "price3",
-            "price4",
-            "price5",
-        ]
-        missing = [c for c in required if c not in reader.fieldnames]
-        if missing:
-            errors.append(f"[close] Colonnes manquantes: {missing}")
-            return edges, errors
-        for i, row in enumerate(reader, start=2):
+        for row in reader:
             frm = _strip(row["name_from"])
             to = _strip(row["name_to"])
-            try:
-                dist = _to_float(row["distance"])
-                p1 = _to_float(row["price1"])
-                p2 = _to_float(row["price2"])
-                p3 = _to_float(row["price3"])
-                p4 = _to_float(row["price4"])
-                p5 = _to_float(row["price5"])
-            except Exception as ex:
-                errors.append(f"[close] Ligne {i}: erreur de parsing numérique ({ex}).")
-                continue
-            if not frm or not to:
-                errors.append(f"[close] Ligne {i}: name_from/name_to manquant.")
-                continue
-            # Distance manquante est acceptée (sera None)
+            dist = _to_float(row["distance"])
             prices = {
-                "class_1": _to_str_number(p1),
-                "class_2": _to_str_number(p2),
-                "class_3": _to_str_number(p3),
-                "class_4": _to_str_number(p4),
-                "class_5": _to_str_number(p5),
+                "class_1": _to_str_number(_to_float(row["price1"])),
+                "class_2": _to_str_number(_to_float(row["price2"])),
+                "class_3": _to_str_number(_to_float(row["price3"])),
+                "class_4": _to_str_number(_to_float(row["price4"])),
+                "class_5": _to_str_number(_to_float(row["price5"])),
             }
             edges.append({"from": frm, "to": to, "distance": dist, "price": prices})
-    return edges, errors
+    return edges
 
 
 def read_price_open(path):
-    rows = {}  # name -> {distance, price{class_1..class_5}}
-    errors = []
+    rows = {}
     with open(path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter=";")
-        required = [
-            "name",
-            "distance",
-            "price1",
-            "price2",
-            "price3",
-            "price4",
-            "price5",
-        ]
-        missing = [c for c in required if c not in reader.fieldnames]
-        if missing:
-            errors.append(f"[open] Colonnes manquantes: {missing}")
-            return rows, errors
-        for i, row in enumerate(reader, start=2):
+        for row in reader:
             name = _strip(row["name"])
-            if not name:
-                errors.append(f"[open] Ligne {i}: name manquant.")
-                continue
-            try:
-                dist = _to_float(row["distance"])
-                p1 = _to_float(row["price1"])
-                p2 = _to_float(row["price2"])
-                p3 = _to_float(row["price3"])
-                p4 = _to_float(row["price4"])
-                p5 = _to_float(row["price5"])
-            except Exception as ex:
-                errors.append(f"[open] Ligne {i}: erreur de parsing numérique ({ex}).")
-                continue
-            # Distance manquante est acceptée (sera None)
-            rows[name] = {
-                "distance": dist,
-                "price": {
-                    "class_1": _to_str_number(p1),
-                    "class_2": _to_str_number(p2),
-                    "class_3": _to_str_number(p3),
-                    "class_4": _to_str_number(p4),
-                    "class_5": _to_str_number(p5),
-                },
+            dist = _to_float(row["distance"])
+            prices = {
+                "class_1": _to_str_number(_to_float(row["price1"])),
+                "class_2": _to_str_number(_to_float(row["price2"])),
+                "class_3": _to_str_number(_to_float(row["price3"])),
+                "class_4": _to_str_number(_to_float(row["price4"])),
+                "class_5": _to_str_number(_to_float(row["price5"])),
             }
-    return rows, errors
+            rows[name] = {"distance": dist, "price": prices}
+    return rows
 
 
-def validate_cross(info, close_edges, open_rows):
-    errors = []
-    warnings = []
-
-    # Known names and types
-    known = set(info.keys())
-    type_by_name = {k: v.get("type") for k, v in info.items()}
-
-    # Validate close
-    for e in close_edges:
-        for nm in (e["from"], e["to"]):
-            if nm not in known:
-                errors.append(f"[close] Nom inconnu dans toll_info: '{nm}'")
-            else:
-                if type_by_name[nm] != "close":
-                    errors.append(
-                        f"[close] Type attendu 'close' pour '{nm}', trouvé '{type_by_name[nm]}'"
-                    )
-
-    # Validate open
-    for nm in open_rows.keys():
-        if nm not in known:
-            errors.append(f"[open] Nom inconnu dans toll_info: '{nm}'")
-        else:
-            if type_by_name[nm] != "open":
-                errors.append(
-                    f"[open] Type attendu 'open' pour '{nm}', trouvé '{type_by_name[nm]}'"
-                )
-
-    return errors, warnings
+# ───────────────────────────────────────────────────────────────────
+# Graph / network building
+# ───────────────────────────────────────────────────────────────────
 
 
 def connected_components(nodes, edges):
-    """Undirected graph components using close edges (connections exist if an edge in either direction is present)."""
+    """Undirected graph components using BFS."""
     adj = defaultdict(set)
     for e in edges:
         a, b = e["from"], e["to"]
@@ -307,7 +229,6 @@ def connected_components(nodes, edges):
     for n in nodes:
         if n in seen:
             continue
-        # BFS
         q = deque([n])
         cur = []
         seen.add(n)
@@ -323,25 +244,20 @@ def connected_components(nodes, edges):
 
 
 def build_networks_from_close(close_edges):
-    """Return list of components; each with tolls and directional connection mapping"""
-    # Nodes involved in close edges only
+    """Return list of components with tolls and directional connection mapping."""
     nodes = sorted(
         set([e["from"] for e in close_edges]) | set([e["to"] for e in close_edges])
     )
     comps = connected_components(nodes, close_edges)
 
-    # Map to index for naming
-    networks = []
-    # Build adjacency mapping per component, with directional connections as given in CSV
-    # We'll group edges per 'from' then 'to'
     edges_by_from = defaultdict(list)
     for e in close_edges:
         edges_by_from[e["from"]].append(e)
 
+    networks = []
     for idx, comp in enumerate(comps, start=1):
         connection = {}
         for frm in comp:
-            # Only include connections to nodes within the same component
             outs = {}
             for e in edges_by_from.get(frm, []):
                 to = e["to"]
@@ -356,7 +272,6 @@ def build_networks_from_close(close_edges):
             if outs:
                 connection[frm] = outs
             else:
-                # still include node with empty dict to be explicit
                 connection[frm] = {}
         networks.append(
             {
@@ -383,43 +298,43 @@ def build_toll_description(info):
     return out
 
 
+# ───────────────────────────────────────────────────────────────────
+# Main
+# ───────────────────────────────────────────────────────────────────
+
+
 def main():
     ap = argparse.ArgumentParser(description="Validate toll CSVs and build JSON.")
-    ap.add_argument("--close", required=True, help="Path to AREA_data_price_close.csv")
-    ap.add_argument("--open", required=True, help="Path to AREA_data_price_open.csv")
-    ap.add_argument("--info", required=True, help="Path to AREA_toll_info.csv")
+    ap.add_argument("--close", required=True, help="Path to price_close CSV")
+    ap.add_argument("--open", required=True, help="Path to price_open CSV")
+    ap.add_argument("--info", required=True, help="Path to toll_info CSV")
     ap.add_argument("--out", default="toll_network.json", help="Output JSON path")
     ap.add_argument("--version", default="1.0")
     ap.add_argument("--name", default="price_format")
     ap.add_argument("--currency", default="EUR")
     args = ap.parse_args()
 
-    info, operators = read_toll_info(args.info)
-    close_edges, close_errs = read_price_close(args.close)
-    open_rows, open_errs = read_price_open(args.open)
-
-    errs = close_errs + open_errs
-    cross_errs, cross_warns = validate_cross(info, close_edges, open_rows)
-    errs += cross_errs
-
-    # If errors, print them and exit non-zero
-    if errs:
-        print("❌ Incompatibilités / erreurs détectées:\n", file=sys.stderr)
-        for e in errs:
-            print(" - " + e, file=sys.stderr)
-        if cross_warns:
-            print("\n⚠️  Avertissements:", file=sys.stderr)
-            for w in cross_warns:
-                print(" - " + w, file=sys.stderr)
+    # ── Validation (single source of truth: validate_triplet.py) ──
+    try:
+        validate_triplet(args.close, args.open, args.info, verbose=True)
+    except TripletValidationError as e:
+        print(f"\n{e}\n", file=sys.stderr)
+        sys.exit(1)
+    except FileNotFoundError as e:
+        print(f"\n  ERREUR: {e}\n", file=sys.stderr)
         sys.exit(1)
 
-    # Build the JSON
+    # ── Read data for JSON building ──────────────────────────────
+    info, operators = read_toll_info(args.info)
+    close_edges = read_price_close(args.close)
+    open_rows = read_price_open(args.open)
+
+    # ── Build the JSON ───────────────────────────────────────────
     today = dt.date.today().strftime("%d/%m/%Y")
     list_of_toll = sorted(info.keys())
     networks = build_networks_from_close(close_edges)
     toll_description = build_toll_description(info)
 
-    # Prepare open_toll_price (stringify numbers)
     open_toll_price = {}
     for name, rec in open_rows.items():
         open_toll_price[name] = {
@@ -429,7 +344,6 @@ def main():
             "price": {k: (v if v is not None else "") for k, v in rec["price"].items()},
         }
 
-    # Compose final JSON
     payload = {
         "date": today,
         "version": args.version,
@@ -447,15 +361,15 @@ def main():
         "open_toll_price": open_toll_price,
     }
 
-    # Write
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=4)
 
-    # Summary
-    print(f"✅ Fichiers compatibles. JSON écrit dans: {args.out}")
-    print(f"- Nombre de péages: {len(list_of_toll)}")
-    print(f"- Nombre de réseaux (composantes connexes): {len(networks)}")
-    print(f"- Opérateurs détectés: {', '.join(operators) if operators else '(aucun)'}")
+    print(f"\n  Fichiers compatibles. JSON ecrit dans: {args.out}")
+    print(f"  - Nombre de peages: {len(list_of_toll)}")
+    print(f"  - Nombre de reseaux (composantes connexes): {len(networks)}")
+    print(
+        f"  - Operateurs detectes: {', '.join(operators) if operators else '(aucun)'}"
+    )
 
 
 if __name__ == "__main__":
