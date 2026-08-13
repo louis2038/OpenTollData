@@ -168,16 +168,15 @@ def parse_class_page(page: str) -> list[dict]:
         if n_prices == 0:
             # Station alone.
             if stations and prices:
-                # Continuation only for numbered exits (A4 Est…).
-                # Entry plazas like "CALAIS (péage de Setques)" start a new section.
-                if re.search(r"N°\s*\d", name, re.I) and "péage de" not in name.lower():
-                    stations.append(name)
+                # Nouvelle gare d'entrée (ex. CALAIS (péage de …)) → nouvelle matrice.
+                # Sinon continuation (ex. TANCARVILLE, BONNIÈRES sur A13 SAPN).
+                if re.search(r"péage\s+de\b", name, re.I):
+                    flush()
+                    carry_first = name
                     continue
-                flush()
-                carry_first = name
+                stations.append(name)
                 continue
             if stations and not prices:
-                # Second named entry before first priced row (alias / sous-gare).
                 continue
             carry_first = name
             continue
