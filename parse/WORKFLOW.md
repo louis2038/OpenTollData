@@ -23,6 +23,8 @@ ASF/        ASF page-based parser workflow
 APRR/       APRR parser and APRR -> ASF name mapping
 AREA/       AREA parser
 COFIROUTE/  COFIROUTE parser and mapping
+SANEF/      SANEF parser (WIP — nord / est)
+SAPN/       SAPN parser (WIP — Paris–Normandie, free-flow A13/A14)
 ```
 
 Expected price outputs per operator:

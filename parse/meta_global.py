@@ -3,7 +3,7 @@
 # Copyright (c) 2025-2026 Louis TRIOULEYRE-ROBERJOT
 # This file is part of TollData - Open French Highway Toll Database
 """
-Script de fusion globale des triplets ASF, AREA, APRR et COFIROUTE.
+Script de fusion globale des triplets ASF, AREA, APRR, COFIROUTE, SANEF et SAPN.
 
 Ce script fusionne les fichiers finaux de différents opérateurs pour créer
 un triplet global de données de péage.
@@ -32,6 +32,7 @@ def recompile_operators(base_dir: Path) -> None:
         2. AREA      — parse_AREA.py            (depuis parse/AREA/)
         3. APRR      — parse_APRR.py            (depuis parse/APRR/)
         4. COFIROUTE — parse_cofiroute_close.py (depuis parse/COFIROUTE/)
+        5. SANEF/SAPN — parse_sanef_group.py    (depuis parse/SANEF/)
 
     Lève SystemExit en cas d'échec d'un des scripts.
     """
@@ -63,6 +64,11 @@ def recompile_operators(base_dir: Path) -> None:
             "name": "COFIROUTE",
             "cmd": [sys.executable, "parse_cofiroute_close.py"],
             "cwd": base_dir / "COFIROUTE",
+        },
+        {
+            "name": "SANEF+SAPN",
+            "cmd": [sys.executable, "parse_sanef_group.py"],
+            "cwd": base_dir / "SANEF",
         },
     ]
 
@@ -521,7 +527,7 @@ def read_toll_info_alias_map(toll_info_file: Path) -> Dict[str, str]:
 def main():
     """Point d'entrée principal du script."""
     parser = argparse.ArgumentParser(
-        description="Fusion globale des triplets ASF, AREA, APRR et COFIROUTE."
+        description="Fusion globale des triplets ASF, AREA, APRR, COFIROUTE, SANEF et SAPN."
     )
     parser.add_argument(
         "--recompile",
@@ -546,7 +552,7 @@ def main():
         recompile_operators(base_dir)
 
     print("=" * 80)
-    print("🚀 FUSION GLOBALE DES TRIPLETS ASF, AREA, APRR ET COFIROUTE")
+    print("🚀 FUSION GLOBALE DES TRIPLETS ASF, AREA, APRR, COFIROUTE, SANEF ET SAPN")
     print("=" * 80)
 
     # Chemins des fichiers sources
@@ -566,6 +572,14 @@ def main():
     cofiroute_open = base_dir / "COFIROUTE" / "COFIROUTE_data_price_open_2026.csv"
     cofiroute_toll_info = base_dir / "COFIROUTE" / "COFIROUTE_toll_info_2026.csv"
 
+    sanef_close = base_dir / "SANEF" / "SANEF_data_price_close_2026.csv"
+    sanef_open = base_dir / "SANEF" / "SANEF_data_price_open_2026.csv"
+    sanef_toll_info = base_dir / "SANEF" / "SANEF_toll_info.csv"
+
+    sapn_close = base_dir / "SAPN" / "SAPN_data_price_close_2026.csv"
+    sapn_open = base_dir / "SAPN" / "SAPN_data_price_open_2026.csv"
+    sapn_toll_info = base_dir / "SAPN" / "SAPN_toll_info.csv"
+
     # Chemins des fichiers de sortie
     output_close = base_dir / "GLOBAL_data_price_close.csv"
     output_open = base_dir / "GLOBAL_data_price_open.csv"
@@ -584,6 +598,10 @@ def main():
         aprr_open,
         cofiroute_close,
         cofiroute_open,
+        sanef_close,
+        sanef_open,
+        sapn_close,
+        sapn_open,
     ]:
         if file_path.exists():
             print(f"  ✅ {file_path.relative_to(base_dir)}")
@@ -591,7 +609,14 @@ def main():
             print(f"  ❌ MANQUANT: {file_path.relative_to(base_dir)}")
             all_files_exist = False
 
-    toll_info_files = [asf_toll_info, area_toll_info, aprr_toll_info, cofiroute_toll_info]
+    toll_info_files = [
+        asf_toll_info,
+        area_toll_info,
+        aprr_toll_info,
+        cofiroute_toll_info,
+        sanef_toll_info,
+        sapn_toll_info,
+    ]
     if args.forceinfo:
         for file_path in toll_info_files:
             if file_path.exists():
@@ -614,13 +639,24 @@ def main():
         str(area_close),
         str(aprr_close),
         str(cofiroute_close),
+        str(sanef_close),
+        str(sapn_close),
     ]
-    open_inputs = [str(asf_open), str(area_open), str(aprr_open), str(cofiroute_open)]
+    open_inputs = [
+        str(asf_open),
+        str(area_open),
+        str(aprr_open),
+        str(cofiroute_open),
+        str(sanef_open),
+        str(sapn_open),
+    ]
     toll_info_inputs = [
         str(asf_toll_info),
         str(area_toll_info),
         str(aprr_toll_info),
         str(cofiroute_toll_info),
+        str(sanef_toll_info),
+        str(sapn_toll_info),
     ]
 
     print("\n" + "=" * 80)

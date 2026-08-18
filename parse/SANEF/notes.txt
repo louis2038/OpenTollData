@@ -1,0 +1,1 @@
+Sources triées. Prochaine étape : parse SANEF_tarifs_2026.pdf → CSV close/open + toll_info.

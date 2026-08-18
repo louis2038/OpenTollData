@@ -1,0 +1,17 @@
+# SAPN (Paris–Normandie, groupe Sanef) — sources locales (tri MD2)
+
+raw_data/
+  SAPN_tarifs_2026.pdf           ← source principale (1er fév. 2026)
+  archive/
+    SAPN_tarifs_2025.pdf         ← référence année précédente
+
+Réf. classes véhicule (partagé) :
+  ../_ref/ASFA_classes_vehicules_2022.pdf
+
+Page officielle : https://www.autoroutes.sanef.com/fr/grilles-tarifs-de-peage
+Réseau : A13, A14 (free-flow), partie SAPN A29, etc.
+
+Sorties attendues :
+  SAPN_data_price_close_2026.csv
+  SAPN_data_price_open_2026.csv
+  SAPN_toll_info.csv             (operator_osm = SAPN)

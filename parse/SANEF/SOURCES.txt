@@ -1,0 +1,18 @@
+# Sanef — sources locales (tri MD2)
+
+raw_data/
+  SANEF_tarifs_2026.pdf          ← source principale (1er fév. 2026)
+  SANEF_modulation_A1_2026.pdf ← modulation horaire A1 (classe 1), 01/02/2026
+  archive/
+    SANEF_tarifs_2025.pdf        ← référence année précédente
+
+Réf. classes véhicule (partagé) :
+  ../_ref/ASFA_classes_vehicules_2022.pdf
+
+Page officielle : https://www.autoroutes.sanef.com/fr/grilles-tarifs-de-peage
+Réseau : A1, A2, A4, A16, A26, A29 (+ free-flow Boulay-Moselle A4)
+
+Sorties attendues :
+  SANEF_data_price_close_2026.csv
+  SANEF_data_price_open_2026.csv
+  SANEF_toll_info.csv            (operator_osm = Sanef)

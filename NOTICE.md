@@ -34,7 +34,10 @@ This database contains toll pricing data from French highway operators:
 |----------|--------|--------|
 | AREA | Public PDF tariff documents | Complete |
 | ASF | Public PDF tariff documents | In Progress |
+| APRR | Public PDF tariff documents | Partial |
 | COFIROUTE | Public PDF tariff documents | Partial |
+| SANEF | Public PDF tariff documents (2026) | Partial |
+| SAPN | Public PDF tariff documents (2026) | Partial |
 
 Geographic data (coordinates, node IDs, way IDs) comes from **OpenStreetMap** 
 contributors and is used under the ODbL license.
